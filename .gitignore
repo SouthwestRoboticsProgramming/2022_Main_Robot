@@ -21,3 +21,17 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Intellij Idea project config files
+*.iml
+*.idea/
+
+# Compiled java classes
+*out
+*target
+
+# MacOS DS_Store
+*.DS_Store
+
+# Python cache
+*__pycache__/
