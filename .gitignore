@@ -29,6 +29,7 @@ hs_err_pid*
 # Compiled java classes
 *out
 *target
+*.jar
 
 # MacOS DS_Store
 *.DS_Store
@@ -38,3 +39,10 @@ hs_err_pid*
 
 # Emacs temp files
 *~
+
+# META-INF
+*META-INF/
+
+# Project files
+*.gradle/
+*build/

@@ -10,15 +10,8 @@ import java.io.IOException;
 
 public class LidarMain {
     public static void main(String[] args) {
-	String host = "localhost";
-	int port = 8341;
-	if (args.length >= 2) {
-	    host = args[0];
-	    port = Integer.parseInt(args[1]);
-	}
-	
         Lidar lidar = new Lidar();
-        MessengerClient msg = new MessengerClient(host, port, "Lidar");
+        MessengerClient msg = new MessengerClient("localhost", 5805, "Lidar");
 
         msg.listen("Lidar:Start");
         msg.listen("Lidar:Stop");
@@ -76,7 +69,7 @@ public class LidarMain {
         // Run forever
         while (true) {
             synchronized (msg) {
-                msg.read();
+                msg.read(); // Read incoming messages
             }
 
             try {
