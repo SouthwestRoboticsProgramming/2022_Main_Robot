@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Scheduler;
 import frc.robot.command.intake.IntakeDown;
 import frc.robot.command.intake.IntakeUp;
+import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.util.ShuffleBoard;
 
@@ -24,7 +25,7 @@ public class Intake extends Subsystem {
 
   public Intake(Input input) {
     this.input = input;
-    motor = new TalonFX(INTAKE_MOTOR_ID);
+    motor = new TalonFX(INTAKE_MOTOR_ID, DriveConstants.GERALD);
     motor.setInverted(true);
 
     TalonFXConfiguration config = new TalonFXConfiguration();

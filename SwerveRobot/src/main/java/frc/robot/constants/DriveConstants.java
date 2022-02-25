@@ -29,6 +29,8 @@ public class DriveConstants {
     public static final double OFFSET_3 = -77.607;
     public static final double OFFSET_4 = -3.955;
     public static final boolean CANCODER_DIRECTION = false; // False = Counterclockwise   True = Clockwise
+
+    public static final String GERALD = "Gerald";
     
     public static final SwerveModuleInfo[] SWERVE_MODULES = {
         new SwerveModuleInfo(1, 3, 0),

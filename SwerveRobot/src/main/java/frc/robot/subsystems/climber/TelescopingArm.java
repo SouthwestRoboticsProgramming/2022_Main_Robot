@@ -19,7 +19,7 @@ public class TelescopingArm extends Subsystem {
 
   public TelescopingArm(int motorOneID, int motorTwoID, double baseHeight, double pulleyDiameter) {
     motorOne = new CANSparkMax(motorOneID, MotorType.kBrushless);
-    motorTwo = new CANSparkMax(motorOneID, MotorType.kBrushless);
+    motorTwo = new CANSparkMax(motorTwoID, MotorType.kBrushless);
     motorOne.setIdleMode(IdleMode.kBrake);
     motorTwo.setIdleMode(IdleMode.kBrake);
     pid = new PIDController(CLIMBER_TELE_MOTOR_KP, CLIMBER_TELE_MOTOR_KI, CLIMBER_TELE_MOTOR_KD);
@@ -57,5 +57,7 @@ public class TelescopingArm extends Subsystem {
   @Override
   public void robotPeriodic() {
     // This method will be called once per scheduler run
+
+    System.out.println(encoder.getPosition());
   }
 }

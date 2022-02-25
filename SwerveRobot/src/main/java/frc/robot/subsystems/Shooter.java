@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Scheduler;
 import frc.robot.command.shooter.IndexBall;
+import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
 import frc.robot.util.ShuffleBoard;
@@ -39,7 +40,7 @@ public class Shooter extends Subsystem {
     
     cameraTurret = camera;
     flywheel = new TalonFX(FLYWHEEL_MOTOR_ID);
-    index = new TalonFX(INDEX_MOTOR_ID);
+    index = new TalonFX(INDEX_MOTOR_ID, DriveConstants.GERALD);
     hood = new TalonSRX(HOOD_MOTOR_ID);
 
     index.setInverted(true);
@@ -146,8 +147,6 @@ public class Shooter extends Subsystem {
     } else {
       hood.set(ControlMode.Position, targetHood);
     }
-
-    System.out.println(hood.getSelectedSensorPosition());
 
     // System.out.printf("Current: %3.3f Target: %3.3f %n", hood.getSelectedSensorPosition(), targetHood);
 
