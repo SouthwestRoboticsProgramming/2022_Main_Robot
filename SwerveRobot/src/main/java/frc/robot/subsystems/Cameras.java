@@ -52,8 +52,8 @@ public class Cameras extends Subsystem {
         ball_x = in.readDouble();
         ball_z = in.readDouble();
 
-        ShuffleWood.show("Ball X", x);
-        ShuffleWood.show("Ball Z", z);
+        ShuffleWood.show("Ball X", ball_x);
+        ShuffleWood.show("Ball Z", ball_z);
       } else {
         ShuffleWood.show("Ball X", "bad");
         ShuffleWood.show("Ball Z", "bad");
