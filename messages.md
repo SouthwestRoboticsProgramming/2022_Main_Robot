@@ -66,6 +66,6 @@ The prefix for the Raspberry Pi is `RPi` and the prefix for the Jetson Nano is `
 ###### Messages Sent
 | Message | Data format | Description |
 | --- | --- | --- |
-| `Vision:Hub_Measurements` | `bool obscured`: Indicates if an object has been found.<br/>`double Xangle`: X angle in degrees {-fov,fov} to center of target.<br/>`double distance`: Distance to the target, same units as target width.<br/>| The relative position of the robot compared to the vision target. |
+| `Vision:Hub_Measurements` | `bool obscured`: Indicates if an object has been found.<br/>`double x`: The horizontal position of the target relative to the camera.<br/>`double y`: The distance directly out from the camera to the target.<br/>| The relative position of the robot compared to the vision target. |
 | `Vision:Climber_Angle` | `bool obscured`: Indicates if an object has been found.<br/>`double Yangle`: Y angle in degrees {-fov,fov} to the bar.| The relative position of the robot compared to the vision target. |
 | `Vision:Ball_Position` | `bool obscured`: Indicates if an object has been found.<br/>`double x`: X position of the robot to center of target.<br/>`double z`: Z position of the robot to the center of the target.<br/>|The relative position of a ball to the robot. |
