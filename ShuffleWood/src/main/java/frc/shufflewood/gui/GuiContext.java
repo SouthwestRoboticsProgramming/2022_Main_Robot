@@ -30,6 +30,7 @@ public interface GuiContext {
     void setWindowCenterPos(float x, float y);
     void setWindowSize(float width, float height);
     void setWindowHeightAuto();
+    boolean isWindowFirstAppearing();
 
     // Regions
     Vec2 getAvailableContentSize();
