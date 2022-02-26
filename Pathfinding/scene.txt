@@ -5,7 +5,7 @@
 
 # walls
 rectangle x=54 y=-1 width=108 height=2
-rectangle x=54 y=53 width=180 height=2
+rectangle x=54 y=53 width=108 height=2
 rectangle x=-1 y=26 width=2 height=52
 rectangle x=109 y=26 width=2 height=52
 

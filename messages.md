@@ -69,3 +69,18 @@ The prefix for the Raspberry Pi is `RPi` and the prefix for the Jetson Nano is `
 | `Vision:Hub_Measurements` | `bool obscured`: Indicates if an object has been found.<br/>`double x`: The horizontal position of the target relative to the camera.<br/>`double y`: The distance directly out from the camera to the target.<br/>| The relative position of the robot compared to the vision target. |
 | `Vision:Climber_Angle` | `bool obscured`: Indicates if an object has been found.<br/>`double Yangle`: Y angle in degrees {-fov,fov} to the bar.| The relative position of the robot compared to the vision target. |
 | `Vision:Ball_Position` | `bool obscured`: Indicates if an object has been found.<br/>`double x`: X position of the robot to center of target.<br/>`double z`: Z position of the robot to the center of the target.<br/>|The relative position of a ball to the robot. |
+
+### Pathfinding
+
+###### Messages Read
+| Message | Data format | Description |
+| --- | --- | --- |
+| `Pathfinder:SetPosition` | `double x`: X position of robot<br/>`double y`: Y position of robot | Sets the current position of the robot. |
+| `Pathfinder:SetTarget` | `double x`: X position of target<br/>`double y`: Y position of target | Sets the target position for the path. |
+| `Pathfinder:DumpScene` | No data | Tells the pathfinder to send a message containing the scene data. Only used for debugging. |
+
+###### Messages Sent
+| Message | Data format | Description |
+| --- | --- | --- |
+| `Pathfinder:Path` | `int count`: Number of points following<br/>`Point{double x, double y}[] points` The path points | The path calculated by the pathfinder |
+| `Pathfinder:SceneData` | `int count`: Number of obstacles following<br/>`Obstacle{int type, data...}[] obstacles`: The obstacles in the scene<br/>Object types are:<br/>`0: Circle{double x, double y, double radius}`<br/>`1: Rectangle{double x, double y, double width, double height, double rotation}`<br/>Rotation is in radians. | The scene data requested from `Pathfinder:DumpScene` |
