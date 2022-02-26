@@ -47,17 +47,17 @@ public class Intake extends Subsystem {
   }
   
   public void intakeDown() {
-    if (isDown) { return; }
-    isDown = true;
+    // if (isDown) { return; }
+    // isDown = true;
     
-    Scheduler.get().scheduleCommand(new IntakeDown(lift));
+    // Scheduler.get().scheduleCommand(new IntakeDown(lift));
   }
   
   public void intakeUp() {
-    if (!isDown){ return; }
-    isDown = false;
+    // if (!isDown){ return; }
+    // isDown = false;
     
-    Scheduler.get().scheduleCommand(new IntakeUp(lift));
+    // Scheduler.get().scheduleCommand(new IntakeUp(lift));
   }
 
 
@@ -80,6 +80,8 @@ public class Intake extends Subsystem {
       intakeUp();
       motor.set(ControlMode.Velocity, 0);
     }
+
+    lift.set(ControlMode.PercentOutput, input.getTest());
 
   }
 }

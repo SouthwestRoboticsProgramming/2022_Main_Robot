@@ -152,7 +152,7 @@ public class Shooter extends Subsystem {
 
     if (input.getAim()) {
       flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
-      driveController.turnToTarget(0 /* cameraTurret.getAngle */);
+      //driveController.turnToTarget(0 /* cameraTurret.getAngle */);
     } else {
       flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
     }

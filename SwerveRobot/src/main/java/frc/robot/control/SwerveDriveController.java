@@ -3,6 +3,7 @@ package frc.robot.control;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.drive.SwerveDrive;
 import frc.robot.util.ShuffleWood;
 import frc.robot.util.Utils;
@@ -15,7 +16,7 @@ public class SwerveDriveController {
     private final Input input;
     private final PIDController rotPID;
 
-    private double autoRot;
+    private double targetAngle = 0;
     private double autoDriveX, autoDriveY;
     private boolean autoControl;
 
@@ -44,6 +45,8 @@ public class SwerveDriveController {
 
         // ShuffleWood.show("currentAngle", currentAngle);
         
+        boolean isTargetingRot = false;
+
         if (Math.abs(driveX) < JOYSTICK_DEAD_ZONE) {
             driveX = 0;
         }
@@ -51,7 +54,8 @@ public class SwerveDriveController {
             driveY = 0;
         }
         if (Math.abs(rot) < JOYSTICK_DEAD_ZONE) {
-            rot = 0;
+            rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
+            isTargetingRot = true;
         }
         
         // Eliminate deadzone jump
@@ -73,12 +77,19 @@ public class SwerveDriveController {
         }
 
         if (autoControl) {
-            rot = autoRot;
+            isTargetingRot = true;
             driveX = autoDriveX;
             driveY = autoDriveY;
             System.out.println("Auto");
         } else {
-            // System.out.println("no auto");
+            
+        }
+
+        if (isTargetingRot) {
+            System.out.println("Targeting rot");
+            rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
+        } else {
+            System.out.println("Not targeting rot");
         }
 
         double fieldRelativeX = driveX * MAX_VELOCITY;
@@ -96,9 +107,8 @@ public class SwerveDriveController {
     }
 
     public void turnToTarget(double angleTargetDegrees) {
-        double targetRotPercent = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(),angleTargetDegrees);
         autoControl = true;
-        this.autoRot = targetRotPercent;
+        targetAngle = angleTargetDegrees;
     }
     
     public boolean isAtTarget() {
@@ -109,6 +119,6 @@ public class SwerveDriveController {
         autoControl = true;
         autoDriveX = x;
         autoDriveY = y;
-        autoRot = rot;
+        // FIXME: Rotation
     }
 }

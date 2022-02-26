@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   private CameraTurret cameraTurret;
   private Shooter shooter;
   private Intake intake;
-  private ClimberController climber;
+  // private ClimberController climber;
 
   private RobotState state;
   private Localization localization;
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
     localization = new Localization(gyro, drive);
     shooter = new Shooter(driveController, null, input);
     intake = new Intake(input);
-    climber = new ClimberController(input);
+    // climber = new ClimberController(input);
     
     driveController.swerveInit();
 
@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    climber.groundToSecond();
+    // climber.groundToSecond();
 
     msg.read();
     Scheduler.get().update();

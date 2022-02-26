@@ -17,6 +17,10 @@ public class Input {
         finalDrive = new XboxController(DRIVE_CONTROLLER);
     }
 
+    public double getTest() {
+        return finalManipulator.getRightStickY();
+    }
+
     public double getDriveX() {
         return drive.getLeftStickX();
     }
