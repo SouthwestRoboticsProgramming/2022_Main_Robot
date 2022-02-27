@@ -26,7 +26,6 @@ public class FieldDataViewTool implements Tool {
         overlays = new ArrayList<>();
 
         MessengerAccess msg = app.getMessenger();
-        overlays.add(new ImageOverlay(app));
         overlays.add(new ObstacleOverlay(msg));
         overlays.add(new PathOverlay(msg));
         overlays.add(new LocalizationOverlay(msg));

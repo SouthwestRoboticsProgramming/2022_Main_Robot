@@ -64,7 +64,7 @@ public final class PathfinderTask {
         Pathfinder pathfinder = new Pathfinder(grid);
         PathOptimizer optimizer = new PathOptimizer(grid);
         // Default start and goal so it doesn't crash
-        pathfinder.setStartCell(new Cell(24, 17));
+        pathfinder.setStartCell(new Cell(28, 17));
         pathfinder.setGoalCell(new Cell(77, 33));
 
         msg.listen(IN_SET_TARGET);
