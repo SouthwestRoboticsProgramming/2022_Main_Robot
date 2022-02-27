@@ -87,16 +87,22 @@ public class SwerveModule {
         driveAmount = MathUtil.clamp(driveAmount,-1.0,1.0);
 
         // Spin the motors
-        if (!turnPID.atSetpoint())
+        // if (!turnPID.atSetpoint()) 
             turnMotor.set(ControlMode.PercentOutput, turnAmount); 
-        else
-            turnMotor.set(ControlMode.PercentOutput, 0);
+        // else
+        //     turnMotor.set(ControlMode.PercentOutput, 0);
         driveMotor.set(ControlMode.PercentOutput, driveAmount);
+
+        System.out.println(currentAngle.getDegrees());
 
     }
 
     public double getCanRotation() {
         return canCoder.getAbsolutePosition();
+    }
+
+    public double getCanCoderOffset() {
+        return canOffset;
     }
 
     public void disable() {

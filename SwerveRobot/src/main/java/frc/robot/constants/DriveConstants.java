@@ -6,13 +6,13 @@ import frc.robot.drive.SwerveModuleInfo;
 public class DriveConstants {
 
     /* Settings */
-    public static final double WHEEL_TURN_KP = 0.009;
+    public static final double WHEEL_TURN_KP = 0.015;
     public static final double WHEEL_TURN_KI = 0; // Leave this at 0: There is no steady-state error in the system
     public static final double WHEEL_TURN_KD = 0.0001;
 
     public static final double GLOBAL_TURN_KP = 0.027;
     public static final double GLOBAL_TURN_KI = 0;
-    public static final double GLOBAL_TURN_KD = 0.0022;
+    public static final double GLOBAL_TURN_KD = 0;
 
     public static final double MAX_VELOCITY = 3.0; // User Defined - Meters per second
     public static final double MAX_ROTATION_SPEED = 6.0; // User Defined - Radians per second
@@ -24,10 +24,10 @@ public class DriveConstants {
     public static final double WHEEL_SPACING_LEFT_RIGHT = 0.4699; // Meters
 
     // TODO: Have a global offset for each module then at 90 for each position that it is in
-    public static final double OFFSET_1 = -133.945 + 180;
-    public static final double OFFSET_2 = -220.781 + 180;
-    public static final double OFFSET_3 = -77.607;
-    public static final double OFFSET_4 = -3.955;
+    public static final double OFFSET_1 = -312.803 + 180;
+    public static final double OFFSET_2 = -40.342 + 180;
+    public static final double OFFSET_3 = -258.047;
+    public static final double OFFSET_4 = -182.9;
     public static final boolean CANCODER_DIRECTION = false; // False = Counterclockwise   True = Clockwise
 
     public static final String GERALD = "Gerald";

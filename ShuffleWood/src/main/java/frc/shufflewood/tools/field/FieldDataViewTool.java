@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldDataViewTool implements Tool {
-    public static final float FIELD_WIDTH = 15.8496f;
-    public static final float FIELD_HEIGHT = 7.9248f;
+    public static final float FIELD_WIDTH = 16.4592f;
+    public static final float FIELD_HEIGHT = 8.2296f;
     private static final float VIEW_PADDING_PX = 50;
 
     private final App app;
@@ -26,8 +26,10 @@ public class FieldDataViewTool implements Tool {
         overlays = new ArrayList<>();
 
         MessengerAccess msg = app.getMessenger();
+        overlays.add(new ImageOverlay(app));
         overlays.add(new ObstacleOverlay(msg));
         overlays.add(new PathOverlay(msg));
+        overlays.add(new LocalizationOverlay(msg));
     }
 
     private void drawGraphics() {

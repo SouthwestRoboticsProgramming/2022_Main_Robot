@@ -1,21 +1,21 @@
 # Test scene
 
 # width is 108
-# height is 52
+# height is 54
 
 # walls
 rectangle x=54 y=-1 width=108 height=2
-rectangle x=54 y=53 width=108 height=2
-rectangle x=-1 y=26 width=2 height=52
-rectangle x=109 y=26 width=2 height=52
+rectangle x=54 y=55 width=108 height=2
+rectangle x=-1 y=27 width=2 height=52
+rectangle x=109 y=27 width=2 height=52
 
 # hub
-rectangle x=54 y=26 width=12.313 height=12.313 rotation=66
-rectangle x=54 y=26 width=16.73 height=4 rotation=66
-rectangle x=54 y=26 width=16.73 height=4 rotation=156
+rectangle x=54 y=27 width=12.313 height=12.313 rotation=69
+rectangle x=54 y=27 width=16.73 height=4 rotation=114
+rectangle x=54 y=27 width=16.73 height=4 rotation=204
 
 # blue terminal
-rectangle x=0 y=52 width=15.42 height=15.42 rotation=45
+rectangle x=0 y=54 width=15.42 height=15.42 rotation=45
 
 # red terminal
 rectangle x=108 y=0 width=15.42 height=15.42 rotation=45

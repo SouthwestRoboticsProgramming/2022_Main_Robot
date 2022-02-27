@@ -23,7 +23,7 @@ public final class PathfinderTask {
     private static final String OUT_SCENE_DATA = "Pathfinder:SceneData";
 
     private static final int CELLS_X = 54 * 12 / 6;
-    private static final int CELLS_Y = 26 * 12 / 6;
+    private static final int CELLS_Y = 27 * 12 / 6;
 
     private static final float CELLS_PER_METER = 3.281f * 2;
     private static final float METERS_PER_CELL = 1 / CELLS_PER_METER;

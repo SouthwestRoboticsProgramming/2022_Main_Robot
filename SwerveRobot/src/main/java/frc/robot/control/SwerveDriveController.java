@@ -36,75 +36,138 @@ public class SwerveDriveController {
         drive.zeroGyro();
         drive.update(speeds);
     }
-    
+
+    boolean lastRotDeadzone = false;
+    double rotTarget = 0;
+
     public void update() {
+        // Get inputs
         double driveX = input.getDriveX();
         double driveY = input.getDriveY();
         double rot = input.getRot();
         Rotation2d currentAngle = drive.getGyroscopeRotation();
 
-        // ShuffleWood.show("currentAngle", currentAngle);
-        
-        boolean isTargetingRot = false;
+        // Clamp to zero when in deadzone
+        boolean xInDeadzone = Math.abs(driveX) < JOYSTICK_DEAD_ZONE;
+        boolean yInDeadzone = Math.abs(driveY) < JOYSTICK_DEAD_ZONE;
+        boolean rotInDeadzone = Math.abs(rot) < JOYSTICK_DEAD_ZONE;
+        if (xInDeadzone) driveX = 0;
+        if (yInDeadzone) driveY = 0;
+        if (rotInDeadzone) rot = 0;
 
-        if (Math.abs(driveX) < JOYSTICK_DEAD_ZONE) {
-            driveX = 0;
-        }
-        if (Math.abs(driveY) < JOYSTICK_DEAD_ZONE) {
-            driveY = 0;
-        }
-        if (Math.abs(rot) < JOYSTICK_DEAD_ZONE) {
-            rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
-            isTargetingRot = true;
-        }
-        
-        // Eliminate deadzone jump
+        // Smoothly transition when leaving deadzone
+        if (driveX > 0) driveX = Utils.map(driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        else if (driveX < 0) driveX = -Utils.map(-driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        if (driveY > 0) driveY = Utils.map(driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        else if (driveY < 0) driveY = -Utils.map(-driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        if (rot > 0) rot = Utils.map(rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        else if (rot < 0) rot = -Utils.map(-rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
 
-        if (driveX > 0) {
-            driveX = Utils.map(driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (driveX < 0){
-            driveX = -Utils.map(-driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
-        if (driveY > 0) {
-            driveY = Utils.map(driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (driveY <0){
-            driveY = -Utils.map(-driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
-        if (rot > 0) {
-            rot = Utils.map(rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (rot < 0) {
-            rot = -Utils.map(-rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
+        // Eliminate rotation drift
+        // {
+        //     // If we just entered the deadzone, record the current orientation
+        //     if (rotInDeadzone && !lastRotDeadzone) {
+        //         rotTarget = currentAngle.getDegrees();
+        //     }
+        //     lastRotDeadzone = rotInDeadzone;
 
-        if (autoControl) {
-            isTargetingRot = true;
-            driveX = autoDriveX;
-            driveY = autoDriveY;
-            System.out.println("Auto");
-        } else {
-            
-        }
+        //     // If we are in the deadzone, target the recorded orientation to ensure it doesn't rotate
+        //     if (rotInDeadzone) {
+        //         // Normalize things
+        //         double current = Utils.normalizeAngleDegrees(currentAngle.getDegrees());
+        //         double target = Utils.normalizeAngleDegrees(rotTarget);
 
-        if (isTargetingRot) {
-            System.out.println("Targeting rot");
-            rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
-        } else {
-            System.out.println("Not targeting rot");
-        }
+        //         // if (rotPID.atSetpoint())
+        //         //     rot = 0;+
+        //         // else
+        //             rot = rotPID.calculate(current, target);
+        //         rot = Utils.clamp(rot, -1, 1);
 
-        double fieldRelativeX = driveX * MAX_VELOCITY;
-        double fieldRelativeY = driveY * MAX_VELOCITY;
-        double targetRot = rot * MAX_ROTATION_SPEED;
-                            
-        // System.out.println(driveX + " " + driveY + " " + rot);
-        
-        // Convert motion goals to ChassisSpeeds object
-        speeds = ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeX, fieldRelativeY, targetRot, currentAngle);
-        //speeds = new ChassisSpeeds(fieldRelativeX,fieldRelativeY,targetRot);
+        //         System.out.println(current + " -> " + targetAngle + " (" + rot + ")");
+        //     }
+        // }
+
+        // Get actual motion speeds
+        double chassisDriveX = driveX * MAX_VELOCITY;
+        double chassisDriveY = driveY * MAX_VELOCITY;
+        double chassisRot = rot * MAX_ROTATION_SPEED;
+
+        // Calculate speeds
+        speeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisDriveX, chassisDriveY, chassisRot, currentAngle);
+
+        // Tell the drive assembly to do it
         drive.update(speeds);
-
-        autoControl = false;
     }
+    
+    // public void update() {
+    //     double driveX = input.getDriveX();
+    //     double driveY = input.getDriveY();
+    //     double rot = input.getRot();
+    //     Rotation2d currentAngle = drive.getGyroscopeRotation();
+
+    //     // ShuffleWood.show("currentAngle", currentAngle);
+        
+    //     boolean isTargetingRot = false;
+
+    //     if (Math.abs(driveX) < JOYSTICK_DEAD_ZONE) {
+    //         driveX = 0;
+    //     }
+    //     if (Math.abs(driveY) < JOYSTICK_DEAD_ZONE) {
+    //         driveY = 0;
+    //     }
+    //     if (Math.abs(rot) < JOYSTICK_DEAD_ZONE) {
+    //         rot = 0;
+    //         // rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
+    //         // isTargetingRot = true;
+    //     }
+        
+    //     // Eliminate deadzone jump
+
+    //     if (driveX > 0) {
+    //         driveX = Utils.map(driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     } else if (driveX < 0){
+    //         driveX = -Utils.map(-driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     }
+    //     if (driveY > 0) {
+    //         driveY = Utils.map(driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     } else if (driveY <0){
+    //         driveY = -Utils.map(-driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     }
+    //     if (rot > 0) {
+    //         rot = Utils.map(rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     } else if (rot < 0) {
+    //         rot = -Utils.map(-rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    //     }
+
+    //     // if (autoControl) {
+    //     //     isTargetingRot = true;
+    //     //     driveX = autoDriveX;
+    //     //     driveY = autoDriveY;
+    //     //     System.out.println("Auto");
+    //     // } else {
+            
+    //     // }
+
+    //     // if (isTargetingRot) {
+    //     //     System.out.println("Targeting rot");
+    //     //     rot = rotPID.calculate(drive.getGyroscopeRotation().getDegrees(), targetAngle);
+    //     // } else {
+    //     //     System.out.println("Not targeting rot");
+    //     // }
+
+    //     double fieldRelativeX = driveX * MAX_VELOCITY;
+    //     double fieldRelativeY = driveY * MAX_VELOCITY;
+    //     double targetRot = rot * MAX_ROTATION_SPEED;
+                            
+    //     // System.out.println(driveX + " " + driveY + " " + rot);
+        
+    //     // Convert motion goals to ChassisSpeeds object
+    //     speeds = ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeX, fieldRelativeY, targetRot, currentAngle);
+    //     //speeds = new ChassisSpeeds(fieldRelativeX,fieldRelativeY,targetRot);
+    //     drive.update(speeds);
+
+    //     autoControl = false;
+    // }
 
     public void turnToTarget(double angleTargetDegrees) {
         autoControl = true;

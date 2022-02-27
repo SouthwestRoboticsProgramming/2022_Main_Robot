@@ -65,6 +65,7 @@ public class SwerveDrive {
     public void zeroGyro() {
         navx.calibrate();
         navx.zeroYaw();
+        navx.setAngleAdjustment(90);
     }
 
     public Pose2d getOdometry() {
@@ -87,6 +88,10 @@ public class SwerveDrive {
         w4.update(moduleStates[3]);
 
         odometry.update(getGyroscopeRotation(), moduleStates);
+
+        // System.out.printf(
+        //     "Angles: w1: %3.3f w2: %3.3f w3: %3.3f s4: %3.3f %n",
+        //     w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
     }
 
     public void disable() {

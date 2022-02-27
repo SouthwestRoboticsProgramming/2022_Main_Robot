@@ -44,8 +44,6 @@ public class PathOverlay extends FieldOverlay {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("pathy");
     }
 
     @Override

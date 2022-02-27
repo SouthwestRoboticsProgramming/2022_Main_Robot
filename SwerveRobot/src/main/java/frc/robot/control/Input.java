@@ -30,7 +30,7 @@ public class Input {
     }
 
     public double getRot() {
-        return -drive.getRightStickX();
+        return drive.getRightStickX();
     }
 
 
