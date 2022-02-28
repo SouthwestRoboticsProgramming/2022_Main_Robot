@@ -21,7 +21,10 @@ public class CommandSequence implements Command {
     }
 
     public void next() {
-        
+        currentIndex++;
+        if (currentIndex < sequence.size()) {
+            sequence.get(currentIndex).end();
+        }
     }
 
     @Override
@@ -32,6 +35,7 @@ public class CommandSequence implements Command {
 
         Command activeCommand = sequence.get(currentIndex);
         if (activeCommand.run()) {
+            activeCommand.end();
             currentIndex++;
         }
 

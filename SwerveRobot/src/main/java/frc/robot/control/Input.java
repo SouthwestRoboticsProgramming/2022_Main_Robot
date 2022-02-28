@@ -53,12 +53,6 @@ public class Input extends Subsystem {
         return manipulator.a.leadingEdge();
     }
 
-    // Unused
-    @Deprecated
-    public boolean getAim() {
-        return drive.rightShoulder.isPressed() || manipulator.rightShoulder.isPressed();
-    }
-
     public int getShootDistance() {
         if (manipulator.dpadUp.isPressed()) return 0;
         if (manipulator.dpadDown.isPressed()) return 2;
@@ -70,12 +64,17 @@ public class Input extends Subsystem {
         return mapJoystick(manipulator.leftStickY.get());
     }
 
+    // TODO: Remove
     public boolean getClimberManualControl() {
         return manipulator.select.isPressed();
     }
 
     public double getClimberSwing() {
-        return mapJoystick(manipulator.rightStickY.get());
+        return mapJoystick(manipulator.leftStickX.get());
+    }
+
+    public boolean getClimberNextStep() {
+        return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
     }
 
     /* Tools */
