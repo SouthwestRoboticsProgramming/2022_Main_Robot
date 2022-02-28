@@ -15,4 +15,18 @@ public class SwingingArms {
         left.swingToAngle(degrees);
         right.swingToAngle(degrees);
     }
+
+    public void manualMove(double speed) {
+        left.manualMove(speed);
+        right.manualMove(speed);
+    }
+
+    public void zero() {
+        left.zero();
+        right.zero();
+    }
+
+    public void setResetting(boolean resetting) {
+        left.setResetting(resetting);
+    }
 }

@@ -15,6 +15,8 @@ public class NewSwingingArm {
     
     private final PIDController pid;
 
+    private boolean resetting;
+
     public NewSwingingArm(int motorID) {
         motor = new CANSparkMax(motorID, MotorType.kBrushless);
         motor.setIdleMode(IdleMode.kBrake);
@@ -29,9 +31,13 @@ public class NewSwingingArm {
             CLIMBER_SWING_MOTOR_KD
         );
         pid.setTolerance(CLIMBER_SWING_TOLERANCE);
+
+        resetting = false;
     }
 
     public void swingToAngle(double degrees) {
+        if (resetting) return;
+
         double currentPose = encoder.getPosition() / CLIMBER_SWING_ROTS_PER_INCH + CLIMBER_STARTING_DIST;
         double currentAngle = Math.acos(
             (
@@ -55,5 +61,13 @@ public class NewSwingingArm {
 
     public double getPos() {
         return encoder.getPosition();
+    }
+
+    public void zero() {
+        encoder.setPosition(0);
+    }
+
+    public void setResetting(boolean resetting) {
+        this.resetting = resetting;
     }
 }

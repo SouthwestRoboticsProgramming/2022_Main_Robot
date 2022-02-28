@@ -150,11 +150,11 @@ public class Shooter extends Subsystem {
 
     // System.out.printf("Current: %3.3f Target: %3.3f %n", hood.getSelectedSensorPosition(), targetHood);
 
-    if (true) {
-      flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
-    } else {
-      flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
-    }
+    // if (true) {
+    //   flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
+    // } else {
+    //   flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
+    // }
     
     if (input.getShoot()) {
       shoot();

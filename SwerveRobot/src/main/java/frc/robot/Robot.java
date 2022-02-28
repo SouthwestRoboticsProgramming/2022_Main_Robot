@@ -45,8 +45,7 @@ public class Robot extends TimedRobot {
   public CameraTurret cameraTurret;
   public Shooter shooter;
   public Intake intake;
-
-  public Climber climberSub;
+  public Climber climber;
 
   private RobotState state;
   public Localization localization;
@@ -87,8 +86,6 @@ public class Robot extends TimedRobot {
 
     drive = new SwerveDrive();
     driveController = new SwerveDriveController();
-    climberSub = new Climber();
-
     
     cameras = new Cameras();
     cameraTurret = new CameraTurret();
@@ -96,7 +93,7 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     intake = new Intake();
     // climber = new ClimberController(input);
-    new Climber();
+    climber = new Climber();
     
     driveController.swerveInit();
 

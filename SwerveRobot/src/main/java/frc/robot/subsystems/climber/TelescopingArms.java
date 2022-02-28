@@ -30,6 +30,11 @@ public class TelescopingArms {
         right.manualMove(amount);
     }
 
+    public void zero() {
+        left.zero();
+        right.zero();
+    }
+
     public void stop() {
         left.stop();
         right.stop();
