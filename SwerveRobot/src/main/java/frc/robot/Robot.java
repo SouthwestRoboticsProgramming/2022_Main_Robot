@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   }
 
   // Subsystems
-  public Input input;
+  private Input input;
 
   private AHRS gyro;
   private SwerveDrive drive;
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 
     ShuffleWood.setMessenger(dispatch);
 
-    input = new Input(this);
+    input = new Input();
     gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
     drive = new SwerveDrive(gyro);
