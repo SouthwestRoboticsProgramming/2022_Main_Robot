@@ -16,27 +16,15 @@ public class Input extends Subsystem {
 
     /* Drive */
     public double getDriveX() {
-        double amount = drive.leftStickX.get();
-        if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
-            return 0;
-        }
-        return mapJoystick(amount);
+        return mapJoystick(drive.leftStickX.get());
     }
 
     public double getDriveY() {
-        double amount = drive.leftStickY.get();
-        if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
-            return 0;
-        }
-        return mapJoystick(amount);
+        return mapJoystick(drive.leftStickY.get());
     }
 
     public double getRot() {
-        double amount = drive.rightStickX.get();
-        if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
-            return 0;
-        }
-        return mapJoystick(amount);
+        return mapJoystick(drive.rightStickX.get());
     }
 
     /* Intake */
@@ -46,6 +34,7 @@ public class Input extends Subsystem {
 
     // Unused
     private boolean intakeLift = true;
+    @Deprecated
     public boolean getIntakeLift() {
 
         /* Get leading edge */
