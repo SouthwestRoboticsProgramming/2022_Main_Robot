@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   }
 
   // Subsystems
-  private Input input;
+  public Input input;
 
   private AHRS gyro;
   private SwerveDrive drive;
@@ -45,6 +45,8 @@ public class Robot extends TimedRobot {
   private Shooter shooter;
   private Intake intake;
   private ClimberController climber;
+
+  public Climber climberSub;
 
   private RobotState state;
   private Localization localization;
@@ -80,11 +82,12 @@ public class Robot extends TimedRobot {
 
     ShuffleWood.setMessenger(dispatch);
 
-    input = new Input();
+    input = new Input(this);
     gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
     drive = new SwerveDrive(gyro);
     driveController = new SwerveDriveController(drive, input);
+    climberSub = new Climber(input);
 
     
     cameras = new Cameras(dispatch);

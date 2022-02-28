@@ -44,4 +44,8 @@ public class NewSwingingArm {
         double out = pid.calculate(Math.toDegrees(currentAngle), degrees);
         motor.set(out);
     }
+
+    public double getPos() {
+        return encoder.getPosition();
+    }
 }

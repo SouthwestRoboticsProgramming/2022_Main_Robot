@@ -2,20 +2,38 @@ package frc.robot.control;
 
 import static frc.robot.constants.ControlConstants.*;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Robot;
+import frc.robot.command.climb.AutoClimb;
+
 public class Input {
+    private Robot robot;
     private final XboxController drive;
     //private final XboxController manipulator;
 
     private final XboxController finalManipulator;
     private final XboxController finalDrive;
 
-    public Input() {
+
+    private final Joystick joyManipulator = new Joystick(MANIPULATOR_CONTROLLER);
+    private final JoystickButton autoClimb = new JoystickButton(joyManipulator, ...);
+
+    public Input(Robot robot) {
+        this.robot = robot;
         drive = new XboxController(DRIVE_CONTROLLER);
         //manipulator = new XboxController(11);
 
         finalManipulator = new XboxController(MANIPULATOR_CONTROLLER);
         finalDrive = new XboxController(DRIVE_CONTROLLER);
+
+        configureButtonBindings();
     }
+
+    private void configureButtonBindings() {
+        // // Create some buttons
+        autoClimb.whenPressed(new AutoClimb(robot.climberSub.teleLeft, robot.climberSub.teleLeft, robot.climberSub.swingLeft, robot.climberSub.swingRight, robot));
+      }
 
     public double getDriveX() {
         return drive.getLeftStickX();
@@ -27,6 +45,10 @@ public class Input {
 
     public double getRot() {
         return drive.getRightStickX();
+    }
+
+    public boolean getNextclimbStep() {
+        return finalManipulator.get...();
     }
 
 

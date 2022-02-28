@@ -51,4 +51,14 @@ public class ShuffleBoard {
             public static NetworkTableEntry climberTelescopeKP = telescopeTune.addPersistent("KP", CLIMBER_TELE_MOTOR_KP).getEntry();
             public static NetworkTableEntry climberTelescopeKI = telescopeTune.addPersistent("KI", CLIMBER_TELE_MOTOR_KI).getEntry();
             public static NetworkTableEntry climberTelescopeKD = telescopeTune.addPersistent("KD", CLIMBER_TELE_MOTOR_KD).getEntry();
+
+        private static ShuffleboardLayout climbTune = tuneTab.getLayout("climbTune", BuiltInLayouts.kList);
+            public static NetworkTableEntry climbTuneTeleTolerence = climbTune.addPersistent("TeleTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTuneSwingTolerence = climbTune.addPersistent("SwingTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTune1TeleHeight = climbTune.addPersistent("1TeleExtendHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune2TeleHeight = climbTune.addPersistent("2TeleRetractHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune3SwingAngle = climbTune.addPersistent("3SwingAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune4TeleHeight = climbTune.addPersistent("4Tele2-3Length", 0).getEntry();
+            public static NetworkTableEntry climbTune5SwingAngle = climbTune.addPersistent("5SwingCompressonAngle", 0).getEntry();
+
 }

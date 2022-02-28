@@ -15,10 +15,10 @@ import static frc.robot.constants.ClimberConstants.*;
 
 public class ClimberController extends Subsystem {
 
-  private final TelescopingArm teleLeft;
-  private final TelescopingArm teleRight;
-  private final SwingingArm swingLeft;
-  private final SwingingArm swingRight;
+  public final TelescopingArm teleLeft;
+  public final TelescopingArm teleRight;
+  public final SwingingArm swingLeft;
+  public final SwingingArm swingRight;
 
   private final Input input;
 
