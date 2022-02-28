@@ -4,9 +4,9 @@ import com.kauailabs.navx.frc.AHRS;
 
 import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
+import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
-import frc.robot.command.auto.AutonomousCommand;
-import frc.robot.command.climb.ResetClimber;
+import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
 import frc.robot.drive.SwerveDrive;
@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   private RobotState state;
   public Localization localization;
 
-  private AutonomousCommand autoCommand;
+  private Command autoCommand;
   
   @Override
   public void robotInit() {
@@ -113,7 +113,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     state = RobotState.AUTONOMOUS;
     Scheduler.get().initState();
-    Scheduler.get().scheduleCommand(autoCommand = new AutonomousCommand());
+
+    switch (ShuffleBoard.whichAuto.getString("a")) {
+      case "a":
+        Scheduler.get().scheduleCommand(autoCommand = new ZeroBallAuto());
+        break;
+    
+      default:
+        break;
+    }
   }
 
   @Override

@@ -62,4 +62,7 @@ public class ShuffleBoard {
             public static NetworkTableEntry climbTune4TeleHeight = climbTune.addPersistent("4Tele2-3Length", 0).getEntry();
             public static NetworkTableEntry climbTune5SwingAngle = climbTune.addPersistent("5SwingCompressonAngle", 0).getEntry();
 
+        private static ShuffleboardLayout autoSelect = tuneTab.getLayout("Auto Select", BuiltInLayouts.kList);
+            public static NetworkTableEntry whichAuto = autoSelect.addPersistent("Which Auto", "a").getEntry();
+
 }
