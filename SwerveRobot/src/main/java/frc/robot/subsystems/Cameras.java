@@ -3,12 +3,11 @@ package frc.robot.subsystems;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessageHandler;
+import frc.robot.Robot;
 import frc.robot.util.ShuffleWood;
 
 public class Cameras extends Subsystem {
-
   private boolean hub_good;
   private double hub_x;
   private double hub_y;
@@ -20,7 +19,7 @@ public class Cameras extends Subsystem {
   private boolean climber_good;
   private double climber_angle;
 
-  public Cameras(MessageDispatcher dispatch) {
+  public Cameras() {
     super();
 
     MessageHandler handler = new MessageHandler()
@@ -29,7 +28,7 @@ public class Cameras extends Subsystem {
         .listen("Vision:Climber_Angle")
         .listen("Vision:Hub_Measurements");
     
-    dispatch.addMessageHandler(handler);
+    Robot.INSTANCE.dispatch.addMessageHandler(handler);
   }
 
   private void onMessage(String type, DataInputStream in) throws IOException {

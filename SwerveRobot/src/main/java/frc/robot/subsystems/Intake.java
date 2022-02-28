@@ -4,10 +4,6 @@ import frc.robot.Scheduler;
 import frc.robot.command.intake.IntakeDown;
 import frc.robot.command.intake.IntakeUp;
 import frc.robot.constants.DriveConstants;
-import frc.robot.control.Input;
-import frc.robot.util.ShuffleBoard;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -16,8 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import static frc.robot.constants.IntakeConstants.*;
 
 public class Intake extends Subsystem {
-
-  private final Input input;
   private final TalonFX motor;
   private final TalonSRX lift;
   
@@ -26,8 +20,7 @@ public class Intake extends Subsystem {
   private IntakeUp upCommand;
   private IntakeDown downCommand;
 
-  public Intake(Input input) {
-    this.input = input;
+  public Intake() {
     motor = new TalonFX(INTAKE_MOTOR_ID, DriveConstants.GERALD);
     motor.setInverted(true);
 
@@ -89,19 +82,19 @@ public class Intake extends Subsystem {
     // motor.config_kI(0, ShuffleBoard.intakeKI.getDouble(INTAKE_KI));
     // motor.config_kD(0, ShuffleBoard.intakeKD.getDouble(INTAKE_KD));
 
-    double fullVelocity = ShuffleBoard.intakeFullVelocity.getDouble(INTAKE_FULL_VELOCITY);
-    double neutralVelocity = ShuffleBoard.intakeNeutralVelocity.getDouble(INTAKE_NEUTRAL_VELOCITY);
+    // double fullVelocity = ShuffleBoard.intakeFullVelocity.getDouble(INTAKE_FULL_VELOCITY);
+    // double neutralVelocity = ShuffleBoard.intakeNeutralVelocity.getDouble(INTAKE_NEUTRAL_VELOCITY);
     
-    if (input.getIntake() & !input.getIntakeLift()) {
-      intakeDown();
-      motor.set(ControlMode.Velocity, fullVelocity);
-    } else if (!input.getIntakeLift()){
-      intakeDown();
-      motor.set(ControlMode.Velocity, neutralVelocity);
-    } else {
-      intakeUp();
-      motor.set(ControlMode.Velocity, 0);
-    }
+    // if (input.getIntake() & !input.getIntakeLift()) {
+    //   intakeDown();
+    //   motor.set(ControlMode.Velocity, fullVelocity);
+    // } else if (!input.getIntakeLift()){
+    //   intakeDown();
+    //   motor.set(ControlMode.Velocity, neutralVelocity);
+    // } else {
+    //   intakeUp();
+    //   motor.set(ControlMode.Velocity, 0);
+    // }
 
   }
 }

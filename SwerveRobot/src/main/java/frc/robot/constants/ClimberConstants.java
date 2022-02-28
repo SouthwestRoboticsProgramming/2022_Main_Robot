@@ -1,7 +1,6 @@
 package frc.robot.constants;
 
 public class ClimberConstants {
-
     /* Settings */
     public static final double CLIMBER_SWING_MOTOR_KP = 0.015;
     public static final double CLIMBER_SWING_MOTOR_KI = 0;
@@ -13,7 +12,6 @@ public class ClimberConstants {
     public static final double CLIMBER_TELE_MOTOR_KD = 0;
     public static final double CLIMBER_TELE_TOLERANCE = 20;
     public static final double CLIMBER_MAX_SPEED = 0.20; // Percent 0 to 1
-
 
     /* Climb Steps */
     public static final double CLIMBER_ARM_OUT_OF_THE_WAY = 100;
@@ -29,11 +27,10 @@ public class ClimberConstants {
 
     public static final int CLIMBER_LEFT_SWING_MOTOR_ID = 20;
     public static final int CLIMBER_RIGHT_SWING_MOTOR_ID = 23;
-    public static final double CLIMBER_SWING_ARM = 15 + 1/8.0; // Length of the swinging arm measured from the pivot to the connection with the screw
-    public static final double CLIMBER_SWING_BASE = 6 + 3/4.0; // Distance between pivot and start of screw
-    public static final double CLIMBER_STARTING_DIST = 13 + 1/8.0; // Marked in sharpie on the screw (You may need to squint)
+    public static final double CLIMBER_SWING_ARM = 15 + 1 / 8.0; // Length of the swinging arm measured from the pivot to the connection with the screw
+    public static final double CLIMBER_SWING_BASE = 6 + 3 / 4.0; // Distance between pivot and start of screw
+    public static final double CLIMBER_STARTING_DIST = 13 + 1 / 8.0; // Marked in sharpie on the screw (You may need to squint)
     public static final double CLIMBER_SWING_ROTS_PER_INCH = 11.0; // Distance that the screw travels up after each rotation of the motor
-
 
     private ClimberConstants() {
         throw new AssertionError();

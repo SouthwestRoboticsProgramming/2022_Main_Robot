@@ -16,7 +16,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.MathUtil;
-import frc.robot.util.ShuffleWood;
 import frc.robot.util.Utils;
 
 import static frc.robot.constants.DriveConstants.*;
@@ -30,11 +29,7 @@ public class SwerveModuleOld {
     private final double canOffset;
     private final PIDController turnPID;
 
-    private final boolean debug;
-
-    public SwerveModuleOld(int drivePort, int turnPort, int canPort ,double cancoderOffset) {
-        debug = canPort == SWERVE_MODULES[2].getCanCoderId();
-
+    public SwerveModuleOld(int drivePort, int turnPort, int canPort, double cancoderOffset) {
         driveMotor = new WPI_TalonFX(drivePort, GERALD);
         turnMotor = new WPI_TalonSRX(turnPort);
         canCoder = new CANCoder(canPort, GERALD);

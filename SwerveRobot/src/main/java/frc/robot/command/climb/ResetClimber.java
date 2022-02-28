@@ -5,10 +5,11 @@
 package frc.robot.command.climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.climber.NewSwingingArm;
 import frc.robot.subsystems.climber.NewTelescopingArm;
 
+// nate code; dont use it
+@Deprecated
 public class ResetClimber extends CommandBase {
   private NewTelescopingArm teleLeft, teleRight;
   private NewSwingingArm swingLeft, swingRight;

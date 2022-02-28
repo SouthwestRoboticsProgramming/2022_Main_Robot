@@ -1,7 +1,6 @@
 package frc.robot.constants;
 
 public class IntakeConstants {
-
     /* Settings */
     public static final double INTAKE_FULL_VELOCITY = 3 * 2048;
     public static final double INTAKE_NEUTRAL_VELOCITY = 1 * 2048;
@@ -13,7 +12,6 @@ public class IntakeConstants {
     public static final double INTAKE_KP = 0.1;
     public static final double INTAKE_KI = 0;
     public static final double INTAKE_KD = 0;
-
 
     /* Hardware */
     public static final int INTAKE_MOTOR_ID = 40;

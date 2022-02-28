@@ -5,16 +5,14 @@
 package frc.robot.command.climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.climber.NewSwingingArm;
 import frc.robot.subsystems.climber.NewTelescopingArm;
-import frc.robot.subsystems.climber.SwingingArms;
-import frc.robot.subsystems.climber.TelescopingArms;
 import frc.robot.util.ShuffleBoard;
 
+// this is nate code; dont use it
+@Deprecated
 public class AutoClimb extends CommandBase {
   private int climbStep = 1;
-  private Robot robot;
   private double teleSetpoint, swingSetpoint;
     //0 = arms down, ready to lift
     // PAUSE
@@ -36,7 +34,6 @@ public class AutoClimb extends CommandBase {
     this.teleRight = teleRight;
     this.swingLeft = swingLeft;
     this.swingRight = swingRight;
-    this.robot = Robot.get();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

@@ -4,7 +4,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.drive.SwerveModuleInfo;
 
 public class DriveConstants {
-
     /* Settings */
     public static final double WHEEL_TURN_KP = 0.009;
     public static final double WHEEL_TURN_KI = 0; // Leave this at 0: There is no steady-state error in the system

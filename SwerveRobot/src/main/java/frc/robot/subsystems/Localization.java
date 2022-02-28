@@ -1,25 +1,17 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.Robot;
 import frc.robot.drive.SwerveDrive;
-import frc.robot.util.Utils;
 
 // https://www.desmos.com/calculator/w5x76wa3yd
 
 /* ALL ANGLES IN DEGREES {-180,180} UNLESS NOTED  */
 public class Localization extends Subsystem {
-  private final AHRS gyro;
-  private final CameraTurret cameraTurret;
   private final SwerveDrive drive;
 
-  private double x, y;
-
-  public Localization(AHRS gyro, /*CameraTurret cameraTurret,*/ SwerveDrive drive) {
-    this.gyro = gyro;
-    this.cameraTurret = null;
-    this.drive = drive;
+  public Localization() {
+    drive = Robot.INSTANCE.drive;
   }
 
   public double getX() {
@@ -32,11 +24,6 @@ public class Localization extends Subsystem {
 
   public Pose2d getOdometry() {
     return drive.getOdometry();
-  }
-
-  public void setPosition(double x, double y) {
-    this.x = x;
-    this.y = y;
   }
 
   @Override

@@ -18,8 +18,8 @@ public class FollowPathCommand implements Command {
     private Point currentTarget;
 
     public FollowPathCommand(Path path) {
-        loc = Robot.get().localization;
-        drive = Robot.get().driveController;
+        loc = Robot.INSTANCE.localization;
+        drive = Robot.INSTANCE.driveController;
         this.path = path.getPath();
         reset();
     }

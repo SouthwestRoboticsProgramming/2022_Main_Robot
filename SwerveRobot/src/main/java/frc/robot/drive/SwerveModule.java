@@ -3,7 +3,6 @@ package frc.robot.drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -19,19 +18,17 @@ import frc.robot.util.Utils;
 
 import static frc.robot.constants.DriveConstants.*;
 
+// edina code; dont use it
+@Deprecated
 public class SwerveModule {
     private final TalonFX driveMotor;
     private final TalonSRX turnMotor;
     private final CANCoder canCoder;
 
-    private final boolean isDebug;
-
     public SwerveModule(int driveID, int turnID, int encoderID, double encoderOffset) {
         driveMotor = new TalonFX(driveID, GERALD);
         turnMotor = new TalonSRX(turnID);
         canCoder = new CANCoder(encoderID, GERALD);
-
-        isDebug = encoderID == SWERVE_MODULES[0].getCanCoderId();
 
         // Set up drive motor
         TalonFXConfiguration driveConfig = new TalonFXConfiguration();
@@ -80,8 +77,7 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, normalizedEncoder);
     
         // Do some angle weirdness to emulate a continuous PID controller and turn
-        double weird;
-        turnMotor.setSelectedSensorPosition(weird = 1000 * Utils.normalizeAngleDegrees(normalizedEncoder.getDegrees() - state.angle.getDegrees()));
+        turnMotor.setSelectedSensorPosition(1000 * Utils.normalizeAngleDegrees(normalizedEncoder.getDegrees() - state.angle.getDegrees()));
         turnMotor.set(ControlMode.Position, 0);
 
         // Drive
