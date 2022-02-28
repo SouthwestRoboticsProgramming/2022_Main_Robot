@@ -6,7 +6,6 @@ import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
 import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
-import frc.robot.command.auto.AutonomousCommand;
 import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
