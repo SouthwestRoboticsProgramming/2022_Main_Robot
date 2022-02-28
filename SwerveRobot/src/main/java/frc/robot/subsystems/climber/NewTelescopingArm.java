@@ -76,6 +76,10 @@ public class NewTelescopingArm {
         motor2.stopMotor();
     }
 
+    public void resetEnc() {
+        encoder.setPosition(0);
+    }
+
     public double getPos() {
         return encoder.getPosition();
     }

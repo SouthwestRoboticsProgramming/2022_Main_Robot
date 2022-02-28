@@ -47,10 +47,6 @@ public class Input {
         return drive.getRightStickX();
     }
 
-    public boolean getNextclimbStep() {
-        return finalManipulator.get...();
-    }
-
 
 
     // For testing things before they have final controls
@@ -111,15 +107,21 @@ public class Input {
     }
     /* Climber */
     public double getClimbTele() {
-        if (Math.abs(finalManipulator.getLeftStickY()) > JOYSTICK_DEAD_ZONE){
-            return finalManipulator.getLeftStickY();
-        } else {
+        // if (Math.abs(finalManipulator.getLeftStickY()) > JOYSTICK_DEAD_ZONE){
+        //     return finalManipulator.getLeftStickY();
+        // } else {
+        //     return 0;
+        // }
             return 0;
-        }
     }
 
     public boolean getClimbNextStep() {
         //return finalManipulator.getLeftShoulderButton() && finalManipulator.getRightShoulderButton();
+        // return finalManipulator.getDpadUp();
+        return false;
+    }
+
+    public boolean getNextclimbStep() {
         return finalManipulator.getDpadUp();
     }
 }
