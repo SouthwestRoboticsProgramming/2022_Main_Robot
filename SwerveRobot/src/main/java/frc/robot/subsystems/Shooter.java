@@ -87,23 +87,32 @@ public class Shooter extends Subsystem {
     // TODO: Add distance to shoot command
   }
 
+  private double calculateSpeed(int hoodAngle, int distance /*double distance */) {
+    switch (distance) {
+      case 0:
+        return CLOSE_SPEED;
+      case 1:
+        return LINE_SPEED;
+      case 2:
+        return LAUNCHPAD_SPEED;
+      default:
+        return SHOOTER_IDLE_VELOCITY;
+    }
+  }
 
-  // private double calculateSpeed(double distance, int hoodAngle) {
-  //   if (hoodAngle == 0) { return 10;}
-  //   if (hoodAngle == 1) { return 20;}
-  //   if (hoodAngle == 2) { return 30;}
-  //   if (hoodAngle == 3) { return 40;}
-  //   return SHOOTER_IDLE_VELOCITY;
+  private int calculateHood(int distance) {
+    switch (distance) {
+      case 0:
+        return 0; // FIXME
+      case 1:
+        return 1; // FIXME
+      case 2:
+        return 2; // FIXME
     
-  //   // TODO: Equations
-  // }
-
-  // private int calculateHood(double distance) {
-  //   if (distance > 36) { return 1;}
-  //   if (distance > 20) { return 2;}
-  //   if (distance > 10) { return 1;}
-  //   return 0;
-  // }
+      default:
+        return 0;
+    }
+  }
 
   double lastHoodAngle = 0;
   
