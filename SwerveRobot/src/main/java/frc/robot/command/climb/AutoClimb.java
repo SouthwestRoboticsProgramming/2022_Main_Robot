@@ -13,7 +13,7 @@ import frc.robot.subsystems.climber.TelescopingArms;
 import frc.robot.util.ShuffleBoard;
 
 public class AutoClimb extends CommandBase {
-  private int climbStep = 0;
+  private int climbStep = 1;
   private Robot robot;
   private double teleSetpoint, swingSetpoint;
     //0 = arms down, ready to lift
@@ -43,8 +43,7 @@ public class AutoClimb extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    teleSetpoint = ShuffleBoard.climbTune1TeleHeight.getDouble(0);
-    swingSetpoint = ShuffleBoard.climbTune1SwingAngle.getDouble(0);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,28 +51,30 @@ public class AutoClimb extends CommandBase {
   public void execute() {
     switch (climbStep) {
       case 1:
+        teleSetpoint = ShuffleBoard.climbTune1TeleHeight.getDouble(0);
+        swingSetpoint = ShuffleBoard.climbTune1SwingAngle.getDouble(0);
         //Whe clicked, arms set to retract
         if (robot.input.getNextclimbStep()) {
-          teleSetpoint = ShuffleBoard.climbTune2TeleHeight.getDouble(0);
           climbStep = 2;
         }
         break;
       case 2:
+        teleSetpoint = ShuffleBoard.climbTune2TeleHeight.getDouble(0);
         //wait for arms to retract, then rotate robot
         if (  checkIfValsInTollerence(teleLeft.getPos(), teleRight.getPos(), 
               ShuffleBoard.climbTune2TeleHeight.getDouble(0), ShuffleBoard.climbTuneTeleTolerence.getDouble(0))) {
-          swingSetpoint = ShuffleBoard.climbTune3SwingAngle.getDouble(0);
           climbStep = 3;
         }
         break;
       case 3:
+        swingSetpoint = ShuffleBoard.climbTune3SwingAngle.getDouble(0);
         if (  checkIfValsInTollerence(swingLeft.getPos(), swingRight.getPos(), 
               ShuffleBoard.climbTune3SwingAngle.getDouble(0), ShuffleBoard.climbTuneSwingTolerence.getDouble(0))) {  
-          teleSetpoint = ShuffleBoard.climbTune4TeleHeight.getDouble(0);
           climbStep = 4;
         }
         break;
       case 4:
+        teleSetpoint = ShuffleBoard.climbTune4TeleHeight.getDouble(0);
         if (  checkIfValsInTollerence(teleLeft.getPos(), teleRight.getPos(), 
               ShuffleBoard.climbTune4TeleHeight.getDouble(0), ShuffleBoard.climbTuneTeleTolerence.getDouble(0))) {  
           swingSetpoint = ShuffleBoard.climbTune5SwingAngle.getDouble(0);
@@ -83,7 +84,6 @@ public class AutoClimb extends CommandBase {
       case 5:
         if (  checkIfValsInTollerence(swingLeft.getPos(), teleRight.getPos(), 
               ShuffleBoard.climbTune5SwingAngle.getDouble(0), ShuffleBoard.climbTuneSwingTolerence.getDouble(0))) {  
-            teleSetpoint = ShuffleBoard.climbTune2TeleHeight.getDouble(0);
           climbStep = 2;
         }
         break;
