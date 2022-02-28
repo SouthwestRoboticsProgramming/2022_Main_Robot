@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.command.climb.AutoClimb;
+import frc.robot.subsystems.Subsystem;
+import frc.robot.util.Utils;
 
-public class Input {
+public class Input extends Subsystem {
     private Robot robot;
     private final XboxController drive;
     private final XboxController manipulator;
@@ -20,7 +22,7 @@ public class Input {
 
     /* Drive */
     public double getDriveX() {
-        amount = drive.leftStickX.get();
+        double amount = drive.leftStickX.get();
         if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
             return 0;
         }
@@ -28,7 +30,7 @@ public class Input {
     }
 
     public double getDriveY() {
-        amount = drive.leftStickY.get();
+        double amount = drive.leftStickY.get();
         if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
             return 0;
         }
@@ -36,7 +38,7 @@ public class Input {
     }
 
     public double getRot() {
-        amount = drive.rightStickX.get();
+        double amount = drive.rightStickX.get();
         if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
             return 0;
         }
@@ -60,50 +62,37 @@ public class Input {
         /* If it's pressed, toggle the intake */
         if (pressed) {
             intakeLift = !intakeLift;
+        }
 
         return intakeLift;
     }
 
     /* Shooter */
     public boolean getShoot() {
-        return manipulator.a.leadingEdge;
+        return manipulator.a.leadingEdge();
     }
 
     // Unused
+    @Deprecated
     public boolean getAim() {
-        return finalDrive.getRightShoulderButton() || finalManipulator.getRightShoulderButton();
+        return drive.rightShoulder.isPressed() || manipulator.rightShoulder.isPressed();
     }
 
     public int getShootDistance() {
-        if (manipulaotr.dpadUp.isPressed()) {return 0}
-        if (manipulaotr.dpadDown.isPressed()) {return 2}
+        if (manipulator.dpadUp.isPressed()) return 0;
+        if (manipulator.dpadDown.isPressed()) return 2;
         return 1;
     }
 
-
     /* Climber */
-    public double getClimbTele() {
-        if (Math.abs(finalManipulator.getLeftStickY()) > JOYSTICK_DEAD_ZONE){
-            return finalManipulator.getLeftStickY();
-        } else {
-            return 0;
-        }
-    }
-
-    public boolean getClimbNextStep() {
-        //return finalManipulator.getLeftShoulderButton() && finalManipulator.getRightShoulderButton();
-        return finalManipulator.getDpadUp();
-    }
-
+    // TODO: Put the climber stuff here
 
     /* Tools */
     private double mapJoystick(double amount) {
-        /*
-        if (amount > 0) {
-            return Utils.map(driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
+        if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
+            return 0;
         }
-        return -Utils.map(-amount, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        */
-        return (amount / Math.abs(amount)) * Utils.map(Math.abs(amount), JOYSTICK_DEAD_ZONE, 1, 0, 1);
+
+        return Math.signum(amount) * Utils.map(Math.abs(amount), JOYSTICK_DEAD_ZONE, 1, 0, 1);
     }
 }

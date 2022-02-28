@@ -30,12 +30,12 @@ public class AutoClimb extends CommandBase {
   
   /** Creates a new ClimbToTop. */
   public AutoClimb( NewTelescopingArm teleLeft, NewTelescopingArm teleRight, 
-                    NewSwingingArm swingLeft, NewSwingingArm swingRight, Robot robot) {
+                    NewSwingingArm swingLeft, NewSwingingArm swingRight) {
     this.teleLeft = teleLeft;
     this.teleRight = teleRight;
     this.swingLeft = swingLeft;
     this.swingRight = swingRight;
-    this.robot = robot;
+    this.robot = Robot.get();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
