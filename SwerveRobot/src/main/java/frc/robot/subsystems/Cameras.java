@@ -39,8 +39,8 @@ public class Cameras extends Subsystem {
         hub_x = in.readDouble();
         hub_y = in.readDouble();
 
-        ShuffleWood.show("Hub X", hub_x);
-        ShuffleWood.show("Hub Y", hub_y);
+        ShuffleWood.show("Hub XAngle", hub_x);
+        ShuffleWood.show("Hub Distance", hub_y);
       } else {
         ShuffleWood.show("Hub XAngle", "bad");
         ShuffleWood.show("Hub Distance", "bad");

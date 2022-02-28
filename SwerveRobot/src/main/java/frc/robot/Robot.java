@@ -15,6 +15,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Localization;
 import frc.robot.control.ClimberController;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.util.ShuffleBoard;
 import frc.robot.util.ShuffleWood;
 import edu.wpi.first.wpilibj.SPI;
@@ -43,7 +44,7 @@ public class Robot extends TimedRobot {
   private CameraTurret cameraTurret;
   private Shooter shooter;
   private Intake intake;
-  // private ClimberController climber;
+  private ClimberController climber;
 
   private RobotState state;
   private Localization localization;
@@ -86,12 +87,13 @@ public class Robot extends TimedRobot {
     driveController = new SwerveDriveController(drive, input);
 
     
-    // cameras = new Cameras(dispatch);
-    // cameraTurret = new CameraTurret(cameras);
+    cameras = new Cameras(dispatch);
+    cameraTurret = new CameraTurret(cameras);
     localization = new Localization(gyro, drive);
     shooter = new Shooter(driveController, null, input);
     intake = new Intake(input);
     // climber = new ClimberController(input);
+    new Climber(input);
     
     driveController.swerveInit();
 
@@ -100,7 +102,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    // climber.groundToSecond();
 
     msg.read();
     Scheduler.get().update();
@@ -131,6 +132,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveController.update();
+    if (climber != null) climber.groundToSecond();
   }
 
   @Override

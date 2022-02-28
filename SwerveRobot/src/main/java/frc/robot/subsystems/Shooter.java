@@ -16,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 
 import static frc.robot.constants.ShooterConstants.*;
 
@@ -135,10 +136,10 @@ public class Shooter extends Subsystem {
     
     if (calibratingHood) {
       hood.set(ControlMode.PercentOutput, -0.2);
-      System.out.println("Calibrating");
+      // System.out.println("Calibrating");
 
       if (hoodLimit.get()) {
-        System.out.println("Calibrated!");
+        // System.out.println("Calibrated!");
         calibratingHood = false;
 
         ShuffleBoard.hoodPosition.setDouble(0);
@@ -148,11 +149,13 @@ public class Shooter extends Subsystem {
       hood.set(ControlMode.Position, targetHood);
     }
 
+    // System.out.println(hood.getSelectedSensorPosition());
+
     // System.out.printf("Current: %3.3f Target: %3.3f %n", hood.getSelectedSensorPosition(), targetHood);
 
     if (input.getAim()) {
       flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
-      //driveController.turnToTarget(0 /* cameraTurret.getAngle */);
+      driveController.turnToTarget(0 /* cameraTurret.getAngle */);
     } else {
       flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
     }
