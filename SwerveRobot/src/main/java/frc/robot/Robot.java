@@ -6,6 +6,7 @@ import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
 import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
+import frc.robot.command.auto.AutonomousCommand;
 import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
@@ -24,21 +25,22 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import static frc.robot.constants.MessengerConstants.*;
 
 public class Robot extends TimedRobot {
-  private static final Robot INSTANCE = new Robot();
+  public static final Robot INSTANCE = new Robot();
 
+  @Deprecated
   public static Robot get() {
     return INSTANCE;
   }
 
   // Subsystems
-  private Input input;
+  public Input input;
 
   public AHRS gyro;
   public SwerveDrive drive;
   public SwerveDriveController driveController;
 
   private MessengerClient msg;
-  private MessageDispatcher dispatch;
+  public MessageDispatcher dispatch;
 
   public Cameras cameras;
   public CameraTurret cameraTurret;
@@ -84,18 +86,18 @@ public class Robot extends TimedRobot {
     input = new Input();
     gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
-    drive = new SwerveDrive(gyro);
-    driveController = new SwerveDriveController(drive, input);
-    climberSub = new Climber(input);
+    drive = new SwerveDrive();
+    driveController = new SwerveDriveController();
+    climberSub = new Climber();
 
     
-    cameras = new Cameras(dispatch);
-    cameraTurret = new CameraTurret(cameras);
-    localization = new Localization(gyro, drive);
-    shooter = new Shooter(driveController, null, input);
-    intake = new Intake(input);
+    cameras = new Cameras();
+    cameraTurret = new CameraTurret();
+    localization = new Localization();
+    shooter = new Shooter();
+    intake = new Intake();
     // climber = new ClimberController(input);
-    new Climber(input);
+    new Climber();
     
     driveController.swerveInit();
 

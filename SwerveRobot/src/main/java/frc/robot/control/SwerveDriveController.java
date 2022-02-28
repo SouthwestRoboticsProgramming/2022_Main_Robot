@@ -3,8 +3,8 @@ package frc.robot.control;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import frc.robot.Robot;
 import frc.robot.drive.SwerveDrive;
-import frc.robot.util.ShuffleWood;
 import frc.robot.util.Utils;
 
 import static frc.robot.constants.ControlConstants.*;
@@ -22,9 +22,9 @@ public class SwerveDriveController {
     // Sets initial state of robot (In this case, staying still)
     private ChassisSpeeds speeds = new ChassisSpeeds(0.0, 0.0, 0.0);
     
-    public SwerveDriveController(SwerveDrive drive, Input input) {
-        this.drive = drive;
-        this.input = input;
+    public SwerveDriveController() {
+        this.drive = Robot.INSTANCE.drive;
+        this.input = Robot.INSTANCE.input;
         rotPID = new PIDController(GLOBAL_TURN_KP, GLOBAL_TURN_KI, GLOBAL_TURN_KD);
         rotPID.enableContinuousInput(-180, 180);
         rotPID.setTolerance(2);

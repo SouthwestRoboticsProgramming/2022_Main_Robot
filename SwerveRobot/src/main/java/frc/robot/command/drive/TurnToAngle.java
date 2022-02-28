@@ -1,22 +1,21 @@
 package frc.robot.command.drive;
 
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import frc.robot.Robot;
 import frc.robot.command.Command;
 import frc.robot.control.SwerveDriveController;
 
 public class TurnToAngle implements Command {
-
-  private final SwerveDriveController drive;
   private final double angle;
-  public TurnToAngle(SwerveDriveController drive, double angle) {
-    this.drive = drive;
+
+  public TurnToAngle(double angle) {
     this.angle = angle;
   }
 
   @Override
   public boolean run() {
-    drive.turnToTarget(angle);
+    SwerveDriveController drive = Robot.INSTANCE.driveController;
 
+    drive.turnToTarget(angle);
     return drive.isAtTarget();
   }
 }

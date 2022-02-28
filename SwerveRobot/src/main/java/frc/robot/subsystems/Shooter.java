@@ -1,13 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.Scheduler;
-import frc.robot.command.shooter.IndexBall;
-import frc.robot.constants.DriveConstants;
-import frc.robot.control.Input;
-import frc.robot.control.SwerveDriveController;
-import frc.robot.util.ShuffleBoard;
-import frc.robot.util.Utils;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -16,30 +8,28 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Robot;
+import frc.robot.Scheduler;
+import frc.robot.command.shooter.IndexBall;
+import frc.robot.constants.DriveConstants;
+import frc.robot.control.Input;
+import frc.robot.util.ShuffleBoard;
+import frc.robot.util.Utils;
 
 import static frc.robot.constants.ShooterConstants.*;
 
-
 public class Shooter extends Subsystem {
   private final Input input;
-  private final SwerveDriveController driveController;
-  private final CameraTurret cameraTurret;
   private final TalonFX flywheel;
   private final TalonFX index;
   private final TalonSRX hood;
   private final DigitalInput hoodLimit;
 
-  private double distance = 0;
-  private double angle = 0;
-
   private boolean calibratingHood = true;
 
-  public Shooter(SwerveDriveController swerveDriveController, CameraTurret camera, Input input) {
-    this.input = input;
-    driveController = swerveDriveController;
+  public Shooter() {
+    this.input = Robot.INSTANCE.input;
     
-    cameraTurret = camera;
     flywheel = new TalonFX(FLYWHEEL_MOTOR_ID);
     index = new TalonFX(INDEX_MOTOR_ID, DriveConstants.GERALD);
     hood = new TalonSRX(HOOD_MOTOR_ID);
@@ -97,7 +87,6 @@ public class Shooter extends Subsystem {
     // TODO: Add distance to shoot command
   }
 
-
   private double calculateSpeed(int hoodAngle, int distance /*double distance */) {
     switch (distance) {
       case 0:
@@ -109,8 +98,6 @@ public class Shooter extends Subsystem {
       default:
         return SHOOTER_IDLE_VELOCITY;
     }
-    
-    // TODO: Equations
   }
 
   private int calculateHood(int distance) {
@@ -131,13 +118,11 @@ public class Shooter extends Subsystem {
   
   @Override
   public void teleopPeriodic() {
-    distance = 15;
-    // distance = cameraTurret.getDistance;
+    // double distance = cameraTurret.getDistance;
 
-    // angle = cameraTurret.getAngle;
+    // double angle = cameraTurret.getAngle;
     
     /* Hood control */
-    // int hoodAngle = calculateHood(distance);
     double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
     if (hoodAngle == 0 && lastHoodAngle != 0) {
       calibratingHood = true;
@@ -165,9 +150,8 @@ public class Shooter extends Subsystem {
 
     // System.out.printf("Current: %3.3f Target: %3.3f %n", hood.getSelectedSensorPosition(), targetHood);
 
-    if (input.getAim()) {
+    if (true) {
       flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
-      driveController.turnToTarget(0 /* cameraTurret.getAngle */);
     } else {
       flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
     }
