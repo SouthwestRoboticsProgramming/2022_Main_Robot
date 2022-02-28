@@ -14,7 +14,6 @@ import frc.robot.subsystems.CameraTurret;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Localization;
-import frc.robot.control.ClimberController;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.util.ShuffleBoard;
@@ -45,7 +44,6 @@ public class Robot extends TimedRobot {
   public CameraTurret cameraTurret;
   public Shooter shooter;
   public Intake intake;
-  public ClimberController climber;
 
   public Climber climberSub;
 
@@ -137,7 +135,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveController.update();
-    if (climber != null) climber.groundToSecond();
   }
 
   @Override
