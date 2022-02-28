@@ -20,6 +20,10 @@ public class CommandSequence implements Command {
         currentIndex = 0;
     }
 
+    public void next() {
+        
+    }
+
     @Override
     public boolean run() {
         if (currentIndex >= sequence.size()) {

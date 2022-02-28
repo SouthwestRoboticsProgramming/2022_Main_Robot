@@ -35,19 +35,19 @@ public class ClimberController extends Subsystem {
     // Scheduler.get().scheduleCommand(new SetArmRotation(swingLeft, CLIMBER_ARM_OUT_OF_THE_WAY));
     // Scheduler.get().scheduleCommand(new SetArmRotation(swingRight, CLIMBER_ARM_OUT_OF_THE_WAY));
 
-    teleLeft.liftArm(Utils.clamp(input.getClimbTele(),-CLIMBER_MAX_SPEED, CLIMBER_MAX_SPEED));
-    teleRight.liftArm(Utils.clamp(input.getClimbTele(),-CLIMBER_MAX_SPEED, CLIMBER_MAX_SPEED));
+    // teleLeft.liftArm(Utils.clamp(input.getClimbTele(),-CLIMBER_MAX_SPEED, CLIMBER_MAX_SPEED));
+    // teleRight.liftArm(Utils.clamp(input.getClimbTele(),-CLIMBER_MAX_SPEED, CLIMBER_MAX_SPEED));
 
 
     // // // // // // // /*// // // */ // teleLeft.setPosition(36);
     //teleRight.setPosition(46);
 
-    if (input.getClimbNextStep()) {
-      groundToSecondII();
-    } else {
-      swingLeft.swingToAngle(100);
-      swingRight.swingToAngle(100);
-    }
+    // if (input.getClimbNextStep()) {
+    //   groundToSecondII();
+    // } else {
+    //   swingLeft.swingToAngle(100);
+    //   swingRight.swingToAngle(100);
+    // }
   }
 
   private void groundToSecondII() {

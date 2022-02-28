@@ -32,25 +32,25 @@ public class Robot extends TimedRobot {
   }
 
   // Subsystems
-  public Input input;
+  private Input input;
 
-  private AHRS gyro;
-  private SwerveDrive drive;
-  private SwerveDriveController driveController;
+  public AHRS gyro;
+  public SwerveDrive drive;
+  public SwerveDriveController driveController;
 
   private MessengerClient msg;
   private MessageDispatcher dispatch;
 
-  private Cameras cameras;
-  private CameraTurret cameraTurret;
-  private Shooter shooter;
-  private Intake intake;
-  private ClimberController climber;
+  public Cameras cameras;
+  public CameraTurret cameraTurret;
+  public Shooter shooter;
+  public Intake intake;
+  public ClimberController climber;
 
   public Climber climberSub;
 
   private RobotState state;
-  private Localization localization;
+  public Localization localization;
 
   private AutonomousCommand autoCommand;
   
@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
 
     ShuffleWood.setMessenger(dispatch);
 
-    input = new Input(this);
+    input = new Input();
     gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
     drive = new SwerveDrive(gyro);
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     state = RobotState.AUTONOMOUS;
     Scheduler.get().initState();
-    Scheduler.get().scheduleCommand(autoCommand = new AutonomousCommand(localization, driveController));
+    Scheduler.get().scheduleCommand(autoCommand = new AutonomousCommand());
   }
 
   @Override
