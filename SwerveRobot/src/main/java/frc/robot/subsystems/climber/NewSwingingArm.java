@@ -45,6 +45,14 @@ public class NewSwingingArm {
         motor.set(out);
     }
 
+    public void resetEnc() {
+        encoder.setPosition(0);
+    }
+
+    public void manualMove(double speed) {
+        motor.set(speed);
+    }
+
     public double getPos() {
         return encoder.getPosition();
     }

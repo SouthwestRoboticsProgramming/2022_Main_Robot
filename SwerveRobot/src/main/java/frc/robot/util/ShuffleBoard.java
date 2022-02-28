@@ -56,6 +56,7 @@ public class ShuffleBoard {
             public static NetworkTableEntry climbTuneTeleTolerence = climbTune.addPersistent("TeleTolerence", 0).getEntry();
             public static NetworkTableEntry climbTuneSwingTolerence = climbTune.addPersistent("SwingTolerence", 0).getEntry();
             public static NetworkTableEntry climbTune1TeleHeight = climbTune.addPersistent("1TeleExtendHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune1SwingAngle = climbTune.addPersistent("1SwingAngle", 0).getEntry();
             public static NetworkTableEntry climbTune2TeleHeight = climbTune.addPersistent("2TeleRetractHeight", 0).getEntry();
             public static NetworkTableEntry climbTune3SwingAngle = climbTune.addPersistent("3SwingAngle", 0).getEntry();
             public static NetworkTableEntry climbTune4TeleHeight = climbTune.addPersistent("4Tele2-3Length", 0).getEntry();

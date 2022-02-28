@@ -6,6 +6,7 @@ import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
 import frc.robot.command.SaveShuffleWoodCommand;
 import frc.robot.command.auto.AutonomousCommand;
+import frc.robot.command.climb.ResetClimber;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
 import frc.robot.drive.SwerveDrive;
@@ -130,6 +131,7 @@ public class Robot extends TimedRobot {
       Scheduler.get().cancelCommand(autoCommand);
       autoCommand = null;
     }
+    new ResetClimber(climberSub.teleLeft, climberSub.teleRight, climberSub.swingLeft, climberSub.swingRight).withTimeout(5).schedule();
   }
 
   @Override
