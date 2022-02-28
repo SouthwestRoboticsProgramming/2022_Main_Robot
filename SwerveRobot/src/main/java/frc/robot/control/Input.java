@@ -2,20 +2,14 @@ package frc.robot.control;
 
 import static frc.robot.constants.ControlConstants.*;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Robot;
-import frc.robot.command.climb.AutoClimb;
 import frc.robot.subsystems.Subsystem;
 import frc.robot.util.Utils;
 
 public class Input extends Subsystem {
-    private Robot robot;
     private final XboxController drive;
     private final XboxController manipulator;
 
-    public Input(Robot robot) {
-        this.robot = robot;
+    public Input() {
         drive = new XboxController(DRIVE_CONTROLLER);
         manipulator = new XboxController(11);
     }
@@ -44,8 +38,6 @@ public class Input extends Subsystem {
         }
         return mapJoystick(amount);
     }
-
-
 
     /* Intake */
     public boolean getIntake() {
