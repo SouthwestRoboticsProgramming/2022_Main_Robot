@@ -129,9 +129,9 @@ public final class XboxController {
         rightStickIn  = new Button(stick, ID_RIGHT_STICK);
 
         dpadUp    = new DpadButton(stick,   0,  45, 315);
-        dpadDown  = new DpadButton(stick, 180, 135, 225);
-        dpadLeft  = new DpadButton(stick, 270, 225, 315);
-        dpadRight = new DpadButton(stick,  90,  45, 135);
+        dpadDown  = new DpadButton(stick, 135, 180, 225);
+        dpadLeft  = new DpadButton(stick, 225, 270, 315);
+        dpadRight = new DpadButton(stick,  45,  90, 135);
 
         leftStickX   = new Axis(stick, AXIS_LEFT_STICK_X);
         leftStickY   = new Axis(stick, AXIS_LEFT_STICK_Y);
