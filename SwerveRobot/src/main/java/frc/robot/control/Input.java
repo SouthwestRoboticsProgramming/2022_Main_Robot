@@ -66,7 +66,17 @@ public class Input extends Subsystem {
     }
 
     /* Climber */
-    // TODO: Put the climber stuff here
+    public double getClimberTele() {
+        return mapJoystick(manipulator.leftStickY.get());
+    }
+
+    public boolean getClimberManualControl() {
+        return manipulator.select.isPressed();
+    }
+
+    public double getClimberSwing() {
+        return mapJoystick(manipulator.rightStickY.get());
+    }
 
     /* Tools */
     private double mapJoystick(double amount) {

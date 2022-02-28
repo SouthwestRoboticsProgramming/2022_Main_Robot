@@ -54,9 +54,9 @@ public class AutoClimb extends CommandBase {
         teleSetpoint = ShuffleBoard.climbTune1TeleHeight.getDouble(0);
         swingSetpoint = ShuffleBoard.climbTune1SwingAngle.getDouble(0);
         //Whe clicked, arms set to retract
-        if (robot.input.getNextclimbStep()) {
-          climbStep = 2;
-        }
+        // if (robot.input.getNextclimbStep()) {
+        //   climbStep = 2;
+        // }
         break;
       case 2:
         teleSetpoint = ShuffleBoard.climbTune2TeleHeight.getDouble(0);

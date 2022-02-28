@@ -131,7 +131,6 @@ public class Robot extends TimedRobot {
       Scheduler.get().cancelCommand(autoCommand);
       autoCommand = null;
     }
-    new ResetClimber(climberSub.teleLeft, climberSub.teleRight, climberSub.swingLeft, climberSub.swingRight).withTimeout(5).schedule();
   }
 
   @Override
