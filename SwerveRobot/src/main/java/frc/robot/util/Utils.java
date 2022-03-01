@@ -55,14 +55,4 @@ public final class Utils {
     private Utils() {
         throw new AssertionError();
     }
-
-    public static double constrain(double value, double range) {
-        return constrain(value, -range, range);
-    }
-
-    public static double constrain(double value, double min, double max) {
-        if (value < min) {value = min;}
-        if (value > max) {value = max;}
-        return value;
-    }
 }

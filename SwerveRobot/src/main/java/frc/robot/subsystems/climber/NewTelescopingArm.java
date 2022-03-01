@@ -65,9 +65,9 @@ public class NewTelescopingArm {
         // System.out.println("PID stuff: " + encoder.getPosition() + " -> " + distance + " (" + pid + ")");
 
         // Run motors
-        pid = Utils.constrain(pid, .5);
-        motor1.set(pid);
-        motor2.set(pid);
+        double output = Utils.clamp(pid, -0.5, 0.5);
+        motor1.set(output);
+        motor2.set(output);
 
         // if (heightPID.atSetpoint()) {
         //     motor1.stopMotor();

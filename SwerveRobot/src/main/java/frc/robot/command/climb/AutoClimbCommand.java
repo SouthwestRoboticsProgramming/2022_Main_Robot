@@ -151,8 +151,8 @@ public class AutoClimbCommand implements Command {
       default:
         break;
     }
-    teleSetpoint = Utils.constrain(teleSetpoint, 0, 1);
-    swingSetpoint = Utils.constrain(swingSetpoint, 60, 100);
+    teleSetpoint = Utils.clamp(teleSetpoint, 0, 1);
+    swingSetpoint = Utils.clamp(swingSetpoint, 60, 100);
     // System.out.println("AutoClimbCommand.run() - " + swingSetpoint);
     teleLeft.extendToDistance(teleSetpoint, teleLoaded);
     // teleRight.extendToDistancte(teleSetpoint);

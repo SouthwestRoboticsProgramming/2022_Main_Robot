@@ -2,8 +2,6 @@ package frc.robot.control;
 
 import static frc.robot.constants.ControlConstants.*;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Subsystem;
 import frc.robot.util.Utils;
 
@@ -11,13 +9,9 @@ public class Input extends Subsystem {
     private final XboxController drive;
     private final XboxController manipulator;
 
-    private final Joystick tempManipulator;
-
     public Input() {
         drive = new XboxController(DRIVE_CONTROLLER);
         manipulator = new XboxController(MANIPULATOR_CONTROLLER);
-
-        tempManipulator = new Joystick(1);
     }
 
     /* Drive */
@@ -67,19 +61,19 @@ public class Input extends Subsystem {
 
     /* Climber */
     public double getTeleManual() {
-        return mapJoystick(tempManipulator.getRawAxis(1));
+        return mapJoystick(manipulator.leftStickY.get());
     }
 
     public double getSwingManual() {
-        return mapJoystick(tempManipulator.getRawAxis(5));
+        return mapJoystick(manipulator.leftStickX.get());
     }
 
     public boolean getNextStep() {
-        return new JoystickButton(tempManipulator, 6).get();
+        return manipulator.x.leadingEdge();
     }
 
     public boolean getPreviousStep() {
-        return new JoystickButton(tempManipulator, 5).get();
+        return manipulator.b.leadingEdge();
     }
 
 

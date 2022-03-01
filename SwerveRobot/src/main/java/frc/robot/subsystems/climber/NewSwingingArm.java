@@ -46,7 +46,7 @@ public class NewSwingingArm {
     }
 
     private void updatePid(boolean loaded) {
-        if (false) {
+        if (loaded) {
             pid.setPID(
                 ShuffleBoard.climberSwingLoadedKP.getDouble(CLIMBER_SWING_MOTOR_KP),
                 ShuffleBoard.climberSwingLoadedKI.getDouble(CLIMBER_SWING_MOTOR_KI),
@@ -67,7 +67,7 @@ public class NewSwingingArm {
         double currentAngle = getCurrentAngle();
     
         double out = pid.calculate(currentAngle, degrees);
-        out = Utils.constrain(out, .5);
+        out = Utils.clamp(out, -0.5, 0.5);
         motor.set(out);
     }
 
