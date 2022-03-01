@@ -12,7 +12,7 @@ public class Climber extends Subsystem {
     public SwingingArms swinging;
 
     public Climber() {
-        // telescoping = new TelescopingArms();
+        telescoping = new TelescopingArms();
         swinging = new SwingingArms();
     }
 
@@ -25,11 +25,11 @@ public class Climber extends Subsystem {
     public void teleopPeriodic() {
         Input input = Robot.INSTANCE.input;
 
-        // if (input.getClimberManualControl()) {
-        //     telescoping.manualMove(input.getClimberTele());
-        // } else {
-        //     telescoping.extendToDistance(Utils.map(input.getClimberTele(), -1, 1, 0, 1));
-        // }
+        if (input.getClimberManualControl()) {
+            telescoping.manualMove(input.getClimberTele());
+        } else {
+            telescoping.extendToDistance(Utils.map(input.getClimberTele(), -1, 1, 0, 1));
+        }
 
         swinging.swingToAngle(Utils.map(input.getClimberSwing(), -1, 1, 45, 135));
     
@@ -39,7 +39,7 @@ public class Climber extends Subsystem {
     }
 
     public void zeroAll() {
-        // telescoping.zero();
+        telescoping.zero();
         swinging.zero();
     }
 }

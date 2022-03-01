@@ -156,6 +156,8 @@ public class Shooter extends Subsystem {
     //   flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
     // }
     
+
+    flywheel.set(ControlMode.Velocity, calculateSpeed())
     if (input.getShoot()) {
       shoot();
     }

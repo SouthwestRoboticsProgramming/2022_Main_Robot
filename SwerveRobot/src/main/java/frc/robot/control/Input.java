@@ -24,7 +24,7 @@ public class Input extends Subsystem {
     }
 
     public double getRot() {
-        return mapJoystick(drive.rightStickX.get());
+        return mapJoystick(-drive.rightStickX.get());
     }
 
     /* Intake */
@@ -33,19 +33,18 @@ public class Input extends Subsystem {
     }
 
     // Unused
-    private boolean intakeLift = true;
-    @Deprecated
-    public boolean getIntakeLift() {
+    private boolean intakeEnable = true;
+    public boolean getIntakeEnable() {
 
         /* Get leading edge */
         boolean pressed = manipulator.y.leadingEdge();
 
         /* If it's pressed, toggle the intake */
         if (pressed) {
-            intakeLift = !intakeLift;
+            intakeEnable = !intakeEnable;
         }
 
-        return intakeLift;
+        return intakeEnable;
     }
 
     /* Shooter */

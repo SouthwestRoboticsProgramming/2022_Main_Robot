@@ -60,7 +60,7 @@ public class SwerveDrive {
         this.navx = Robot.INSTANCE.gyro;
         odometry = new SwerveDriveOdometry(kinematics, navx.getRotation2d());
 
-        navx.setAngleAdjustment(90);
+        navx.setAngleAdjustment(-90);
     }
 
     public void zeroGyro() {
@@ -77,6 +77,8 @@ public class SwerveDrive {
     }
 
     public void update(ChassisSpeeds chassisSpeeds) {
+        System.out.println(navx.getAngle());
+
         // Calculate the movements of each individual module
         SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
 

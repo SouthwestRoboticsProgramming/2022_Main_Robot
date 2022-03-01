@@ -12,6 +12,8 @@ public class ClimbReset extends TimedCommand {
     public void runTimed() {
         Robot.INSTANCE.climber.swinging.manualMove(-0.2);
         Robot.INSTANCE.climber.swinging.setResetting(true);
+        Robot.INSTANCE.climber.telescoping.manualMove(-0.2);
+        Robot.INSTANCE.climber.telescoping.setResetting(true);
         System.out.println("RESETTING");
     }
 
@@ -19,6 +21,8 @@ public class ClimbReset extends TimedCommand {
     public void end() {
         Robot.INSTANCE.climber.swinging.setResetting(false);
         Robot.INSTANCE.climber.swinging.manualMove(0);
+        Robot.INSTANCE.climber.telescoping.setResetting(false);
+        Robot.INSTANCE.climber.telescoping.manualMove(0);
         Robot.INSTANCE.climber.zeroAll();
     }
 }

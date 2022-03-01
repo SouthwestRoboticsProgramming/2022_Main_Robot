@@ -20,6 +20,8 @@ public class NewTelescopingArm {
 
     private final PIDController heightPID;
 
+    private boolean resetting = false;
+
     public NewTelescopingArm(int motor1ID, int motor2ID, boolean inverted) {
         motor1 = new CANSparkMax(motor1ID, MotorType.kBrushless);
         motor1.setIdleMode(IdleMode.kBrake);
@@ -42,6 +44,8 @@ public class NewTelescopingArm {
 
     // Distance 0 to 1
     public void extendToDistance(double distance) {
+        if (resetting) return;
+
         // Tune PID from shuffleboard
         heightPID.setPID(
             ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
@@ -78,6 +82,10 @@ public class NewTelescopingArm {
 
     public void zero() {
         encoder.setPosition(0);
+    }
+
+    public void setResetting(boolean resetting) {
+        this.resetting = resetting;
     }
 
     public void resetEnc() {

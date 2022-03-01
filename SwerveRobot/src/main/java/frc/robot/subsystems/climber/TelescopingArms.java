@@ -30,6 +30,11 @@ public class TelescopingArms {
         right.manualMove(amount);
     }
 
+    public void setResetting(boolean resetting) {
+        left.setResetting(resetting);
+        right.setResetting(resetting);
+    }
+
     public void zero() {
         left.zero();
         right.zero();
