@@ -24,6 +24,8 @@ public class DriveConstants {
     /* Hardware */
     public static final String GERALD = "Gerald";
 
+    public static final double DRIVE_SPEED_TO_NATIVE_VELOCITY = 1; // FIXME IMMEDIATELY
+
     public static final double WHEEL_SPACING_FRONT_BACK = 0.4699; // Meters
     public static final double WHEEL_SPACING_LEFT_RIGHT = 0.4699; // Meters
 

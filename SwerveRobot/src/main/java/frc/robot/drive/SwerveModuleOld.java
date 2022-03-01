@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -39,9 +40,6 @@ public class SwerveModuleOld {
         driveMotor.configAllSettings(driveConfig);
 
         TalonSRXConfiguration turnConfig = new TalonSRXConfiguration();
-        turnConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
-        turnConfig.remoteFilter0.remoteSensorDeviceID = canPort; // CANCoder ID
-        turnConfig.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
         turnMotor.configAllSettings(turnConfig);
         
         driveMotor.setNeutralMode(NeutralMode.Brake);
@@ -77,22 +75,18 @@ public class SwerveModuleOld {
         Rotation2d currentAngle = new Rotation2d(Math.toRadians(Utils.fixCurrentAngle(canCoder.getAbsolutePosition())));
         SwerveModuleState moduleState = SwerveModuleState.optimize(swerveModuleState, canRotation);
         Rotation2d targetAngle = moduleState.angle;
-        double targetSpeed = moduleState.speedMetersPerSecond;
 
         // Turn to target angle
         double turnAmount = turnPID.calculate(currentAngle.getDegrees(),targetAngle.getDegrees());
         turnAmount = MathUtil.clamp(turnAmount,-1.0,1.0);
-
-        // Drive the target speed
-        double driveAmount = targetSpeed / ROBOT_MAX_VELOCITY;
-        driveAmount = MathUtil.clamp(driveAmount,-1.0,1.0);
 
         // Spin the motors
         if (!turnPID.atSetpoint())
             turnMotor.set(ControlMode.PercentOutput, turnAmount); 
         else
             turnMotor.set(ControlMode.PercentOutput, 0);
-        driveMotor.set(ControlMode.PercentOutput, driveAmount);
+
+        driveMotor.set(TalonFXControlMode.Velocity, moduleState.speedMetersPerSecond * DRIVE_SPEED_TO_NATIVE_VELOCITY);
 
         // if (debug)
         // System.out.println(canCoder.getPosition());
