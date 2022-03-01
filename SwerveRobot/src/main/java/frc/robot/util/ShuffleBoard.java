@@ -65,4 +65,10 @@ public class ShuffleBoard {
         private static ShuffleboardLayout autoSelect = tuneTab.getLayout("Auto Select", BuiltInLayouts.kList);
             public static NetworkTableEntry whichAuto = autoSelect.addPersistent("Which Auto", "a").getEntry();
 
+        private static ShuffleboardLayout velocities = tuneTab.getLayout("Shooter Velocities", BuiltInLayouts.kList);
+            public static NetworkTableEntry closeVelocity = velocities.addPersistent("Close Velocity", CLOSE_SPEED).getEntry();
+            public static NetworkTableEntry mediumVelocity = velocities.addPersistent("Medium Velocity", LINE_SPEED).getEntry();
+            public static NetworkTableEntry farVelocity = velocities.addPersistent("Far Velocity", LAUNCHPAD_SPEED).getEntry();
+        // close, medium, far
+
 }
