@@ -155,9 +155,9 @@ public class AutoClimbCommand implements Command {
     swingSetpoint = Utils.clamp(swingSetpoint, 60, 100);
     // System.out.println("AutoClimbCommand.run() - " + swingSetpoint);
     teleLeft.extendToDistance(teleSetpoint, teleLoaded);
-    // teleRight.extendToDistancte(teleSetpoint);
+    teleRight.extendToDistance(teleSetpoint, teleLoaded);
     swingLeft.swingToAngle(swingSetpoint, swingLoaded);
-    // swingRight.swingToAngle(swingSetpoint);
+    swingRight.swingToAngle(swingSetpoint, swingLoaded);
     if (robot.state == RobotState.DISABLED) {
       return true;
     } else {
@@ -169,7 +169,7 @@ public class AutoClimbCommand implements Command {
   public void end() {}
 
   private boolean teleInTol() {
-    boolean valInTol = checkIfValsInTollerence(teleLeft.getPos(), teleLeft.getPos(), 
+    boolean valInTol = checkIfValsInTollerence(teleLeft.getPos(), teleRight.getPos(), 
     teleSetpoint, ShuffleBoard.climbTuneTeleTolerence.getDouble(0));
     if (checkpoints) {
       return valInTol && robot.input.getNextStep();
