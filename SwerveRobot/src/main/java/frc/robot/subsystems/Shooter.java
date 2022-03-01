@@ -14,6 +14,7 @@ import frc.robot.command.shooter.IndexBall;
 import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.util.ShuffleBoard;
+import frc.robot.util.ShuffleWood;
 import frc.robot.util.Utils;
 
 import static frc.robot.constants.ShooterConstants.*;
@@ -90,11 +91,11 @@ public class Shooter extends Subsystem {
   private double calculateSpeed(int hoodAngle, int distance /*double distance */) {
     switch (distance) {
       case 0:
-        return CLOSE_SPEED;
+        return ShuffleBoard.closeVelocity.getDouble(CLOSE_SPEED);
       case 1:
-        return LINE_SPEED;
+        return ShuffleBoard.mediumVelocity.getDouble(LINE_SPEED);
       case 2:
-        return LAUNCHPAD_SPEED;
+        return ShuffleBoard.farVelocity.getDouble(LAUNCHPAD_SPEED);
       default:
         return SHOOTER_IDLE_VELOCITY;
     }
