@@ -82,6 +82,11 @@ public class SwerveDriveController {
         double fieldRelativeX = driveX * MAX_VELOCITY;
         double fieldRelativeY = driveY * MAX_VELOCITY;
         double targetRot = rot * MAX_ROTATION_SPEED;
+
+        if (input.getSpeedMode()) {
+            fieldRelativeX = fieldRelativeX * SLOW_MODE;
+            fieldRelativeY = fieldRelativeY * SLOW_MODE;
+        }
                             
         // System.out.println(driveX + " " + driveY + " " + rot);
         

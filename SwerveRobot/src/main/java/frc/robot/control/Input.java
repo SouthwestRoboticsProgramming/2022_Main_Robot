@@ -27,6 +27,10 @@ public class Input extends Subsystem {
         return mapJoystick(drive.rightStickX.get());
     }
 
+    public boolean getSpeedMode() {
+        return drive.rightShoulder.isPressed();
+    }
+
     /* Intake */
     public boolean getIntake() {
         return manipulator.leftShoulder.isPressed();
