@@ -104,11 +104,11 @@ public class Shooter extends Subsystem {
   private int calculateHood(int distance) {
     switch (distance) {
       case 0:
-        return 0; // FIXME
+        return 0;
       case 1:
-        return 1; // FIXME
+        return 1;
       case 2:
-        return 2; // FIXME
+        return 4;
     
       default:
         return 0;
@@ -124,7 +124,11 @@ public class Shooter extends Subsystem {
     // double angle = cameraTurret.getAngle;
     
     /* Hood control */
-    double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
+    //double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
+
+    double distance = (double) input.getShootDistance();
+
+    double hoodAngle = (double) calculateHood(distance);
     if (hoodAngle == 0 && lastHoodAngle != 0) {
       calibratingHood = true;
     }
@@ -158,7 +162,7 @@ public class Shooter extends Subsystem {
     // }
     
 
-    flywheel.set(ControlMode.Velocity, calculateSpeed(0,input.getShootDistance()));
+    flywheel.set(ControlMode.Velocity, calculateSpeed(0,distance));
     if (input.getShoot()) {
       shoot();
     }

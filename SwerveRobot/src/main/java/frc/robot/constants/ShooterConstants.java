@@ -23,9 +23,9 @@ public class ShooterConstants {
     public static final double INDEX_SPEED = 1;
     public static final int INDEX_TIME = 50 * 1; // 50 * seconds
 
-    public static final double CLOSE_SPEED = 3; //FIXME
-    public static final double LINE_SPEED = 3; //FIXME
-    public static final double LAUNCHPAD_SPEED = 3; //FIXME
+    public static final double CLOSE_SPEED = 6500; //FIXME: Test
+    public static final double LINE_SPEED = 10500; //FIXME: Test
+    public static final double LAUNCHPAD_SPEED = 20000; //FIXME: Wild guess
 
     /* Hardware */
     public static final int FLYWHEEL_MOTOR_ID = 30; //FIXME
