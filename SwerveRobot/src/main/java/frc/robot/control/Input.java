@@ -2,6 +2,8 @@ package frc.robot.control;
 
 import static frc.robot.constants.ControlConstants.*;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Subsystem;
 import frc.robot.util.Utils;
 
@@ -9,9 +11,13 @@ public class Input extends Subsystem {
     private final XboxController drive;
     private final XboxController manipulator;
 
+    private final Joystick tempManipulator;
+
     public Input() {
         drive = new XboxController(DRIVE_CONTROLLER);
-        manipulator = new XboxController(11);
+        manipulator = new XboxController(MANIPULATOR_CONTROLLER);
+
+        tempManipulator = new Joystick(1);
     }
 
     /* Drive */
@@ -60,22 +66,36 @@ public class Input extends Subsystem {
     }
 
     /* Climber */
-    public double getClimberTele() {
-        return mapJoystick(manipulator.leftStickY.get());
+    public double getTeleManual() {
+        return mapJoystick(tempManipulator.getRawAxis(1));
     }
+
+    public double getSwingManual() {
+        return mapJoystick(tempManipulator.getRawAxis(5));
+    }
+
+    public boolean getNextStep() {
+        return new JoystickButton(tempManipulator, 6).get();
+    }
+
+    public boolean getPreviousStep() {
+        return new JoystickButton(tempManipulator, 5).get();
+    }
+
+
 
     // TODO: Remove
-    public boolean getClimberManualControl() {
-        return manipulator.select.isPressed();
-    }
+    // public boolean getClimberManualControl() {
+    //     return manipulator.select.isPressed();
+    // }
 
-    public double getClimberSwing() {
-        return mapJoystick(manipulator.leftStickX.get());
-    }
+    // public double getClimberSwing() {
+    //     return mapJoystick(manipulator.leftStickX.get());
+    // }
 
-    public boolean getClimberNextStep() {
-        return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
-    }
+    // public boolean getClimberNextStep() {
+    //     return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
+    // }
 
     /* Tools */
     private double mapJoystick(double amount) {

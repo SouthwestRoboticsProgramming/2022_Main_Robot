@@ -51,16 +51,36 @@ public class ShuffleBoard {
             public static NetworkTableEntry climberTelescopeKP = telescopeTune.addPersistent("KP", CLIMBER_TELE_MOTOR_KP).getEntry();
             public static NetworkTableEntry climberTelescopeKI = telescopeTune.addPersistent("KI", CLIMBER_TELE_MOTOR_KI).getEntry();
             public static NetworkTableEntry climberTelescopeKD = telescopeTune.addPersistent("KD", CLIMBER_TELE_MOTOR_KD).getEntry();
+            public static NetworkTableEntry climberTelescopeLoadedKP = telescopeTune.addPersistent("LoadedKP", CLIMBER_TELE_MOTOR_KP).getEntry();
+            public static NetworkTableEntry climberTelescopeLoadedKI = telescopeTune.addPersistent("LoadedKI", CLIMBER_TELE_MOTOR_KI).getEntry();
+            public static NetworkTableEntry climberTelescopeLoadedKD = telescopeTune.addPersistent("LoadedKD", CLIMBER_TELE_MOTOR_KD).getEntry();
+        
+        private static ShuffleboardLayout swingTune = tuneTab.getLayout("Swing", BuiltInLayouts.kList);
+            public static NetworkTableEntry climberSwingKP = swingTune.addPersistent("KP", CLIMBER_SWING_MOTOR_KP).getEntry();
+            public static NetworkTableEntry climberSwingKI = swingTune.addPersistent("KI", CLIMBER_SWING_MOTOR_KI).getEntry();
+            public static NetworkTableEntry climberSwingKD = swingTune.addPersistent("KD", CLIMBER_SWING_MOTOR_KD).getEntry();
+            public static NetworkTableEntry climberSwingLoadedKP = swingTune.addPersistent("LoadedKP", CLIMBER_SWING_MOTOR_KP).getEntry();
+            public static NetworkTableEntry climberSwingLoadedKI = swingTune.addPersistent("LoadedKI", CLIMBER_SWING_MOTOR_KI).getEntry();
+            public static NetworkTableEntry climberSwingLoadedKD = swingTune.addPersistent("LoadedKD", CLIMBER_SWING_MOTOR_KD).getEntry();
 
-        private static ShuffleboardLayout climbTune = tuneTab.getLayout("climbTune", BuiltInLayouts.kList);
-            public static NetworkTableEntry climbTuneTeleTolerence = climbTune.addPersistent("TeleTolerence", 0).getEntry();
-            public static NetworkTableEntry climbTuneSwingTolerence = climbTune.addPersistent("SwingTolerence", 0).getEntry();
-            public static NetworkTableEntry climbTune1TeleHeight = climbTune.addPersistent("1TeleExtendHeight", 0).getEntry();
-            public static NetworkTableEntry climbTune1SwingAngle = climbTune.addPersistent("1SwingAngle", 0).getEntry();
-            public static NetworkTableEntry climbTune2TeleHeight = climbTune.addPersistent("2TeleRetractHeight", 0).getEntry();
-            public static NetworkTableEntry climbTune3SwingAngle = climbTune.addPersistent("3SwingAngle", 0).getEntry();
-            public static NetworkTableEntry climbTune4TeleHeight = climbTune.addPersistent("4Tele2-3Length", 0).getEntry();
-            public static NetworkTableEntry climbTune5SwingAngle = climbTune.addPersistent("5SwingCompressonAngle", 0).getEntry();
+        private static ShuffleboardLayout climbTune2 = tuneTab.getLayout("climbTune2", BuiltInLayouts.kList);
+            public static NetworkTableEntry climbTuneTeleTolerence = climbTune2.addPersistent("TeleTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTuneSwingTolerence = climbTune2.addPersistent("SwingTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTune1TeleHeight = climbTune2.addPersistent("1TeleExtendHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune1SwingAngle = climbTune2.addPersistent("1SwingAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune2TeleHeight = climbTune2.addPersistent("2TeleRetractHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune3SwingHandoffAngle = climbTune2.addPersistent("3SwingHandoffAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune4TeleHeight = climbTune2.addPersistent("4ReleaseHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune5SwingFinishAngle = climbTune2.addPersistent("5FinishSwingAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune6TeleHeight = climbTune2.addPersistent("6Tele2-3Length", 0).getEntry();
+            public static NetworkTableEntry climbTune7SwingAngle = climbTune2.addPersistent("7SwingCompressonAngle", 0).getEntry();
+        
+        private static ShuffleboardLayout valueDisplay = tuneTab.getLayout("Value Display", BuiltInLayouts.kList);
+            public static NetworkTableEntry valueA = valueDisplay.add("valueA", "null").getEntry();
+            public static NetworkTableEntry valueB = valueDisplay.add("valueB", "null").getEntry();
+            public static NetworkTableEntry valueC = valueDisplay.add("valueC", "null").getEntry();
+            public static NetworkTableEntry valueD = valueDisplay.add("valueD", "null").getEntry();
+            public static NetworkTableEntry valueE = valueDisplay.add("valueE", "null").getEntry();
 
         private static ShuffleboardLayout autoSelect = tuneTab.getLayout("Auto Select", BuiltInLayouts.kList);
             public static NetworkTableEntry whichAuto = autoSelect.addPersistent("Which Auto", "a").getEntry();

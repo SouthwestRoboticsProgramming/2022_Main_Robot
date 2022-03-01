@@ -8,6 +8,7 @@ import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
 import frc.robot.command.auto.AutonomousCommand;
 import frc.robot.command.auto.zero_ball.ZeroBallAuto;
+import frc.robot.command.climb.ClimberSequence;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
 import frc.robot.drive.SwerveDrive;
@@ -47,9 +48,9 @@ public class Robot extends TimedRobot {
   public Shooter shooter;
   public Intake intake;
 
-  public Climber climberSub;
+  public Climber climber;
 
-  private RobotState state;
+  public RobotState state;
   public Localization localization;
 
   private Command autoCommand;
@@ -88,16 +89,15 @@ public class Robot extends TimedRobot {
 
     drive = new SwerveDrive();
     driveController = new SwerveDriveController();
-    climberSub = new Climber();
+    climber = new Climber();
 
     
     cameras = new Cameras();
     cameraTurret = new CameraTurret();
     localization = new Localization();
-    shooter = new Shooter();
-    intake = new Intake();
-    // climber = new ClimberController(input);
-    new Climber();
+
+    // shooter = new Shooter();
+    // intake = new Intake();
     
     driveController.swerveInit();
 
@@ -139,6 +139,7 @@ public class Robot extends TimedRobot {
       Scheduler.get().cancelCommand(autoCommand);
       autoCommand = null;
     }
+    Scheduler.get().scheduleCommand(new ClimberSequence(this, climber));
   }
 
   @Override

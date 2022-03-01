@@ -18,7 +18,7 @@ public class NewTelescopingArm {
     private final CANSparkMax motor1, motor2;
     private final RelativeEncoder encoder;
 
-    private final PIDController heightPID;
+    private PIDController heightPID;
 
     public NewTelescopingArm(int motor1ID, int motor2ID, boolean inverted) {
         motor1 = new CANSparkMax(motor1ID, MotorType.kBrushless);
@@ -32,31 +32,40 @@ public class NewTelescopingArm {
         encoder = motor1.getEncoder();
         encoder.setPosition(0);
 
-        heightPID = new PIDController(
-            CLIMBER_TELE_MOTOR_KP,
-            CLIMBER_TELE_MOTOR_KI,
-            CLIMBER_TELE_MOTOR_KD
-        );
-        heightPID.setTolerance(CLIMBER_TELE_TOLERANCE);
+        // updatePid(false);
+        heightPID = new PIDController(0,0,0);
+        // heightPID.setTolerance(CLIMBER_TELE_TOLERANCE);
+    }
+
+    private void updatePid(boolean loaded) {
+        if (false) {
+            heightPID.setPID(
+                ShuffleBoard.climberTelescopeLoadedKP.getDouble(CLIMBER_TELE_MOTOR_KP),
+                ShuffleBoard.climberTelescopeLoadedKI.getDouble(CLIMBER_TELE_MOTOR_KI),
+                ShuffleBoard.climberTelescopeLoadedKD.getDouble(CLIMBER_TELE_MOTOR_KD)
+            );
+        } else {
+            heightPID.setPID(
+                ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
+                ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
+                ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
+            );
+        }
     }
 
     // Distance 0 to 1
-    public void extendToDistance(double distance) {
-        // Tune PID from shuffleboard
-        heightPID.setPID(
-            ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
-            ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
-            ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
-        );
+    public void extendToDistance(double distance, boolean loaded) {
+        updatePid(loaded);
 
         // Map to range MIN_TICKS to MAX_TICKS
         distance = Utils.map(distance, 0, 1, MIN_TICKS, MAX_TICKS);
 
         // Calculate PID
         double pid = heightPID.calculate(encoder.getPosition(), distance);
-        System.out.println("PID stuff: " + encoder.getPosition() + " -> " + distance + " (" + pid + ")");
+        // System.out.println("PID stuff: " + encoder.getPosition() + " -> " + distance + " (" + pid + ")");
 
         // Run motors
+        pid = Utils.constrain(pid, .5);
         motor1.set(pid);
         motor2.set(pid);
 
@@ -81,6 +90,7 @@ public class NewTelescopingArm {
     }
 
     public double getPos() {
-        return encoder.getPosition();
+        double pos = Utils.map(encoder.getPosition(), MIN_TICKS, MAX_TICKS, 0, 1);
+        return pos;
     }
 }

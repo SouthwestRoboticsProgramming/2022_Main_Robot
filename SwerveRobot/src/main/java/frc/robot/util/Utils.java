@@ -3,6 +3,7 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public final class Utils {
+
     public static double clamp(double value, double min, double max) {
         if (value < min) return min;
         if (value > max) return max;
@@ -53,5 +54,15 @@ public final class Utils {
 
     private Utils() {
         throw new AssertionError();
+    }
+
+    public static double constrain(double value, double range) {
+        return constrain(value, -range, range);
+    }
+
+    public static double constrain(double value, double min, double max) {
+        if (value < min) {value = min;}
+        if (value > max) {value = max;}
+        return value;
     }
 }
