@@ -33,7 +33,7 @@ public class Input extends Subsystem {
     }
 
     // Unused
-    private boolean intakeEnable = true;
+    private boolean intakeEnable = false;
     public boolean getIntakeEnable() {
 
         /* Get leading edge */
