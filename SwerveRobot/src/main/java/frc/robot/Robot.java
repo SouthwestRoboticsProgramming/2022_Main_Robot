@@ -95,9 +95,6 @@ public class Robot extends TimedRobot {
     cameras = new Cameras();
     cameraTurret = new CameraTurret();
     localization = new Localization();
-
-    // shooter = new Shooter();
-    // intake = new Intake();
     
     driveController.swerveInit();
 
@@ -105,8 +102,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {
-
+  public void robotPeriodic()
+  {
     msg.read();
     Scheduler.get().update();
   }

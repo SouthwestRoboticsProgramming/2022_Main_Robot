@@ -27,6 +27,10 @@ public class Input extends Subsystem {
         return mapJoystick(drive.rightStickX.get());
     }
 
+    public boolean getSpeedMode() {
+        return drive.rightShoulder.isPressed();
+    }
+
     /* Intake */
     public boolean getIntake() {
         return manipulator.leftShoulder.isPressed();
@@ -98,5 +102,11 @@ public class Input extends Subsystem {
         }
 
         return Math.signum(amount) * Utils.map(Math.abs(amount), JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    }
+
+    @Override
+    public void robotPeriodic() {
+        drive.update();
+        manipulator.update();
     }
 }

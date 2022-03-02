@@ -39,7 +39,7 @@ public class CameraTurret extends Subsystem {
   }
 
   public double getAngle() {
-    return 0;
+    return Math.toDegrees(Math.atan2(cameras.getHubX(),cameras.getHubY()));
   }
 
   public double getDistance() {
@@ -54,6 +54,7 @@ public class CameraTurret extends Subsystem {
   public void teleopPeriodic() {
     double encoderAngle = getEncoderDegrees();
     double cameraAngle = 2; //cameras.getHubAngle();
+    
     //ShuffleWood.show("Encoder Angle", encoderAngle);
     double rawTarget;
     if (cameraAngle != 360.0) {
