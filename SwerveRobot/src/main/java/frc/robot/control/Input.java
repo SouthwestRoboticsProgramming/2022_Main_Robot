@@ -11,7 +11,7 @@ public class Input extends Subsystem {
 
     public Input() {
         drive = new XboxController(DRIVE_CONTROLLER);
-        manipulator = new XboxController(11);
+        manipulator = new XboxController(MANIPULATOR_CONTROLLER);
     }
 
     /* Drive */
@@ -88,5 +88,11 @@ public class Input extends Subsystem {
         }
 
         return Math.signum(amount) * Utils.map(Math.abs(amount), JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    }
+
+    @Override
+    public void robotPeriodic() {
+        drive.update();
+        manipulator.update();
     }
 }

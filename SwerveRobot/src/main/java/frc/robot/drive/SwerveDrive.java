@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 import static frc.robot.constants.DriveConstants.*;
@@ -60,7 +61,7 @@ public class SwerveDrive {
         this.navx = Robot.INSTANCE.gyro;
         odometry = new SwerveDriveOdometry(kinematics, navx.getRotation2d());
 
-        navx.setAngleAdjustment(90);
+        navx.setAngleAdjustment(-90);
     }
 
     public void zeroGyro() {
@@ -87,8 +88,8 @@ public class SwerveDrive {
 
         odometry.update(getGyroscopeRotation(), moduleStates);
 
-        // System.out.printf("%3.3f %3.3f %3.3f %3.3f %n",
-        // w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
+        System.out.printf("%3.3f %3.3f %3.3f %3.3f %n",
+        w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
     }
 
     public void disable() {

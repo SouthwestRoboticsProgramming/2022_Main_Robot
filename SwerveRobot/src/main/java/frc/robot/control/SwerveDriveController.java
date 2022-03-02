@@ -42,34 +42,6 @@ public class SwerveDriveController {
         double rot = input.getRot();
         Rotation2d currentAngle = drive.getGyroscopeRotation();
 
-        // ShuffleWood.show("currentAngle", currentAngle);
-        
-        if (Math.abs(driveX) < JOYSTICK_DEAD_ZONE) driveX = 0;
-        if (Math.abs(driveY) < JOYSTICK_DEAD_ZONE) {
-            driveY = 0;
-        }
-        if (Math.abs(rot) < JOYSTICK_DEAD_ZONE) {
-            rot = 0;
-        }
-        
-        // Eliminate deadzone jump
-
-        if (driveX > 0) {
-            driveX = Utils.map(driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (driveX < 0){
-            driveX = -Utils.map(-driveX, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
-        if (driveY > 0) {
-            driveY = Utils.map(driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (driveY <0){
-            driveY = -Utils.map(-driveY, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
-        if (rot > 0) {
-            rot = Utils.map(rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        } else if (rot < 0) {
-            rot = -Utils.map(-rot, JOYSTICK_DEAD_ZONE, 1, 0, 1);
-        }
-
         if (autoControl) {
             rot = autoRot;
             driveX = autoDriveX;

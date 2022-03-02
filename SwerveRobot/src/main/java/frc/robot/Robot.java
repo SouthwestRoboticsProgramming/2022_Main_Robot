@@ -88,16 +88,15 @@ public class Robot extends TimedRobot {
 
     drive = new SwerveDrive();
     driveController = new SwerveDriveController();
-    climberSub = new Climber();
+    // climberSub = new Climber();
 
     
     cameras = new Cameras();
     cameraTurret = new CameraTurret();
     localization = new Localization();
-    shooter = new Shooter();
-    intake = new Intake();
+    // shooter = new Shooter();
+    // intake = new Intake();
     // climber = new ClimberController(input);
-    new Climber();
     
     driveController.swerveInit();
 
@@ -105,8 +104,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {
-
+  public void robotPeriodic()
+  {
     msg.read();
     Scheduler.get().update();
   }

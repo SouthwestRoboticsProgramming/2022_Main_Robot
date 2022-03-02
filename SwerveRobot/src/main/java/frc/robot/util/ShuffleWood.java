@@ -89,7 +89,7 @@ public final class ShuffleWood {
 
     private static void updateValue(DataInputStream in) throws IOException {
         String name = in.readUTF();
-        System.out.println("Setting " + name);
+        // System.out.println("Setting " + name);
         byte type = in.readByte();
         Number value;
         if (type == 1) {
@@ -115,7 +115,7 @@ public final class ShuffleWood {
         }
 
         msg.sendMessage(LOAD_VALUE, b.toByteArray());
-        System.out.println("Send!");
+        // System.out.println("Send!");
     }
 
     private static void pollValues(DataInputStream in) throws IOException {

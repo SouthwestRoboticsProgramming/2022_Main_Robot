@@ -69,11 +69,13 @@ public final class XboxController {
     public static class Axis {
         private final Joystick stick;
         private final int axisID;
+        private final boolean inverted;
         private double value;
 
-        public Axis(Joystick stick, int axisID) {
+        public Axis(Joystick stick, int axisID, boolean inverted) {
             this.stick = stick;
             this.axisID = axisID;
+            this.inverted = inverted;
         }
 
         public double get() {
@@ -81,7 +83,11 @@ public final class XboxController {
         }
 
         void update() {
-            value = stick.getRawAxis(axisID);
+            if (inverted) {
+                value = -stick.getRawAxis(axisID);
+            } else {
+                value = stick.getRawAxis(axisID);
+            }
         }
     }
 
@@ -133,12 +139,12 @@ public final class XboxController {
         dpadLeft  = new DpadButton(stick, 225, 270, 315);
         dpadRight = new DpadButton(stick,  45,  90, 135);
 
-        leftStickX   = new Axis(stick, AXIS_LEFT_STICK_X);
-        leftStickY   = new Axis(stick, AXIS_LEFT_STICK_Y);
-        rightStickX  = new Axis(stick, AXIS_RIGHT_STICK_X);
-        rightStickY  = new Axis(stick, AXIS_RIGHT_STICK_Y);
-        leftTrigger  = new Axis(stick, AXIS_LEFT_TRIGGER);
-        rightTrigger = new Axis(stick, AXIS_RIGHT_TRIGGER);
+        leftStickX   = new Axis(stick, AXIS_LEFT_STICK_X, false);
+        leftStickY   = new Axis(stick, AXIS_LEFT_STICK_Y, true);
+        rightStickX  = new Axis(stick, AXIS_RIGHT_STICK_X, false);
+        rightStickY  = new Axis(stick, AXIS_RIGHT_STICK_Y, true);
+        leftTrigger  = new Axis(stick, AXIS_LEFT_TRIGGER, false);
+        rightTrigger = new Axis(stick, AXIS_RIGHT_TRIGGER, false);
     }
 
     public void update() {

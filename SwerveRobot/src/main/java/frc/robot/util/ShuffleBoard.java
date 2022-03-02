@@ -13,11 +13,16 @@ import static frc.robot.constants.ClimberConstants.*;
 
 public class ShuffleBoard {
     public static ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
-        private static ShuffleboardLayout drive = driveTab.getLayout("drive", BuiltInLayouts.kList);
-            public static NetworkTableEntry wheelTurnKP = drive.addPersistent("Wheel Turn KP", WHEEL_TURN_KP).getEntry();
-            public static NetworkTableEntry wheelTurnKI = drive.addPersistent("Wheel Turn KI", WHEEL_TURN_KI).getEntry();
-            public static NetworkTableEntry wheelTurnKD = drive.addPersistent("Wheel Turn KD", WHEEL_TURN_KD).getEntry();
+        private static ShuffleboardLayout turn = driveTab.getLayout("Turn", BuiltInLayouts.kList);
+            public static NetworkTableEntry wheelTurnKP = turn.addPersistent("Wheel Turn KP", WHEEL_TURN_KP).getEntry();
+            public static NetworkTableEntry wheelTurnKI = turn.addPersistent("Wheel Turn KI", WHEEL_TURN_KI).getEntry();
+            public static NetworkTableEntry wheelTurnKD = turn.addPersistent("Wheel Turn KD", WHEEL_TURN_KD).getEntry();
+        private static ShuffleboardLayout drive = driveTab.getLayout("Drive", BuiltInLayouts.kList);
             public static NetworkTableEntry wheelDriveScale = drive.addPersistent("Wheel Drive Scale", 1).getEntry();
+            public static NetworkTableEntry wheelDriveKP = drive.addPersistent("Wheel Drive KP", WHEEL_DRIVE_KP).getEntry();
+            public static NetworkTableEntry wheelDriveKI = drive.addPersistent("Wheel Drive KI", WHEEL_DRIVE_KI).getEntry();
+            public static NetworkTableEntry wheelDriveKD = drive.addPersistent("Wheel Drive KD", WHEEL_DRIVE_KD).getEntry();
+            public static NetworkTableEntry wheelDriveKF = drive.addPersistent("Wheel Drive KF", WHEEL_DRIVE_KF).getEntry();
     
     public static ShuffleboardTab tuneTab = Shuffleboard.getTab("Tune");
         private static ShuffleboardLayout tune = tuneTab.getLayout("Tune", BuiltInLayouts.kList);

@@ -53,8 +53,8 @@ public class TelescopingArm extends Subsystem {
    double percentOut = Utils.clamp(pid.calculate(currentPose, height),-CLIMBER_MAX_SPEED,CLIMBER_MAX_SPEED);
    motorOne.set(percentOut);
    motorTwo.set(percentOut);
-   System.out.println(currentPose);
-   System.out.println("Ticks: " + encoder.getPosition());
+  //  System.out.println(currentPose);
+  //  System.out.println("Ticks: " + encoder.getPosition());
 
   }
 
@@ -70,7 +70,7 @@ public class TelescopingArm extends Subsystem {
   @Override
   public void robotPeriodic() {
     // This method will be called once per scheduler run
-    System.out.println("The encoder is at " + encoder.getPosition());
+    // System.out.println("The encoder is at " + encoder.getPosition());
 
     
   }
