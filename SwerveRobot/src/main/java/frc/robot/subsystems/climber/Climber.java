@@ -18,7 +18,7 @@ public class Climber extends Subsystem {
 
     @Override
     public void teleopInit() {
-        Scheduler.get().scheduleCommand(new ClimbReset());
+        // Scheduler.get().scheduleCommand(new ClimbReset());
     }
 
     @Override
@@ -31,10 +31,10 @@ public class Climber extends Subsystem {
             // telescoping.extendToDistance(Utils.map(input.getClimberTele(), -1, 1, 0, 1));
         // }
 
-        swinging.swingToAngle(Utils.map(input.getSwingManual(), -1, 1, 45, 135),false);
+        // swinging.swingToAngle(Utils.map(input.getSwingManual(), -1, 1, 45, 135),false);
     
         if (input.getClimberReset()) {
-            Scheduler.get().scheduleCommand(new ClimbReset());
+            // Scheduler.get().scheduleCommand(new ClimbReset());
         }
     }
 

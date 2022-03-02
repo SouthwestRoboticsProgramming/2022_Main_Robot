@@ -77,8 +77,6 @@ public class SwerveModuleOld {
         Scheduler.get().scheduleCommand(new Command() {
             @Override
             public boolean run() {
-                System.out.println("Do the dew");
-
                 // turnPID.setPID(
                 //     ShuffleBoard.wheelTurnKP.getDouble(WHEEL_TURN_KP),
                 //     ShuffleBoard.wheelTurnKI.getDouble(WHEEL_TURN_KI),

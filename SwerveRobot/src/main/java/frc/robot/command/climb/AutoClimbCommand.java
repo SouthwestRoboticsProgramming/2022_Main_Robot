@@ -64,6 +64,8 @@ public class AutoClimbCommand implements Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public boolean run() {
+    
+
     Input input = Robot.INSTANCE.input;
     teleSetpoint += input.getTeleManual()/100;
     swingSetpoint += input.getSwingManual()/2;

@@ -78,7 +78,7 @@ public class SwerveDrive {
     }
 
     public void update(ChassisSpeeds chassisSpeeds) {
-        System.out.println(navx.getAngle());
+        // System.out.println(navx.getAngle());
 
         // Calculate the movements of each individual module
         SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
@@ -90,8 +90,8 @@ public class SwerveDrive {
 
         odometry.update(getGyroscopeRotation(), moduleStates);
 
-        System.out.printf("%3.3f %3.3f %3.3f %3.3f %n",
-        w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
+        // System.out.printf("%3.3f %3.3f %3.3f %3.3f %n",
+        // w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
     }
 
     public void disable() {

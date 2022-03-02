@@ -88,8 +88,6 @@ public class Robot extends TimedRobot {
 
     drive = new SwerveDrive();
     driveController = new SwerveDriveController();
-    climber = new Climber();
-
     
     cameras = new Cameras();
     cameraTurret = new CameraTurret(cameras);

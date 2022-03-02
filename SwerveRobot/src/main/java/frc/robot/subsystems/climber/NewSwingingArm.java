@@ -27,25 +27,32 @@ public class NewSwingingArm {
         encoder = motor.getEncoder();
         encoder.setPosition(0);
         
-        pid = new PIDController(
-            CLIMBER_SWING_MOTOR_KP,
-            CLIMBER_SWING_MOTOR_KI,
-            CLIMBER_SWING_MOTOR_KD
-        );
-        pid.setTolerance(CLIMBER_SWING_TOLERANCE);
+        pid = new PIDController(0,0,0);
+        // pid.setTolerance(CLIMBER_SWING_TOLERANCE);
 
         resetting = false;
     }
 
+    private int count = 0;
+
     public double getCurrentAngle() {
+        System.out.println("Encoder: " + encoder.getPosition());
+        
+        if (count++ > 100)
+        throw new RuntimeException();
+    
         double currentPose = encoder.getPosition() / CLIMBER_SWING_ROTS_PER_INCH + CLIMBER_STARTING_DIST;
+        System.out.println("Pose: " + currentPose + " is good? " + (currentPose < CLIMBER_SWING_BASE + CLIMBER_SWING_ARM));
+
         double currentAngle = Math.acos(
-                (CLIMBER_SWING_BASE * CLIMBER_SWING_BASE + CLIMBER_SWING_ARM * CLIMBER_SWING_ARM - currentPose * currentPose)
-                / (2 * CLIMBER_SWING_ARM * CLIMBER_SWING_BASE));
+            (
+                CLIMBER_SWING_BASE * CLIMBER_SWING_BASE 
+                + CLIMBER_SWING_ARM * CLIMBER_SWING_ARM 
+                - currentPose * currentPose
+            ) / (2 * CLIMBER_SWING_ARM * CLIMBER_SWING_BASE)
+        );
         return currentAngle;
     }
-
-   
 
     private void updatePid(boolean loaded) {
         if (loaded) {
@@ -63,14 +70,20 @@ public class NewSwingingArm {
         }
     }
 
+    
+
     public void swingToAngle(double degrees, boolean loaded) {
-        if (resetting) {return;}
+        // System.out.println("Swinging to angle: " + degrees);
+
+        // if (resetting) {return;}
         updatePid(loaded);
 
         double currentAngle = getCurrentAngle();
     
         double out = pid.calculate(currentAngle, degrees);
-        out = Utils.clamp(out, -0.5, 0.5);
+        out = Utils.clamp(out, -0.2, 0.2);
+        System.out.println("Current Angle: " + currentAngle + " | SetAngle: " + degrees + " | Output:" + out);
+        // System.out.println("PID Output: " + out);
         motor.set(out);
     }
 
@@ -89,6 +102,7 @@ public class NewSwingingArm {
     public double getPos() {
         // return encoder.getPosition() + CLIMBER_STARTING_DIST;
         return getCurrentAngle();
+        // throw new AssertionError("Don't use");
     }
 
     public void zero() {
