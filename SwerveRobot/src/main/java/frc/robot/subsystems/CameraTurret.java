@@ -15,11 +15,14 @@ import static frc.robot.constants.CameraTurretConstants.*;
 public class CameraTurret extends Subsystem {
   private final TalonSRX motor;
   private final PIDController pid;
+  private final Cameras cameras;
 
   private double target;
   private boolean isSweepback;
   
   public CameraTurret() {
+    cameras = null; // FIXME: Fix me
+
     motor = new TalonSRX(CAMERA_TURRET_MOTOR_ID);
 
     TalonSRXConfiguration config = new TalonSRXConfiguration();
