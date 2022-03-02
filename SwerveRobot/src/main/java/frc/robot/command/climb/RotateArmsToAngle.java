@@ -12,7 +12,7 @@ public class RotateArmsToAngle implements Command {
 
     @Override
     public boolean run() {
-        Robot.INSTANCE.climber.swinging.swingToAngle(angle);
+        Robot.INSTANCE.climber.swinging.swingToAngle(angle, false);
 
         return false;
     }

@@ -128,7 +128,7 @@ public class Shooter extends Subsystem {
 
     double distance = (double) input.getShootDistance();
 
-    double hoodAngle = (double) calculateHood(distance);
+    double hoodAngle = (double) calculateHood((int)distance);
     if (hoodAngle == 0 && lastHoodAngle != 0) {
       calibratingHood = true;
     }
@@ -162,7 +162,7 @@ public class Shooter extends Subsystem {
     // }
     
 
-    flywheel.set(ControlMode.Velocity, calculateSpeed(0,distance));
+    flywheel.set(ControlMode.Velocity, calculateSpeed(0,(int)distance));
     if (input.getShoot()) {
       shoot();
     }

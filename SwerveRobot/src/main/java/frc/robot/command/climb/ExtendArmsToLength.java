@@ -12,7 +12,7 @@ public class ExtendArmsToLength implements Command {
 
     @Override
     public boolean run() {
-        Robot.INSTANCE.climber.telescoping.extendToDistance(targetLength);
+        Robot.INSTANCE.climber.telescoping.extendToDistance(targetLength, false);
 
         return false;
     }

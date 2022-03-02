@@ -31,11 +31,6 @@ public class SwingingArms {
         right.stop();
     }
 
-    public void manualMove(double speed) {
-        left.manualMove(speed);
-        right.manualMove(speed);
-    }
-
     public void zero() {
         left.zero();
         right.zero();
