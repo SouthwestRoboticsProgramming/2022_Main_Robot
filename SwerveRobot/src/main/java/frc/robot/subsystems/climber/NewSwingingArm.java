@@ -51,7 +51,7 @@ public class NewSwingingArm {
                 - currentPose * currentPose
             ) / (2 * CLIMBER_SWING_ARM * CLIMBER_SWING_BASE)
         );
-        return currentAngle;
+        return Math.toDegrees(currentAngle);
     }
 
     private void updatePid(boolean loaded) {
