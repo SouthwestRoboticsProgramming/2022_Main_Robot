@@ -1,116 +1,173 @@
 package frc.robot.control;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public final class XboxController {
-    private final Joystick joystick;
-    private final JoystickButton a;
-    private final JoystickButton b;
-    private final JoystickButton x;
-    private final JoystickButton y;
-    private final JoystickButton menu;
-    private final JoystickButton window;
-    private final JoystickButton leftShoulder;
-    private final JoystickButton rightShoulder;
-    private final JoystickButton leftStick;
-    private final JoystickButton rightStick;
+    public static class Button {
+        private final JoystickButton button;
+
+        private boolean pressed;
+        private boolean last;
+
+        public Button(Joystick stick, int buttonID) {
+            button = new JoystickButton(stick, buttonID);
+        }
+
+        public boolean isPressed() {
+            return pressed;
+        }
+
+        public boolean leadingEdge() {
+            return pressed && !last;
+        }
+
+        public boolean fallingEdge() {
+            return !pressed && last;
+        }
+
+        protected void update() {
+            last = pressed;
+            pressed = button.get();
+        }
+    }
+
+    public static class DpadButton {
+        private final Joystick stick;
+        private final int a, b, c;
+
+        private boolean pressed;
+        private boolean last;
+
+        public DpadButton(Joystick stick, int a, int b, int c) {
+            this.stick = stick;
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+
+        public boolean isPressed() {
+            return pressed;
+        }
+
+        public boolean leadingEdge() {
+            return pressed && !last;
+        }
+
+        public boolean fallingEdge() {
+            return !pressed && last;
+        }
+
+        protected void update() {
+            last = pressed;
+
+            int pov = stick.getPOV();
+            pressed = pov == a || pov == b || pov == c;
+        }
+    }
+
+    public static class Axis {
+        private final Joystick stick;
+        private final int axisID;
+        private final boolean inverted;
+        private double value;
+
+        public Axis(Joystick stick, int axisID, boolean inverted) {
+            this.stick = stick;
+            this.axisID = axisID;
+            this.inverted = inverted;
+        }
+
+        public double get() {
+            return value;
+        }
+
+        void update() {
+            if (inverted) {
+                value = -stick.getRawAxis(axisID);
+            } else {
+                value = stick.getRawAxis(axisID);
+            }
+        }
+    }
+
+    private static final int ID_A = 1;
+    private static final int ID_B = 2;
+    private static final int ID_X = 3;
+    private static final int ID_Y = 4;
+    private static final int ID_LEFT_SHOULDER = 5;
+    private static final int ID_RIGHT_SHOULDER = 6;
+    private static final int ID_SELECT = 7;
+    private static final int ID_START = 8;
+    private static final int ID_LEFT_STICK = 9;
+    private static final int ID_RIGHT_STICK = 10;
+
+    private static final int AXIS_LEFT_STICK_X = 0;
+    private static final int AXIS_LEFT_STICK_Y = 1;
+    private static final int AXIS_LEFT_TRIGGER = 2;
+    private static final int AXIS_RIGHT_TRIGGER = 3;
+    private static final int AXIS_RIGHT_STICK_X = 4;
+    private static final int AXIS_RIGHT_STICK_Y = 5;
+
+    public final Button a, b, x, y;
+    public final Button leftShoulder, rightShoulder;
+    public final Button select, start;    
+    public final Button leftStickIn, rightStickIn;
+
+    public final DpadButton dpadUp, dpadDown, dpadLeft, dpadRight;
+
+    public final Axis leftStickX, leftStickY;
+    public final Axis rightStickX, rightStickY;
+    public final Axis leftTrigger, rightTrigger;
 
     public XboxController(int id) {
-        joystick = new Joystick(id);
-        a = new JoystickButton(joystick, 1);
-        b = new JoystickButton(joystick, 2);
-        x = new JoystickButton(joystick, 3);
-        y = new JoystickButton(joystick, 4);
-        leftShoulder = new JoystickButton(joystick, 5);
-        rightShoulder = new JoystickButton(joystick, 6);
-        window = new JoystickButton(joystick, 7);
-        menu = new JoystickButton(joystick, 8);
-        leftStick = new JoystickButton(joystick, 9);
-        rightStick = new JoystickButton(joystick, 10);
+        Joystick stick = new Joystick(id);
+
+        a             = new Button(stick, ID_A);
+        b             = new Button(stick, ID_B);
+        x             = new Button(stick, ID_X);
+        y             = new Button(stick, ID_Y);
+        leftShoulder  = new Button(stick, ID_LEFT_SHOULDER);
+        rightShoulder = new Button(stick, ID_RIGHT_SHOULDER);
+        select        = new Button(stick, ID_SELECT);
+        start         = new Button(stick, ID_START);
+        leftStickIn   = new Button(stick, ID_LEFT_STICK);
+        rightStickIn  = new Button(stick, ID_RIGHT_STICK);
+
+        dpadUp    = new DpadButton(stick,   0,  45, 315);
+        dpadDown  = new DpadButton(stick, 135, 180, 225);
+        dpadLeft  = new DpadButton(stick, 225, 270, 315);
+        dpadRight = new DpadButton(stick,  45,  90, 135);
+
+        leftStickX   = new Axis(stick, AXIS_LEFT_STICK_X, false);
+        leftStickY   = new Axis(stick, AXIS_LEFT_STICK_Y, true);
+        rightStickX  = new Axis(stick, AXIS_RIGHT_STICK_X, false);
+        rightStickY  = new Axis(stick, AXIS_RIGHT_STICK_Y, true);
+        leftTrigger  = new Axis(stick, AXIS_LEFT_TRIGGER, false);
+        rightTrigger = new Axis(stick, AXIS_RIGHT_TRIGGER, false);
     }
 
-    public double getLeftStickX() {
-        return joystick.getRawAxis(0);
-    }
+    public void update() {
+        a.update();
+        b.update();
+        x.update();
+        y.update();
+        leftShoulder.update();
+        rightShoulder.update();
+        select.update();
+        start.update();
+        dpadUp.update();
+        dpadDown.update();
+        dpadLeft.update();
+        dpadRight.update();
+        leftStickIn.update();
+        rightStickIn.update();
 
-    public double getLeftStickY() {
-        return -joystick.getRawAxis(1);
-    }
-
-    public double getRightStickX() {
-        return joystick.getRawAxis(4  );
-    }
-
-    public double getRightStickY() {
-        return -joystick.getRawAxis(5);
-    }
-
-    public double getLeftTrigger() {
-        return joystick.getRawAxis(2);
-    }
-
-    public double getRightTrigger() {
-        return joystick.getRawAxis(3);
-    }
-
-    public boolean getLeftStickButton() {
-        return leftStick.get();
-    }
-
-    public boolean getRightStickButton() {
-        return rightStick.get();
-    }
-
-    public boolean getAButton() {
-        return a.get();
-    }
-
-    public boolean getBButton() {
-        return b.get();
-    }
-
-    public boolean getXButton() {
-        return x.get();
-    }
-
-    public boolean getYButton() {
-        return y.get();
-    }
-
-    public boolean getDpadUp() {
-        int pov = joystick.getPOV();
-        return pov == 0 || pov == 45 || pov == 315;
-    }
-
-    public boolean getDpadDown() {
-        int pov = joystick.getPOV();
-        return pov == 180 || pov == 135 || pov == 225;
-    }
-
-    public boolean getDpadLeft() {
-        int pov = joystick.getPOV();
-        return pov == 270 || pov == 225 || pov == 315;
-    }
-
-    public boolean getDpadRight() {
-        int pov = joystick.getPOV();
-        return pov == 90 || pov == 45 || pov == 135;
-    }
-
-    public boolean getLeftShoulderButton() {
-        return leftShoulder.get();
-    }
-
-    public boolean getRightShoulderButton() {
-        return rightShoulder.get();
-    }
-
-    public boolean getMenuButton() {
-        return menu.get();
-    }
-
-    public boolean getWindowButton() {
-        return window.get();
+        leftStickX.update();
+        leftStickY.update();
+        rightStickX.update();
+        rightStickY.update();
+        leftTrigger.update();
+        rightTrigger.update();
     }
 }

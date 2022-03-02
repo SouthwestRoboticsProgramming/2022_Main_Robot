@@ -15,12 +15,11 @@ import static frc.robot.constants.CameraTurretConstants.*;
 public class CameraTurret extends Subsystem {
   private final TalonSRX motor;
   private final PIDController pid;
-  private final Cameras cameras;
 
   private double target;
   private boolean isSweepback;
   
-  public CameraTurret(Cameras cameras) {
+  public CameraTurret() {
     motor = new TalonSRX(CAMERA_TURRET_MOTOR_ID);
 
     TalonSRXConfiguration config = new TalonSRXConfiguration();
@@ -37,8 +36,6 @@ public class CameraTurret extends Subsystem {
 
     pid = new PIDController(0.005, 0, 0);
     pid.setTolerance(4);
-
-    this.cameras = cameras;
   }
 
   public double getAngle() {
@@ -56,7 +53,8 @@ public class CameraTurret extends Subsystem {
   @Override
   public void teleopPeriodic() {
     double encoderAngle = getEncoderDegrees();
-    double cameraAngle = getAngle();
+    double cameraAngle = 2; //cameras.getHubAngle();
+    
     //ShuffleWood.show("Encoder Angle", encoderAngle);
     double rawTarget;
     if (cameraAngle != 360.0) {

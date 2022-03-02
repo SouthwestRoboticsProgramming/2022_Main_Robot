@@ -34,6 +34,7 @@ public final class GuiContextImpl implements GuiContext {
         String title;
         Rect contentRect;
         GuiStorage storage;
+        boolean firstAppearing;
     }
 
     private final Deque<GuiDraw> drawStack;
@@ -187,6 +188,7 @@ public final class GuiContextImpl implements GuiContext {
             float y = (float) (Math.random() * (activePane.contentRegion.getHeight() - 400));
             win.contentRect = new Rect(x, y, x + 400, y + 400);
             win.storage = new GuiStorage();
+            win.firstAppearing = true;
             windows.put(title, win);
         }
         unusedWindows.remove(title);
@@ -244,6 +246,7 @@ public final class GuiContextImpl implements GuiContext {
 
     @Override
     public void end() {
+        activeWindow.firstAppearing = false;
         draw.popClipRect();
 
         activePane = activePane.parent;
@@ -287,6 +290,11 @@ public final class GuiContextImpl implements GuiContext {
                 activePane.contentRegion.max.x - activePane.position.x,
                 activePane.contentRegion.max.y - activePane.position.y
         );
+    }
+
+    @Override
+    public boolean isWindowFirstAppearing() {
+        return activeWindow.firstAppearing;
     }
 
     @Override

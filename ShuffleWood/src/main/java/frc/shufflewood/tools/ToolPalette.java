@@ -3,17 +3,19 @@ package frc.shufflewood.tools;
 import frc.shufflewood.App;
 import frc.shufflewood.MessengerAccess;
 import frc.shufflewood.gui.GuiContext;
+import frc.shufflewood.tools.field.FieldDataViewTool;
 import frc.shufflewood.tools.lidar.LidarTool;
 import frc.shufflewood.tools.taskmanager.TaskManagerTool;
 
 public class ToolPalette implements Tool {
-    private final boolean[] enablePiTask, enableNanoTask, enableLidar, enableValueDisplay, enableValueEdit, enableProfiler;
+    private final boolean[] enablePiTask, enableNanoTask, enableLidar, enableValueDisplay, enableValueEdit, enableProfiler, enableField;
     private final TaskManagerTool piTask;
     private final TaskManagerTool nanoTask;
     private final LidarTool lidar;
     private final ValueDisplayTool valueDisplay;
     private final ValueEditTool valueEdit;
     private final ProfilerTool profiler;
+    private final FieldDataViewTool field;
 
     public ToolPalette(App app) {
         enablePiTask = new boolean[] {false};
@@ -21,7 +23,8 @@ public class ToolPalette implements Tool {
         enableLidar = new boolean[] {false};
         enableValueDisplay = new boolean[] {false};
         enableValueEdit = new boolean[] {false};
-        enableProfiler = new boolean[] {true};
+        enableProfiler = new boolean[] {false};
+        enableField = new boolean[] {true};
 
         MessengerAccess msg = app.getMessenger();
         piTask = new TaskManagerTool(msg, "RPi");
@@ -30,6 +33,7 @@ public class ToolPalette implements Tool {
         valueDisplay = new ValueDisplayTool(msg);
         valueEdit = new ValueEditTool(msg);
         profiler = new ProfilerTool();
+        field = new FieldDataViewTool(app);
     }
 
     @Override
@@ -60,6 +64,10 @@ public class ToolPalette implements Tool {
         gui.sameLine();
         gui.text("Profiler");
 
+        gui.checkbox(enableField);
+        gui.sameLine();
+        gui.text("Field Data");
+
         gui.setWindowHeightAuto();
         gui.end();
 
@@ -69,5 +77,6 @@ public class ToolPalette implements Tool {
         if (enableValueDisplay[0]) valueDisplay.draw(gui);
         if (enableValueEdit[0]) valueEdit.draw(gui);
         if (enableProfiler[0]) profiler.draw(gui);
+        if (enableField[0]) field.draw(gui);
     }
 }

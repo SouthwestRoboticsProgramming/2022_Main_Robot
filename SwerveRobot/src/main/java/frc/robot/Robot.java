@@ -4,8 +4,10 @@ import com.kauailabs.navx.frc.AHRS;
 
 import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
+import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
 import frc.robot.command.auto.AutonomousCommand;
+import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.control.Input;
 import frc.robot.control.SwerveDriveController;
 import frc.robot.drive.SwerveDrive;
@@ -13,8 +15,8 @@ import frc.robot.subsystems.CameraTurret;
 import frc.robot.subsystems.Cameras;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Localization;
-import frc.robot.control.ClimberController;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.util.ShuffleBoard;
 import frc.robot.util.ShuffleWood;
 import edu.wpi.first.wpilibj.SPI;
@@ -23,32 +25,34 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import static frc.robot.constants.MessengerConstants.*;
 
 public class Robot extends TimedRobot {
-  private static final Robot INSTANCE = new Robot();
+  public static final Robot INSTANCE = new Robot();
 
+  @Deprecated
   public static Robot get() {
     return INSTANCE;
   }
 
   // Subsystems
-  private Input input;
+  public Input input;
 
-  private AHRS gyro;
-  private SwerveDrive drive;
-  private SwerveDriveController driveController;
+  public AHRS gyro;
+  public SwerveDrive drive;
+  public SwerveDriveController driveController;
 
   private MessengerClient msg;
-  private MessageDispatcher dispatch;
+  public MessageDispatcher dispatch;
 
-  private Cameras cameras;
-  private CameraTurret cameraTurret;
-  private Shooter shooter;
-  private Intake intake;
-  private ClimberController climber;
+  public Cameras cameras;
+  public CameraTurret cameraTurret;
+  public Shooter shooter;
+  public Intake intake;
+
+  public Climber climberSub;
 
   private RobotState state;
-  private Localization localization;
+  public Localization localization;
 
-  private AutonomousCommand autoCommand;
+  private Command autoCommand;
   
   @Override
   public void robotInit() {
@@ -82,16 +86,17 @@ public class Robot extends TimedRobot {
     input = new Input();
     gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
-    drive = new SwerveDrive(gyro);
-    driveController = new SwerveDriveController(drive, input);
+    drive = new SwerveDrive();
+    driveController = new SwerveDriveController();
+    // climberSub = new Climber();
 
     
-    // cameras = new Cameras(dispatch);
-    // cameraTurret = new CameraTurret(cameras);
-    localization = new Localization(gyro, drive);
-    shooter = new Shooter(driveController, null, input);
-    intake = new Intake(input);
-    climber = new ClimberController(input);
+    cameras = new Cameras();
+    cameraTurret = new CameraTurret();
+    localization = new Localization();
+    // shooter = new Shooter();
+    // intake = new Intake();
+    // climber = new ClimberController(input);
     
     driveController.swerveInit();
 
@@ -99,8 +104,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {
-
+  public void robotPeriodic()
+  {
     msg.read();
     Scheduler.get().update();
   }
@@ -109,7 +114,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     state = RobotState.AUTONOMOUS;
     Scheduler.get().initState();
-    Scheduler.get().scheduleCommand(autoCommand = new AutonomousCommand(localization, driveController));
+
+    switch (ShuffleBoard.whichAuto.getString("a")) {
+      case "a":
+        Scheduler.get().scheduleCommand(autoCommand = new ZeroBallAuto());
+        break;
+    
+      default:
+        break;
+    }
   }
 
   @Override

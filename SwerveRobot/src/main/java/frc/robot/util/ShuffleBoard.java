@@ -9,11 +9,20 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import static frc.robot.constants.DriveConstants.*;
 import static frc.robot.constants.ShooterConstants.*;
 import static frc.robot.constants.IntakeConstants.*;
+import static frc.robot.constants.ClimberConstants.*;
 
 public class ShuffleBoard {
     public static ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
-        private static ShuffleboardLayout drive = driveTab.getLayout("drive", BuiltInLayouts.kList);
-        public static NetworkTableEntry wheelTurnKP = drive.addPersistent("Wheel Turn KP",WHEEL_TURN_KP).getEntry();
+        private static ShuffleboardLayout turn = driveTab.getLayout("Turn", BuiltInLayouts.kList);
+            public static NetworkTableEntry wheelTurnKP = turn.addPersistent("Wheel Turn KP", WHEEL_TURN_KP).getEntry();
+            public static NetworkTableEntry wheelTurnKI = turn.addPersistent("Wheel Turn KI", WHEEL_TURN_KI).getEntry();
+            public static NetworkTableEntry wheelTurnKD = turn.addPersistent("Wheel Turn KD", WHEEL_TURN_KD).getEntry();
+        private static ShuffleboardLayout drive = driveTab.getLayout("Drive", BuiltInLayouts.kList);
+            public static NetworkTableEntry wheelDriveScale = drive.addPersistent("Wheel Drive Scale", 1).getEntry();
+            public static NetworkTableEntry wheelDriveKP = drive.addPersistent("Wheel Drive KP", WHEEL_DRIVE_KP).getEntry();
+            public static NetworkTableEntry wheelDriveKI = drive.addPersistent("Wheel Drive KI", WHEEL_DRIVE_KI).getEntry();
+            public static NetworkTableEntry wheelDriveKD = drive.addPersistent("Wheel Drive KD", WHEEL_DRIVE_KD).getEntry();
+            public static NetworkTableEntry wheelDriveKF = drive.addPersistent("Wheel Drive KF", WHEEL_DRIVE_KF).getEntry();
     
     public static ShuffleboardTab tuneTab = Shuffleboard.getTab("Tune");
         private static ShuffleboardLayout tune = tuneTab.getLayout("Tune", BuiltInLayouts.kList);
@@ -42,4 +51,23 @@ public class ShuffleBoard {
             public static NetworkTableEntry intakeKD = intakeTune.addPersistent("KD", INTAKE_KD).getEntry();
             public static NetworkTableEntry intakeFullVelocity = intakeTune.addPersistent("Full Velocity", INTAKE_FULL_VELOCITY).getEntry();
             public static NetworkTableEntry intakeNeutralVelocity = intakeTune.addPersistent("Neutral Velocity", INTAKE_NEUTRAL_VELOCITY).getEntry();
+        
+        private static ShuffleboardLayout telescopeTune = tuneTab.getLayout("Telescope", BuiltInLayouts.kList);
+            public static NetworkTableEntry climberTelescopeKP = telescopeTune.addPersistent("KP", CLIMBER_TELE_MOTOR_KP).getEntry();
+            public static NetworkTableEntry climberTelescopeKI = telescopeTune.addPersistent("KI", CLIMBER_TELE_MOTOR_KI).getEntry();
+            public static NetworkTableEntry climberTelescopeKD = telescopeTune.addPersistent("KD", CLIMBER_TELE_MOTOR_KD).getEntry();
+
+        private static ShuffleboardLayout climbTune = tuneTab.getLayout("climbTune", BuiltInLayouts.kList);
+            public static NetworkTableEntry climbTuneTeleTolerence = climbTune.addPersistent("TeleTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTuneSwingTolerence = climbTune.addPersistent("SwingTolerence", 0).getEntry();
+            public static NetworkTableEntry climbTune1TeleHeight = climbTune.addPersistent("1TeleExtendHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune1SwingAngle = climbTune.addPersistent("1SwingAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune2TeleHeight = climbTune.addPersistent("2TeleRetractHeight", 0).getEntry();
+            public static NetworkTableEntry climbTune3SwingAngle = climbTune.addPersistent("3SwingAngle", 0).getEntry();
+            public static NetworkTableEntry climbTune4TeleHeight = climbTune.addPersistent("4Tele2-3Length", 0).getEntry();
+            public static NetworkTableEntry climbTune5SwingAngle = climbTune.addPersistent("5SwingCompressonAngle", 0).getEntry();
+
+        private static ShuffleboardLayout autoSelect = tuneTab.getLayout("Auto Select", BuiltInLayouts.kList);
+            public static NetworkTableEntry whichAuto = autoSelect.addPersistent("Which Auto", "a").getEntry();
+
 }

@@ -9,7 +9,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import frc.robot.util.ShuffleWood;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 import static frc.robot.constants.DriveConstants.*;
 
@@ -23,7 +24,7 @@ public class SwerveDrive {
      *  |         |
      * w4 ------- w3
      */
-    private final SwerveModule w1, w2, w3, w4;
+    private final SwerveModuleOld w1, w2, w3, w4;
     private final AHRS navx;
     private final SwerveDriveOdometry odometry;
 
@@ -38,7 +39,7 @@ public class SwerveDrive {
         new Translation2d(-WHEEL_SPACING_FRONT_BACK / 2.0, -WHEEL_SPACING_LEFT_RIGHT / 2.0)
     );
 
-    public SwerveDrive(AHRS navx) {
+    public SwerveDrive() {
         // ShuffleWood.setInt("Swerve module 1", 0);
         // ShuffleWood.setInt("Swerve module 2", 1);
         // ShuffleWood.setInt("Swerve module 3", 2);
@@ -53,13 +54,14 @@ public class SwerveDrive {
         SwerveModuleInfo info3 = SWERVE_MODULES[2];
         SwerveModuleInfo info4 = SWERVE_MODULES[3];
 
-        w1 = new SwerveModule(info1.getDriveId(), TURN_PORT_1, info1.getCanCoderId(), OFFSET_1 + info1.getCanCoderOffset());
-        w2 = new SwerveModule(info2.getDriveId(), TURN_PORT_2, info2.getCanCoderId(), OFFSET_2 + info2.getCanCoderOffset());
-        w3 = new SwerveModule(info3.getDriveId(), TURN_PORT_3, info3.getCanCoderId(), OFFSET_3 + info3.getCanCoderOffset());
-        w4 = new SwerveModule(info4.getDriveId(), TURN_PORT_4, info4.getCanCoderId(), OFFSET_4 + info4.getCanCoderOffset());
-        this.navx = navx;
+        w1 = new SwerveModuleOld(info1.getDriveId(), TURN_PORT_1, info1.getCanCoderId(), OFFSET_1 + info1.getCanCoderOffset());
+        w2 = new SwerveModuleOld(info2.getDriveId(), TURN_PORT_2, info2.getCanCoderId(), OFFSET_2 + info2.getCanCoderOffset());
+        w3 = new SwerveModuleOld(info3.getDriveId(), TURN_PORT_3, info3.getCanCoderId(), OFFSET_3 + info3.getCanCoderOffset());
+        w4 = new SwerveModuleOld(info4.getDriveId(), TURN_PORT_4, info4.getCanCoderId(), OFFSET_4 + info4.getCanCoderOffset());
+        this.navx = Robot.INSTANCE.gyro;
         odometry = new SwerveDriveOdometry(kinematics, navx.getRotation2d());
 
+        navx.setAngleAdjustment(-90);
     }
 
     public void zeroGyro() {
@@ -76,9 +78,7 @@ public class SwerveDrive {
     }
 
     public void update(ChassisSpeeds chassisSpeeds) {
-        
-        
-        // Calculate the movements of each indevidual module
+        // Calculate the movements of each individual module
         SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
 
         w1.update(moduleStates[2]);
@@ -87,6 +87,9 @@ public class SwerveDrive {
         w4.update(moduleStates[3]);
 
         odometry.update(getGyroscopeRotation(), moduleStates);
+
+        System.out.printf("%3.3f %3.3f %3.3f %3.3f %n",
+        w1.getCanRotation(), w2.getCanRotation(), w3.getCanRotation(), w4.getCanRotation());
     }
 
     public void disable() {

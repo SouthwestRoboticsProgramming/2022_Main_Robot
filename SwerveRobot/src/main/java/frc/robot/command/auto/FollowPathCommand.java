@@ -2,6 +2,7 @@ package frc.robot.command.auto;
 
 import java.util.List;
 
+import frc.robot.Robot;
 import frc.robot.command.Command;
 import frc.robot.command.auto.Path.Point;
 import frc.robot.control.SwerveDriveController;
@@ -16,9 +17,9 @@ public class FollowPathCommand implements Command {
     private int targetIndex;
     private Point currentTarget;
 
-    public FollowPathCommand(Localization loc, SwerveDriveController drive, Path path) {
-        this.loc = loc;
-        this.drive = drive;
+    public FollowPathCommand(Path path) {
+        loc = Robot.INSTANCE.localization;
+        drive = Robot.INSTANCE.driveController;
         this.path = path.getPath();
         reset();
     }

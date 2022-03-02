@@ -22,7 +22,7 @@ public abstract class Subsystem {
     public void doPeriodic() {
         robotPeriodic();
 
-        switch (Robot.get().getState()) {
+        switch (Robot.INSTANCE.getState()) {
             case DISABLED:
                 disabledPeriodic();
                 break;
@@ -39,7 +39,7 @@ public abstract class Subsystem {
     }
 
     public void doInit() {
-        switch (Robot.get().getState()) {
+        switch (Robot.INSTANCE.getState()) {
             case DISABLED:
                 disabledInit();
                 break;

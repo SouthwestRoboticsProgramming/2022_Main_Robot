@@ -2,85 +2,97 @@ package frc.robot.control;
 
 import static frc.robot.constants.ControlConstants.*;
 
-public class Input {
-    private final XboxController drive;
-    //private final XboxController manipulator;
+import frc.robot.subsystems.Subsystem;
+import frc.robot.util.Utils;
 
-    private final XboxController finalManipulator;
-    private final XboxController finalDrive;
+public class Input extends Subsystem {
+    private final XboxController drive;
+    private final XboxController manipulator;
 
     public Input() {
         drive = new XboxController(DRIVE_CONTROLLER);
-        //manipulator = new XboxController(11);
-
-        finalManipulator = new XboxController(MANIPULATOR_CONTROLLER);
-        finalDrive = new XboxController(DRIVE_CONTROLLER);
+        manipulator = new XboxController(MANIPULATOR_CONTROLLER);
     }
 
+    /* Drive */
     public double getDriveX() {
-        return drive.getLeftStickX();
+        return mapJoystick(drive.leftStickX.get());
     }
 
     public double getDriveY() {
-        return drive.getLeftStickY();
+        return mapJoystick(drive.leftStickY.get());
     }
 
     public double getRot() {
-        return -drive.getRightStickX();
+        return mapJoystick(drive.rightStickX.get());
     }
 
+    public boolean getSpeedMode() {
+        return drive.rightShoulder.isPressed();
+    }
 
-
-
-
-
-    /* Final Controler Setups */
+    /* Intake */
     public boolean getIntake() {
-        return drive.getLeftShoulderButton();
+        return manipulator.leftShoulder.isPressed();
     }
 
-    private boolean intakePreviousButton = false;
-    private boolean intakePrevious = false;
-
+    // Unused
+    private boolean intakeLift = true;
+    @Deprecated
     public boolean getIntakeLift() {
-        boolean finalIntake = false;
 
         /* Get leading edge */
-        boolean pressed = drive.getYButton() && drive.getYButton() != intakePreviousButton;
+        boolean pressed = manipulator.y.leadingEdge();
 
         /* If it's pressed, toggle the intake */
         if (pressed) {
-            finalIntake = !intakePrevious;
-        } else {
-            finalIntake = intakePrevious;
+            intakeLift = !intakeLift;
         }
-        
-        intakePrevious = finalIntake;
-        intakePreviousButton = drive.getYButton();
 
-        return finalIntake;
+        return intakeLift;
     }
 
-    private boolean shootPrevious = false;
+    /* Shooter */
     public boolean getShoot() {
-        if (drive.getAButton() && drive.getAButton() != shootPrevious) {
-            shootPrevious = drive.getAButton();
-            return true;
-        } else {
-            shootPrevious = drive.getAButton();
-            return false; 
-        }
+        return manipulator.a.leadingEdge();
     }
 
-    public boolean getAim() {
-        return finalDrive.getRightShoulderButton() || drive.getRightShoulderButton();
+    public int getShootDistance() {
+        if (manipulator.dpadUp.isPressed()) return 0;
+        if (manipulator.dpadDown.isPressed()) return 2;
+        return 1;
     }
+
     /* Climber */
-    public double getClimbTele() {
-        return finalManipulator.getLeftStickY();
+    public double getClimberTele() {
+        return mapJoystick(manipulator.leftStickY.get());
     }
 
-    public boolean getClimbNextStep() {
-        return finalManipulator.getLeftShoulderButton() && finalManipulator.getRightShoulderButton();
+    // TODO: Remove
+    public boolean getClimberManualControl() {
+        return manipulator.select.isPressed();
+    }
+
+    public double getClimberSwing() {
+        return mapJoystick(manipulator.leftStickX.get());
+    }
+
+    public boolean getClimberNextStep() {
+        return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
+    }
+
+    /* Tools */
+    private double mapJoystick(double amount) {
+        if (Math.abs(amount) < JOYSTICK_DEAD_ZONE) {
+            return 0;
+        }
+
+        return Math.signum(amount) * Utils.map(Math.abs(amount), JOYSTICK_DEAD_ZONE, 1, 0, 1);
+    }
+
+    @Override
+    public void robotPeriodic() {
+        drive.update();
+        manipulator.update();
     }
 }

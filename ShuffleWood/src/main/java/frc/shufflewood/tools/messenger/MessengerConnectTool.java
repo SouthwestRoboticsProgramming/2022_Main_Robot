@@ -53,7 +53,6 @@ public class MessengerConnectTool implements Tool {
                 MessengerClient client = new MessengerClient(host.toString(), port[0], name.toString());
                 app.setMessenger(client);
                 app.openTool(new ToolPalette(app));
-                app.openTool(new StartingStateMenu());
                 app.closeTool(this);
             } catch (RuntimeException e) {
                 e.printStackTrace();

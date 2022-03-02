@@ -16,7 +16,6 @@ public class IndexBall implements Command {
 
   public IndexBall(TalonFX indexMotor) {
     this.indexMotor = indexMotor;
-
   }
 
   @Override
@@ -33,6 +32,4 @@ public class IndexBall implements Command {
 
     return end;
   }
-
-  
 }
