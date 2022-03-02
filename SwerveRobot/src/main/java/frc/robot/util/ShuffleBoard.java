@@ -82,18 +82,18 @@ public class ShuffleBoard {
                 public static NetworkTableEntry climberTelescopeLoadedKI = telescopeTune.addPersistent("LoadedKI", CLIMBER_TELE_MOTOR_KI).getEntry();
                 public static NetworkTableEntry climberTelescopeLoadedKD = telescopeTune.addPersistent("LoadedKD", CLIMBER_TELE_MOTOR_KD).getEntry();
 
+            private static ShuffleboardLayout swingTune = climberGroup.getLayout("Swing", BuiltInLayouts.kList);
+                public static NetworkTableEntry climberSwingKP = swingTune.addPersistent("KP", CLIMBER_SWING_MOTOR_KP).getEntry();
+                public static NetworkTableEntry climberSwingKI = swingTune.addPersistent("KI", CLIMBER_SWING_MOTOR_KI).getEntry();
+                public static NetworkTableEntry climberSwingKD = swingTune.addPersistent("KD", CLIMBER_SWING_MOTOR_KD).getEntry();
+                public static NetworkTableEntry climberSwingLoadedKP = swingTune.addPersistent("LoadedKP", CLIMBER_SWING_MOTOR_KP).getEntry();
+                public static NetworkTableEntry climberSwingLoadedKI = swingTune.addPersistent("LoadedKI", CLIMBER_SWING_MOTOR_KI).getEntry();
+                public static NetworkTableEntry climberSwingLoadedKD = swingTune.addPersistent("LoadedKD", CLIMBER_SWING_MOTOR_KD).getEntry();
+
         private static ShuffleboardLayout intakeTune = tuneTab.getLayout("Intake", BuiltInLayouts.kList);
             public static NetworkTableEntry intakeKP = intakeTune.addPersistent("KP", INTAKE_KP).getEntry();
             public static NetworkTableEntry intakeKI = intakeTune.addPersistent("KI", INTAKE_KI).getEntry();
             public static NetworkTableEntry intakeKD = intakeTune.addPersistent("KD", INTAKE_KD).getEntry();
             public static NetworkTableEntry intakeFullVelocity = intakeTune.addPersistent("Full Velocity", INTAKE_FULL_VELOCITY).getEntry();
             public static NetworkTableEntry intakeNeutralVelocity = intakeTune.addPersistent("Neutral Velocity", INTAKE_NEUTRAL_VELOCITY).getEntry();
-        
-        private static ShuffleboardLayout swingTune = tuneTab.getLayout("Swing", BuiltInLayouts.kList);
-            public static NetworkTableEntry climberSwingKP = swingTune.addPersistent("KP", CLIMBER_SWING_MOTOR_KP).getEntry();
-            public static NetworkTableEntry climberSwingKI = swingTune.addPersistent("KI", CLIMBER_SWING_MOTOR_KI).getEntry();
-            public static NetworkTableEntry climberSwingKD = swingTune.addPersistent("KD", CLIMBER_SWING_MOTOR_KD).getEntry();
-            public static NetworkTableEntry climberSwingLoadedKP = swingTune.addPersistent("LoadedKP", CLIMBER_SWING_MOTOR_KP).getEntry();
-            public static NetworkTableEntry climberSwingLoadedKI = swingTune.addPersistent("LoadedKI", CLIMBER_SWING_MOTOR_KI).getEntry();
-            public static NetworkTableEntry climberSwingLoadedKD = swingTune.addPersistent("LoadedKD", CLIMBER_SWING_MOTOR_KD).getEntry();
 }
