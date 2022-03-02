@@ -3,6 +3,7 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public final class Utils {
+
     public static double clamp(double value, double min, double max) {
         if (value < min) return min;
         if (value > max) return max;

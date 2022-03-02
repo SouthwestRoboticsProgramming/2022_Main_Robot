@@ -3,8 +3,8 @@ package frc.robot.subsystems.climber;
 import static frc.robot.constants.ClimberConstants.*;
 
 public class TelescopingArms {
-    private NewTelescopingArm left;
-    private NewTelescopingArm right;
+    public NewTelescopingArm left;
+    public NewTelescopingArm right;
 
     public TelescopingArms() {
         left = new NewTelescopingArm(
@@ -20,14 +20,19 @@ public class TelescopingArms {
     }
 
     // Distance 0 to 1
-    public void extendToDistance(double distance) {
-        left.extendToDistance(distance);
-        right.extendToDistance(distance);
+    public void extendToDistance(double distance, boolean loaded) {
+        left.extendToDistance(distance, loaded);
+        right.extendToDistance(distance, loaded);
     }
 
     public void manualMove(double amount) {
         left.manualMove(amount);
         right.manualMove(amount);
+    }
+
+    public void resetEnc() {
+        left.resetEnc();
+        right.resetEnc();
     }
 
     public void stop() {

@@ -64,22 +64,36 @@ public class Input extends Subsystem {
     }
 
     /* Climber */
-    public double getClimberTele() {
+    public double getTeleManual() {
         return mapJoystick(manipulator.leftStickY.get());
     }
 
-    // TODO: Remove
-    public boolean getClimberManualControl() {
-        return manipulator.select.isPressed();
-    }
-
-    public double getClimberSwing() {
+    public double getSwingManual() {
         return mapJoystick(manipulator.leftStickX.get());
     }
 
-    public boolean getClimberNextStep() {
-        return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
+    public boolean getNextStep() {
+        return manipulator.x.leadingEdge();
     }
+
+    public boolean getPreviousStep() {
+        return manipulator.b.leadingEdge();
+    }
+
+
+
+    // TODO: Remove
+    // public boolean getClimberManualControl() {
+    //     return manipulator.select.isPressed();
+    // }
+
+    // public double getClimberSwing() {
+    //     return mapJoystick(manipulator.leftStickX.get());
+    // }
+
+    // public boolean getClimberNextStep() {
+    //     return manipulator.leftShoulder.isPressed() && manipulator.rightShoulder.isPressed();
+    // }
 
     /* Tools */
     private double mapJoystick(double amount) {
