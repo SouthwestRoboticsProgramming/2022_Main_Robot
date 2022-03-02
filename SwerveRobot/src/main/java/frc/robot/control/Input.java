@@ -37,7 +37,7 @@ public class Input extends Subsystem {
     }
 
     // Unused
-    private boolean intakeEnable = true;
+    private boolean intakeEnable = false;
     public boolean getIntakeEnable() {
 
         /* Get leading edge */
@@ -81,6 +81,14 @@ public class Input extends Subsystem {
 
     public boolean getClimberReset() {
         return manipulator.start.leadingEdge();
+    }
+
+    public double getNeoTestLeft() {
+        return mapJoystick(manipulator.rightStickX.get());
+    }
+
+    public double getNeoTestRight() {
+        return mapJoystick(manipulator.rightStickY.get());
     }
 
 

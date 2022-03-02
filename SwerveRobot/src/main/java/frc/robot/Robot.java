@@ -17,6 +17,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Localization;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.climber.NeoTester;
 import frc.robot.util.ShuffleBoard;
 import frc.robot.util.ShuffleWood;
 import edu.wpi.first.wpilibj.SPI;
@@ -94,8 +95,9 @@ public class Robot extends TimedRobot {
     localization = new Localization();
     shooter = new Shooter();
     intake = new Intake();
-    // climber = new ClimberController(input);
-    climber = new Climber();
+    // climber = new Climber();
+
+    new NeoTester(); // TODO: Remove before competition
     
     driveController.swerveInit();
 
