@@ -4,7 +4,6 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.util.ShuffleBoard;
 import frc.robot.util.Utils;
 
-import com.ctre.phoenix.Util;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -18,6 +17,8 @@ public class NewSwingingArm {
     
     private PIDController pid;
 
+    private boolean resetting;
+
     public NewSwingingArm(int motorID) {
         motor = new CANSparkMax(motorID, MotorType.kBrushless);
         motor.setIdleMode(IdleMode.kBrake);
@@ -26,24 +27,25 @@ public class NewSwingingArm {
         encoder = motor.getEncoder();
         encoder.setPosition(0);
         
-        pid = new PIDController(0,0,0);
-        // pid.setTolerance(CLIMBER_SWING_TOLERANCE);
+        pid = new PIDController(
+            CLIMBER_SWING_MOTOR_KP,
+            CLIMBER_SWING_MOTOR_KI,
+            CLIMBER_SWING_MOTOR_KD
+        );
+        pid.setTolerance(CLIMBER_SWING_TOLERANCE);
 
-        // updatePid(false);
+        resetting = false;
     }
 
-    private double getCurrentAngle() {
-
+    public double getCurrentAngle() {
         double currentPose = encoder.getPosition() / CLIMBER_SWING_ROTS_PER_INCH + CLIMBER_STARTING_DIST;
         double currentAngle = Math.acos(
-            (
-                CLIMBER_SWING_BASE * CLIMBER_SWING_BASE 
-                + CLIMBER_SWING_ARM * CLIMBER_SWING_ARM 
-                - currentPose * currentPose
-            ) / (2 * CLIMBER_SWING_ARM * CLIMBER_SWING_BASE)
-        );
-        return Math.toDegrees(currentAngle);
+                (CLIMBER_SWING_BASE * CLIMBER_SWING_BASE + CLIMBER_SWING_ARM * CLIMBER_SWING_ARM - currentPose * currentPose)
+                / (2 * CLIMBER_SWING_ARM * CLIMBER_SWING_BASE));
+        return currentAngle;
     }
+
+   
 
     private void updatePid(boolean loaded) {
         if (loaded) {
@@ -62,6 +64,7 @@ public class NewSwingingArm {
     }
 
     public void swingToAngle(double degrees, boolean loaded) {
+        if (resetting) {return;}
         updatePid(loaded);
 
         double currentAngle = getCurrentAngle();
@@ -86,5 +89,13 @@ public class NewSwingingArm {
     public double getPos() {
         // return encoder.getPosition() + CLIMBER_STARTING_DIST;
         return getCurrentAngle();
+    }
+
+    public void zero() {
+        encoder.setPosition(0);
+    }
+
+    public void setResetting(boolean resetting) {
+        this.resetting = resetting;
     }
 }

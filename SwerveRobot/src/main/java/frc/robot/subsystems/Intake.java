@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
+import frc.robot.Robot;
 import frc.robot.Scheduler;
 import frc.robot.command.intake.IntakeDown;
 import frc.robot.command.intake.IntakeUp;
 import frc.robot.constants.DriveConstants;
+import frc.robot.util.ShuffleBoard;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -78,13 +82,19 @@ public class Intake extends Subsystem {
 
   @Override
   public void teleopPeriodic() {
-    // motor.config_kP(0, ShuffleBoard.intakeKP.getDouble(INTAKE_KP));
-    // motor.config_kI(0, ShuffleBoard.intakeKI.getDouble(INTAKE_KI));
-    // motor.config_kD(0, ShuffleBoard.intakeKD.getDouble(INTAKE_KD));
+    motor.config_kP(0, ShuffleBoard.intakeKP.getDouble(INTAKE_KP));
+    motor.config_kI(0, ShuffleBoard.intakeKI.getDouble(INTAKE_KI));
+    motor.config_kD(0, ShuffleBoard.intakeKD.getDouble(INTAKE_KD));
 
-    // double fullVelocity = ShuffleBoard.intakeFullVelocity.getDouble(INTAKE_FULL_VELOCITY);
-    // double neutralVelocity = ShuffleBoard.intakeNeutralVelocity.getDouble(INTAKE_NEUTRAL_VELOCITY);
+    double fullVelocity = ShuffleBoard.intakeFullVelocity.getDouble(INTAKE_FULL_VELOCITY);
+    double neutralVelocity = ShuffleBoard.intakeNeutralVelocity.getDouble(INTAKE_NEUTRAL_VELOCITY);
     
+    if (Robot.INSTANCE.input.getIntakeEnable()) {
+      motor.set(ControlMode.Velocity, fullVelocity);
+    } else {
+      motor.set(ControlMode.Velocity, 0);
+    }
+
     // if (input.getIntake() & !input.getIntakeLift()) {
     //   intakeDown();
     //   motor.set(ControlMode.Velocity, fullVelocity);

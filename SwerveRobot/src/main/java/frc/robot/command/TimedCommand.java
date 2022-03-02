@@ -11,6 +11,8 @@ public abstract class TimedCommand implements Command {
 
     @Override
     public boolean run() {
+        runTimed();
+
         return --timer <= 0;
     }
 }
