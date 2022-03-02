@@ -78,6 +78,8 @@ public class SwerveDrive {
     }
 
     public void update(ChassisSpeeds chassisSpeeds) {
+        System.out.println(navx.getAngle());
+
         // Calculate the movements of each individual module
         SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
 

@@ -14,6 +14,7 @@ import frc.robot.command.shooter.IndexBall;
 import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.util.ShuffleBoard;
+import frc.robot.util.ShuffleWood;
 import frc.robot.util.Utils;
 
 import static frc.robot.constants.ShooterConstants.*;
@@ -90,11 +91,11 @@ public class Shooter extends Subsystem {
   private double calculateSpeed(int hoodAngle, int distance /*double distance */) {
     switch (distance) {
       case 0:
-        return CLOSE_SPEED;
+        return ShuffleBoard.closeVelocity.getDouble(CLOSE_SPEED);
       case 1:
-        return LINE_SPEED;
+        return ShuffleBoard.mediumVelocity.getDouble(LINE_SPEED);
       case 2:
-        return LAUNCHPAD_SPEED;
+        return ShuffleBoard.farVelocity.getDouble(LAUNCHPAD_SPEED);
       default:
         return SHOOTER_IDLE_VELOCITY;
     }
@@ -103,11 +104,11 @@ public class Shooter extends Subsystem {
   private int calculateHood(int distance) {
     switch (distance) {
       case 0:
-        return 0; // FIXME
+        return 0;
       case 1:
-        return 1; // FIXME
+        return 1;
       case 2:
-        return 2; // FIXME
+        return 4;
     
       default:
         return 0;
@@ -123,7 +124,11 @@ public class Shooter extends Subsystem {
     // double angle = cameraTurret.getAngle;
     
     /* Hood control */
-    double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
+    //double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
+
+    double distance = (double) input.getShootDistance();
+
+    double hoodAngle = (double) calculateHood((int)distance);
     if (hoodAngle == 0 && lastHoodAngle != 0) {
       calibratingHood = true;
     }
@@ -150,12 +155,14 @@ public class Shooter extends Subsystem {
 
     // System.out.printf("Current: %3.3f Target: %3.3f %n", hood.getSelectedSensorPosition(), targetHood);
 
-    if (true) {
-      flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
-    } else {
-      flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
-    }
+    // if (true) {
+    //   flywheel.set(ControlMode.Velocity, ShuffleBoard.shooterFlywheelVelocity.getDouble(SHOOTER_IDLE_VELOCITY)/*calculateSpeed(distance, hoodAngle)*/);
+    // } else {
+    //   flywheel.set(ControlMode.Velocity, SHOOTER_IDLE_VELOCITY);
+    // }
     
+
+    flywheel.set(ControlMode.Velocity, calculateSpeed(0,(int)distance));
     if (input.getShoot()) {
       shoot();
     }

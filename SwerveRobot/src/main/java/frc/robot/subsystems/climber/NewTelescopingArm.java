@@ -20,6 +20,8 @@ public class NewTelescopingArm {
 
     private PIDController heightPID;
 
+    private boolean resetting = false;
+
     public NewTelescopingArm(int motor1ID, int motor2ID, boolean inverted) {
         motor1 = new CANSparkMax(motor1ID, MotorType.kBrushless);
         motor1.setIdleMode(IdleMode.kBrake);
@@ -38,7 +40,7 @@ public class NewTelescopingArm {
     }
 
     private void updatePid(boolean loaded) {
-        if (false) {
+        if (loaded) {
             heightPID.setPID(
                 ShuffleBoard.climberTelescopeLoadedKP.getDouble(CLIMBER_TELE_MOTOR_KP),
                 ShuffleBoard.climberTelescopeLoadedKI.getDouble(CLIMBER_TELE_MOTOR_KI),
@@ -54,8 +56,16 @@ public class NewTelescopingArm {
     }
 
     // Distance 0 to 1
-    public void extendToDistance(double distance, boolean loaded) {
+        public void extendToDistance(double distance, boolean loaded) {
         updatePid(loaded);
+        if (resetting) return;
+
+        // Tune PID from shuffleboard
+        heightPID.setPID(
+            ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
+            ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
+            ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
+        );
 
         // Map to range MIN_TICKS to MAX_TICKS
         distance = Utils.map(distance, 0, 1, MIN_TICKS, MAX_TICKS);
@@ -83,6 +93,14 @@ public class NewTelescopingArm {
     public void stop() {
         motor1.stopMotor();
         motor2.stopMotor();
+    }
+
+    public void zero() {
+        encoder.setPosition(0);
+    }
+
+    public void setResetting(boolean resetting) {
+        this.resetting = resetting;
     }
 
     public void resetEnc() {

@@ -30,4 +30,13 @@ public class SwingingArms {
         left.stop();
         right.stop();
     }
+
+    public void zero() {
+        left.zero();
+        right.zero();
+    }
+
+    public void setResetting(boolean resetting) {
+        left.setResetting(resetting);
+    }
 }

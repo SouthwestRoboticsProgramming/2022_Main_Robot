@@ -33,6 +33,15 @@ public class TelescopingArms {
     public void resetEnc() {
         left.resetEnc();
         right.resetEnc();
+    } // TODO: Which one is right?    
+    public void setResetting(boolean resetting) {
+        left.setResetting(resetting);
+        right.setResetting(resetting);
+    }
+
+    public void zero() {
+        left.zero();
+        right.zero();
     }
 
     public void stop() {

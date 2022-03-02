@@ -70,6 +70,7 @@ public final class XboxController {
         private final Joystick stick;
         private final int axisID;
         private final boolean inverted;
+
         private double value;
 
         public Axis(Joystick stick, int axisID, boolean inverted) {

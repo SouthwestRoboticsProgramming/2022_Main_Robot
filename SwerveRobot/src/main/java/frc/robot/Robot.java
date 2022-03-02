@@ -6,7 +6,6 @@ import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
 import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
-import frc.robot.command.auto.AutonomousCommand;
 import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.command.climb.ClimberSequence;
 import frc.robot.control.Input;
@@ -93,8 +92,12 @@ public class Robot extends TimedRobot {
 
     
     cameras = new Cameras();
-    cameraTurret = new CameraTurret();
+    cameraTurret = new CameraTurret(cameras);
     localization = new Localization();
+    shooter = new Shooter();
+    intake = new Intake();
+    // climber = new ClimberController(input);
+    climber = new Climber();
     
     driveController.swerveInit();
 

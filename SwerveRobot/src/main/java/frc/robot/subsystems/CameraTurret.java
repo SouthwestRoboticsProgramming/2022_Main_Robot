@@ -20,9 +20,7 @@ public class CameraTurret extends Subsystem {
   private double target;
   private boolean isSweepback;
   
-  public CameraTurret() {
-    cameras = null; // FIXME: Fix me
-
+  public CameraTurret(Cameras cameras) {
     motor = new TalonSRX(CAMERA_TURRET_MOTOR_ID);
 
     TalonSRXConfiguration config = new TalonSRXConfiguration();
@@ -39,6 +37,7 @@ public class CameraTurret extends Subsystem {
 
     pid = new PIDController(0.005, 0, 0);
     pid.setTolerance(4);
+    this.cameras = cameras;
   }
 
   public double getAngle() {
