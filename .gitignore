@@ -29,7 +29,6 @@ hs_err_pid*
 # Compiled java classes
 *out
 *target
-*.jar
 
 # MacOS DS_Store
 *.DS_Store
