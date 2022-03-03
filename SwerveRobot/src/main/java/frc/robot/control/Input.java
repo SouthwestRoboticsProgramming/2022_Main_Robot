@@ -75,10 +75,6 @@ public class Input extends Subsystem {
         return manipulator.x.leadingEdge();
     }
 
-    public boolean getClimberNextStep() {
-        return manipulator.leftShoulder.leadingEdge();
-    }
-
     public boolean getClimberReset() {
         return manipulator.start.leadingEdge();
     }
