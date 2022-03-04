@@ -14,8 +14,6 @@ import frc.robot.command.shooter.IndexBall;
 import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.util.ShuffleBoard;
-import frc.robot.util.ShuffleWood;
-import frc.robot.util.Utils;
 
 import static frc.robot.constants.ShooterConstants.*;
 
