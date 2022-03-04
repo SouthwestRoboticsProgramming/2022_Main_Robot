@@ -78,9 +78,11 @@ public class ShuffleBoard {
                 public static NetworkTableEntry climberTelescopeKP = telescopeTune.addPersistent("KP", CLIMBER_TELE_MOTOR_KP).getEntry();
                 public static NetworkTableEntry climberTelescopeKI = telescopeTune.addPersistent("KI", CLIMBER_TELE_MOTOR_KI).getEntry();
                 public static NetworkTableEntry climberTelescopeKD = telescopeTune.addPersistent("KD", CLIMBER_TELE_MOTOR_KD).getEntry();
+                public static NetworkTableEntry climberTelescopeKF = telescopeTune.addPersistent("KF", CLIMBER_TELE_MOTOR_KF).getEntry();
                 public static NetworkTableEntry climberTelescopeLoadedKP = telescopeTune.addPersistent("LoadedKP", CLIMBER_TELE_MOTOR_KP).getEntry();
                 public static NetworkTableEntry climberTelescopeLoadedKI = telescopeTune.addPersistent("LoadedKI", CLIMBER_TELE_MOTOR_KI).getEntry();
                 public static NetworkTableEntry climberTelescopeLoadedKD = telescopeTune.addPersistent("LoadedKD", CLIMBER_TELE_MOTOR_KD).getEntry();
+                public static NetworkTableEntry climberTelescopeLoadedKF = telescopeTune.addPersistent("LoadedKF", CLIMBER_TELE_MOTOR_KF).getEntry();
 
             private static ShuffleboardLayout swingTune = climberGroup.getLayout("Swing", BuiltInLayouts.kList);
                 public static NetworkTableEntry climberSwingKP = swingTune.addPersistent("KP", CLIMBER_SWING_MOTOR_KP).getEntry();

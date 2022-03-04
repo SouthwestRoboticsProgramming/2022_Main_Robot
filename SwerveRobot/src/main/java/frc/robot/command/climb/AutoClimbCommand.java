@@ -61,6 +61,11 @@ public class AutoClimbCommand implements Command {
     
   }
 
+  private void switchToStep(int step) {
+    climbStep = step;
+    System.out.println("Switching to step: " + step);
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public boolean run() {
@@ -103,7 +108,9 @@ public class AutoClimbCommand implements Command {
 
     switch (climbStep) {
       case 0:
-        if (robot.input.getNextStep()) {climbStep = 1;}
+        if (robot.input.getNextStep()) {
+          switchToStep(1);
+        }
         break;
       case 1:
         teleSetpoint = ShuffleBoard.climbTune1TeleHeight.getDouble(0);
@@ -111,44 +118,44 @@ public class AutoClimbCommand implements Command {
         teleLoaded = false;
         swingLoaded = false;
         // Whe clicked, arms set to retract
-        if (teleInTol() && swingInTol() && robot.input.getNextStep()) {climbStep = 2;}
+        if (teleInTol() && swingInTol() && robot.input.getNextStep()) {switchToStep(2);}
         break;
       case 2:
         teleSetpoint = ShuffleBoard.climbTune2TeleHeight.getDouble(0);
         teleLoaded = true;
         //wait for arms to retract, then rotate robot
-        if (teleInTol()) {climbStep = 3;}
+        if (teleInTol()) {switchToStep(3);}
         break;
       case 3:
         swingSetpoint = ShuffleBoard.climbTune3SwingHandoffAngle.getDouble(0);
         swingLoaded = false;
-        if (swingInTol()) {climbStep = 4;}
+        if (swingInTol()) {switchToStep(4);}
         break;
       case 4:
         teleSetpoint = ShuffleBoard.climbTune4TeleHeight.getDouble(0);
         swingSetpoint = ShuffleBoard.climbTune5SwingFinishAngle.getDouble(0);
         teleLoaded = false;
         swingLoaded = true;
-        if (teleInTol()&&swingInTol()) {climbStep = 5;}
+        if (teleInTol()&&swingInTol()) {switchToStep(5);}
         break;
       case 5:
         teleSetpoint = ShuffleBoard.climbTune6TeleHeight.getDouble(0);
-        if (teleInTol()) {climbStep = 6;}
+        if (teleInTol()) {switchToStep(6);}
         break;
       case 6:
         swingSetpoint = ShuffleBoard.climbTune7SwingAngle.getDouble(0);
         teleLoaded = false;
-        if (swingInTol()) {climbStep = 7;}
+        if (swingInTol()) {switchToStep(7);}
         break;
       case 7:
         teleSetpoint = ShuffleBoard.climbTune4TeleHeight.getDouble(0);
         teleLoaded = false;
-        if (teleInTol()) {climbStep = 8;}
+        if (teleInTol()) {switchToStep(8);}
         break;
       case 8:
         swingSetpoint = ShuffleBoard.climbTune1SwingAngle.getDouble(0);
         teleLoaded = false;
-        if (swingInTol() && robot.input.getNextStep()) {climbStep = 2;}
+        if (swingInTol() && robot.input.getNextStep()) {switchToStep(2);}
         break;
       default:
         break;
@@ -193,10 +200,6 @@ public class AutoClimbCommand implements Command {
   private boolean checkIfValsInTollerence(double encoder1, double encoder2, double setPoint, double tollerence) {
         boolean enc1Tollerence = Math.abs(encoder1-setPoint) < tollerence;
         boolean enc2Tollerence = Math.abs(encoder2-setPoint) < tollerence;
-      if (enc1Tollerence && enc2Tollerence) {
-        return true;
-      } else {
-        return false;
-      }
+      return (enc1Tollerence && enc2Tollerence);
   }
 }

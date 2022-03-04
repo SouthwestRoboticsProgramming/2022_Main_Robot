@@ -5,11 +5,13 @@ public class ClimberConstants {
     public static final double CLIMBER_SWING_MOTOR_KP = 0.015;
     public static final double CLIMBER_SWING_MOTOR_KI = 0;
     public static final double CLIMBER_SWING_MOTOR_KD = 0;
+    public static final double CLIMBER_SWING_MOTOR_KF = 0;
     public static final double CLIMBER_SWING_TOLERANCE = 2;
 
     public static final double CLIMBER_TELE_MOTOR_KP = 0.1;
     public static final double CLIMBER_TELE_MOTOR_KI = 0;
     public static final double CLIMBER_TELE_MOTOR_KD = 0;
+    public static final double CLIMBER_TELE_MOTOR_KF = 0;
     public static final double CLIMBER_TELE_TOLERANCE = 20;
     public static final double CLIMBER_MAX_SPEED = 0.20; // Percent 0 to 1
 

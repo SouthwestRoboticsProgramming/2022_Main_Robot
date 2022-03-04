@@ -19,8 +19,8 @@ public class DriveConstants {
     public static final double GLOBAL_TURN_KI = 0;
     public static final double GLOBAL_TURN_KD = 0.0022;
 
-    public static final double MAX_VELOCITY = 0.01; // User Defined - Meters per second
-    public static final double MAX_ROTATION_SPEED = 6.0; // User Defined - Radians per second
+    public static final double MAX_VELOCITY = 0.1; // User Defined - Meters per second
+    public static final double MAX_ROTATION_SPEED = 1.0; // User Defined - Radians per second
 
     public static final double SLOW_MODE = 0.5; // How much to multipy the drive by to go slower
     

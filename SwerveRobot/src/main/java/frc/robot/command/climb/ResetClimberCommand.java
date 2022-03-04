@@ -31,7 +31,7 @@ public class ResetClimberCommand implements Command {
     this.climber = climber;
     this.tele = climber.telescoping;
     this.swing = climber.swinging;
-    tele.manualMove(-.1);
+    tele.manualMove(-.3);
     swing.manualMove(-.1);
     startTime = System.currentTimeMillis();
   }

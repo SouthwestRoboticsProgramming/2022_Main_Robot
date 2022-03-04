@@ -75,20 +75,16 @@ public class Input extends Subsystem {
         return manipulator.x.leadingEdge();
     }
 
-    public boolean getClimberNextStep() {
-        return manipulator.leftShoulder.leadingEdge();
-    }
-
     public boolean getClimberReset() {
         return manipulator.start.leadingEdge();
     }
 
     public double getNeoTestLeft() {
-        return mapJoystick(manipulator.rightStickX.get());
+        return 0.25 * mapJoystick(manipulator.rightStickX.get());
     }
 
     public double getNeoTestRight() {
-        return mapJoystick(manipulator.rightStickY.get());
+        return 0.25 * mapJoystick(manipulator.rightStickX.get());
     }
 
 

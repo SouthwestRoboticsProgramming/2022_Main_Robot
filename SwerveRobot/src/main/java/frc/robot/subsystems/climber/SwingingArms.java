@@ -7,8 +7,8 @@ public class SwingingArms {
     public NewSwingingArm right;
 
     public SwingingArms() {
-        left = new NewSwingingArm(CLIMBER_LEFT_SWING_MOTOR_ID);
-        right = new NewSwingingArm(CLIMBER_RIGHT_SWING_MOTOR_ID);
+        left = new NewSwingingArm(CLIMBER_LEFT_SWING_MOTOR_ID, true);
+        right = new NewSwingingArm(CLIMBER_RIGHT_SWING_MOTOR_ID, true);
     }
 
     public void swingToAngle(double degrees, boolean loaded) {

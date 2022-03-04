@@ -29,6 +29,7 @@ public final class Scheduler {
     public void scheduleCommand(Command cmd) {
         // System.out.println("Scheduling " + cmd);
 
+        cmd.start();
         activeCommands.add(new CommandTimer(cmd));
     }
 

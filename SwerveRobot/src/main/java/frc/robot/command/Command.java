@@ -1,6 +1,9 @@
 package frc.robot.command;
 
 public interface Command {
+    // Run when the command starts
+    default void start() {}
+
     // Returns whether the command is finished running
     boolean run();
 

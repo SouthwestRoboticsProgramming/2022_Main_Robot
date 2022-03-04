@@ -3,6 +3,7 @@ package frc.robot.subsystems.climber;
 import frc.robot.Robot;
 import frc.robot.Scheduler;
 import frc.robot.command.climb.ClimbReset;
+import frc.robot.command.climb.ClimberSequence;
 import frc.robot.control.Input;
 import frc.robot.subsystems.Subsystem;
 import frc.robot.util.Utils;
@@ -10,6 +11,7 @@ import frc.robot.util.Utils;
 public class Climber extends Subsystem {
     public TelescopingArms telescoping;
     public SwingingArms swinging;
+    private ClimberSequence command;
 
     public Climber() {
         telescoping = new TelescopingArms();
@@ -18,7 +20,12 @@ public class Climber extends Subsystem {
 
     @Override
     public void teleopInit() {
-        // Scheduler.get().scheduleCommand(new ClimbReset());
+        Scheduler.get().scheduleCommand(command = new ClimberSequence(Robot.INSTANCE, this));
+    }
+
+    @Override
+    public void disabledInit() {
+        Scheduler.get().cancelCommand(command);
     }
 
     @Override

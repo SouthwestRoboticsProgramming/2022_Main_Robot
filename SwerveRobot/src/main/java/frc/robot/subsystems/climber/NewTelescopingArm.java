@@ -12,8 +12,8 @@ import frc.robot.util.Utils;
 import static frc.robot.constants.ClimberConstants.*;
 
 public class NewTelescopingArm {
-    private static final int MIN_TICKS = 0;
-    private static final int MAX_TICKS = 46;
+    private static final double MIN_TICKS = 0;
+    private static final double MAX_TICKS = 46.07;
 
     private final CANSparkMax motor1, motor2;
     private final RelativeEncoder encoder;
@@ -21,6 +21,8 @@ public class NewTelescopingArm {
     private PIDController heightPID;
 
     private boolean resetting = false;
+
+    private double kf = 0;
 
     public NewTelescopingArm(int motor1ID, int motor2ID, boolean inverted) {
         motor1 = new CANSparkMax(motor1ID, MotorType.kBrushless);
@@ -46,26 +48,30 @@ public class NewTelescopingArm {
                 ShuffleBoard.climberTelescopeLoadedKI.getDouble(CLIMBER_TELE_MOTOR_KI),
                 ShuffleBoard.climberTelescopeLoadedKD.getDouble(CLIMBER_TELE_MOTOR_KD)
             );
+            kf = ShuffleBoard.climberTelescopeLoadedKF.getDouble(CLIMBER_TELE_MOTOR_KF);
         } else {
             heightPID.setPID(
                 ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
                 ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
                 ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
             );
+            kf = ShuffleBoard.climberTelescopeKF.getDouble(CLIMBER_TELE_MOTOR_KF);
         }
     }
 
     // Distance 0 to 1
         public void extendToDistance(double distance, boolean loaded) {
+
+            // System.out.println(encoder.getPosition());
         updatePid(loaded);
         if (resetting) return;
 
         // Tune PID from shuffleboard
-        heightPID.setPID(
-            ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
-            ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
-            ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
-        );
+        // heightPID.setPID(
+        //     ShuffleBoard.climberTelescopeKP.getDouble(CLIMBER_TELE_MOTOR_KP),
+        //     ShuffleBoard.climberTelescopeKI.getDouble(CLIMBER_TELE_MOTOR_KI),
+        //     ShuffleBoard.climberTelescopeKD.getDouble(CLIMBER_TELE_MOTOR_KD)
+        // );
 
         // Map to range MIN_TICKS to MAX_TICKS
         distance = Utils.map(distance, 0, 1, MIN_TICKS, MAX_TICKS);
@@ -75,7 +81,7 @@ public class NewTelescopingArm {
         // System.out.println("PID stuff: " + encoder.getPosition() + " -> " + distance + " (" + pid + ")");
 
         // Run motors
-        double output = Utils.clamp(pid, -0.5, 0.5);
+        double output = Utils.clamp(pid + kf, -0.4, 0.6);
         motor1.set(output);
         motor2.set(output);
 

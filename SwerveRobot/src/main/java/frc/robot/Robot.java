@@ -95,9 +95,9 @@ public class Robot extends TimedRobot {
     localization = new Localization();
     shooter = new Shooter();
     intake = new Intake();
-    // climber = new Climber();
+    climber = new Climber();
 
-    new NeoTester(); // TODO: Remove before competition
+    // new NeoTester(); // TODO: Remove before competition
     
     driveController.swerveInit();
 
@@ -139,7 +139,6 @@ public class Robot extends TimedRobot {
       Scheduler.get().cancelCommand(autoCommand);
       autoCommand = null;
     }
-    Scheduler.get().scheduleCommand(new ClimberSequence(this, climber));
   }
 
   @Override
