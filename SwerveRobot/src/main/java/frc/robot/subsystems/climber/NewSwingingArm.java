@@ -1,6 +1,7 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import frc.robot.util.ShuffleBoard;
 import frc.robot.util.Utils;
 
@@ -18,8 +19,11 @@ public class NewSwingingArm {
     private PIDController pid;
 
     private boolean resetting;
+    private boolean isLeft;
 
     public NewSwingingArm(int motorID, boolean inverted) {
+        isLeft = motorID == CLIMBER_LEFT_SWING_MOTOR_ID;
+
         motor = new CANSparkMax(motorID, MotorType.kBrushless);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setInverted(inverted);
@@ -76,10 +80,18 @@ public class NewSwingingArm {
         double currentAngle = getCurrentAngle();
     
         double out = pid.calculate(currentAngle, degrees);
-        out = Utils.clamp(out, -0.5, 0.5);
+        out = Utils.clamp(out, -0.3, 0.3);
         // System.out.println("Current Angle: " + currentAngle + " | SetAngle: " + degrees + " | Output:" + out);
         // System.out.println("PID Output: " + out);
         motor.set(out);
+
+        NetworkTableEntry entry;
+        if (isLeft) {
+            entry = ShuffleBoard.leftSwingEncoder;
+        } else {
+            entry = ShuffleBoard.rightSwingEncoder;
+        }
+        entry.setDouble(encoder.getPosition());
     }
 
     public void resetEnc() {

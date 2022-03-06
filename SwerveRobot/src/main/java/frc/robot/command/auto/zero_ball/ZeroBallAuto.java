@@ -7,7 +7,7 @@ import frc.robot.command.auto.Path;
 public final class ZeroBallAuto extends CommandSequence {
     public ZeroBallAuto() {
         Path path = new Path();
-        path.addPoint(0, -3);
+        path.addPoint(0, -0.25);
 
         append(new FollowPathCommand(path));
     }

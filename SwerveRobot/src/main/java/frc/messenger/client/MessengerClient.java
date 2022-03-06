@@ -65,6 +65,15 @@ public class MessengerClient {
     }
 
     /**
+     * Gets whether this client is connected to the Messenger server.
+     * 
+     * @return connected
+     */
+    public boolean isConnected() {
+        return !noOp;
+    }
+
+    /**
      * Sends a message to the Messenger server. The message will be dispatched
      * to any other clients that are listening to the message type.
      *

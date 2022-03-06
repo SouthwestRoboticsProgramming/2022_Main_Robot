@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.Robot;
 import frc.robot.drive.SwerveDrive;
+import frc.robot.util.ShuffleBoard;
 import frc.robot.util.Utils;
 
 import static frc.robot.constants.ControlConstants.*;
@@ -31,12 +32,15 @@ public class SwerveDriveController {
         autoControl = false;
     }
 
-    public void swerveInit(){
+    public void swerveInit() {
         drive.zeroGyro();
         drive.update(speeds);
     }
     
     public void update() {
+        double maxVelocity = ShuffleBoard.driveSpeed.getDouble(MAX_VELOCITY);
+        double maxRotationSpeed = ShuffleBoard.turnSpeed.getDouble(MAX_ROTATION_SPEED);
+
         double driveX = input.getDriveX();
         double driveY = input.getDriveY();
         double rot = input.getRot();
@@ -46,14 +50,14 @@ public class SwerveDriveController {
             rot = autoRot;
             driveX = autoDriveX;
             driveY = autoDriveY;
-            System.out.println("Auto");
+            // System.out.println("Auto");
         } else {
             // System.out.println("no auto");
         }
 
-        double fieldRelativeX = driveX * MAX_VELOCITY;
-        double fieldRelativeY = driveY * MAX_VELOCITY;
-        double targetRot = rot * MAX_ROTATION_SPEED;
+        double fieldRelativeX = driveX * maxVelocity;
+        double fieldRelativeY = driveY * maxVelocity;
+        double targetRot = rot * maxRotationSpeed;
 
         if (input.getSpeedMode()) {
             fieldRelativeX = fieldRelativeX * SLOW_MODE;

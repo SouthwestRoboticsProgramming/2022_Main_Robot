@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 import frc.robot.Scheduler;
 import frc.robot.command.shooter.IndexBall;
+import frc.robot.command.shooter.Shoot;
 import frc.robot.constants.DriveConstants;
 import frc.robot.control.Input;
 import frc.robot.util.ShuffleBoard;
@@ -25,6 +26,7 @@ public class Shooter extends Subsystem {
   private final DigitalInput hoodLimit;
 
   private boolean calibratingHood = true;
+  public double manualDistance = -1;
 
   public Shooter() {
     this.input = Robot.INSTANCE.input;
@@ -78,11 +80,15 @@ public class Shooter extends Subsystem {
   }
 
   public void shoot() {
-    Scheduler.get().scheduleCommand(new IndexBall(index));
+    Scheduler.get().scheduleCommand(new Shoot(index));
+  }
+
+  public Shoot makeShootCommand() {
+    return new Shoot(index);
   }
 
   public void shootManualDistance() {
-    Scheduler.get().scheduleCommand(new IndexBall(index));
+    Scheduler.get().scheduleCommand(new Shoot(index));
     // TODO: Add distance to shoot command
   }
 
@@ -94,6 +100,8 @@ public class Shooter extends Subsystem {
         return ShuffleBoard.mediumVelocity.getDouble(LINE_SPEED);
       case 2:
         return ShuffleBoard.farVelocity.getDouble(LAUNCHPAD_SPEED);
+      case 3:
+        return ShuffleBoard.autoVelocity.getDouble(AUTO_SPEED);
       default:
         return SHOOTER_IDLE_VELOCITY;
     }
@@ -102,11 +110,13 @@ public class Shooter extends Subsystem {
   private int calculateHood(int distance) {
     switch (distance) {
       case 0:
-        return 0;
+        return (int) ShuffleBoard.closeHood.getDouble(CLOSE_HOOD_POS);
       case 1:
-        return 1;
+        return (int) ShuffleBoard.mediumHood.getDouble(MEDIUM_HOOD_POS);
       case 2:
-        return 4;
+        return (int) ShuffleBoard.farHood.getDouble(FAR_HOOD_POS);
+      case 3:
+        return (int) ShuffleBoard.autoHood.getDouble(AUTO_HOOD_POS);
     
       default:
         return 0;
@@ -114,6 +124,11 @@ public class Shooter extends Subsystem {
   }
 
   double lastHoodAngle = 0;
+
+  @Override
+  public void autonomousPeriodic() {
+    teleopPeriodic();
+  }
   
   @Override
   public void teleopPeriodic() {
@@ -125,6 +140,9 @@ public class Shooter extends Subsystem {
     //double hoodAngle = Utils.clamp(ShuffleBoard.hoodPosition.getDouble(0), 0, 4);
 
     double distance = (double) input.getShootDistance();
+
+    if (manualDistance >= 0)
+      distance = manualDistance;
 
     double hoodAngle = (double) calculateHood((int)distance);
     if (hoodAngle == 0 && lastHoodAngle != 0) {

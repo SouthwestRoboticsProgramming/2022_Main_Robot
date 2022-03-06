@@ -31,7 +31,7 @@ public class ClimberConstants {
     public static final int CLIMBER_RIGHT_SWING_MOTOR_ID = 23;
     public static final double CLIMBER_SWING_ARM = 15 + 1 / 8.0; // Length of the swinging arm measured from the pivot to the connection with the screw
     public static final double CLIMBER_SWING_BASE = 6 + 3 / 4.0; // Distance between pivot and start of screw
-    public static final double CLIMBER_STARTING_DIST = 13 + 1 / 8.0; // Marked in sharpie on the screw (You may need to squint)
+    public static final double CLIMBER_STARTING_DIST = 13 + 1 / 8.0 - 0.75; // Marked in sharpie on the screw (You may need to squint)
     public static final double CLIMBER_SWING_ROTS_PER_INCH = 11.0; // Distance that the screw travels up after each rotation of the motor
 
     private ClimberConstants() {

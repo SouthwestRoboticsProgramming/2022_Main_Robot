@@ -13,7 +13,7 @@ import static frc.robot.constants.ClimberConstants.*;
 
 public class NewTelescopingArm {
     private static final double MIN_TICKS = 0;
-    private static final double MAX_TICKS = 46.07;
+    private static final double MAX_TICKS = 47.07;
 
     private final CANSparkMax motor1, motor2;
     private final RelativeEncoder encoder;

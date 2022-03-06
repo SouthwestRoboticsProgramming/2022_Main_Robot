@@ -25,13 +25,13 @@ public class ResetClimberCommand implements Command {
   private Robot robot;
   private long startTime;
   private boolean finished = false;
-  private static long executionTime = 4000;
+  private static long executionTime = 7000;
 
   public ResetClimberCommand(Climber climber) {
     this.climber = climber;
     this.tele = climber.telescoping;
     this.swing = climber.swinging;
-    tele.manualMove(-.3);
+    tele.manualMove(-.1);
     swing.manualMove(-.1);
     startTime = System.currentTimeMillis();
   }

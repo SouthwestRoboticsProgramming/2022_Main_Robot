@@ -23,6 +23,25 @@ public class ShuffleBoard {
         private static ShuffleboardLayout autoSelect = configTab.getLayout("Auto Select", BuiltInLayouts.kList);
             public static NetworkTableEntry whichAuto = autoSelect.addPersistent("Which Auto", "a").getEntry();
 
+        private static ShuffleboardLayout driveConfig = configTab.getLayout("Drive Config", BuiltInLayouts.kList);
+            public static NetworkTableEntry driveSpeed = driveConfig.addPersistent("Drive Speed", MAX_VELOCITY).getEntry();
+            public static NetworkTableEntry turnSpeed = driveConfig.addPersistent("Turn Speed", MAX_ROTATION_SPEED).getEntry();
+
+        private static ShuffleboardLayout shootConfig = configTab.getLayout("Shooter Config", BuiltInLayouts.kList);
+            public static NetworkTableEntry indexEnableKickback = shootConfig.addPersistent("Enable Kickback (0 is off, 1 is on)", 0).getEntry();
+
+    public static ShuffleboardTab statusTab = Shuffleboard.getTab("Status");
+        private static ShuffleboardLayout messengerStatus = statusTab.getLayout("Messenger", BuiltInLayouts.kList);
+            public static NetworkTableEntry messengerConnected = messengerStatus.addPersistent("Connected", false).getEntry();
+            public static NetworkTableEntry messengerAttempts = messengerStatus.addPersistent("Attempt Count", 0).getEntry();
+
+        private static ShuffleboardLayout sensorStatus = statusTab.getLayout("Sensors", BuiltInLayouts.kList);
+            public static NetworkTableEntry gyroAngle = sensorStatus.addPersistent("Gyro Angle", 0).getEntry();
+
+        private static ShuffleboardLayout climberStatus = statusTab.getLayout("Climber", BuiltInLayouts.kList);
+            public static NetworkTableEntry leftSwingEncoder = climberStatus.addPersistent("Left Swing Encoder", 54545454).getEntry();
+            public static NetworkTableEntry rightSwingEncoder = climberStatus.addPersistent("Right Swing Encoder", 54545454).getEntry();
+
     public static ShuffleboardTab tuneTab = Shuffleboard.getTab("Tune");
         public static ShuffleboardLayout driveGroup = tuneTab.getLayout("Drive", "Subsystem Layout");
             private static ShuffleboardLayout turn = driveGroup.getLayout("Turn", BuiltInLayouts.kList);
@@ -50,6 +69,9 @@ public class ShuffleBoard {
                 public static NetworkTableEntry indexKI = indexTune.addPersistent("KI", INDEX_KI).getEntry();
                 public static NetworkTableEntry indexKD = indexTune.addPersistent("KD", INDEX_KD).getEntry();
                 public static NetworkTableEntry indexSpeed = indexTune.addPersistent("Speed", INDEX_SPEED).getEntry();
+                public static NetworkTableEntry indexTime = indexTune.addPersistent("Time", INDEX_TIME).getEntry();
+                public static NetworkTableEntry indexKickbackSpeed = indexTune.addPersistent("Kickback Speed", INDEX_KICKBACK_SPEED).getEntry();
+                public static NetworkTableEntry indexKickbackTime = indexTune.addPersistent("Kickback Time", INDEX_KICKBACK_TIME).getEntry();
 
             private static ShuffleboardLayout hoodTune = shooterGroup.getLayout("Hood", BuiltInLayouts.kList);
                 public static NetworkTableEntry hoodKP = hoodTune.addPersistent("KP", HOOD_KP).getEntry();
@@ -60,6 +82,11 @@ public class ShuffleBoard {
                 public static NetworkTableEntry closeVelocity = velocities.addPersistent("Close Velocity", CLOSE_SPEED).getEntry();
                 public static NetworkTableEntry mediumVelocity = velocities.addPersistent("Medium Velocity", LINE_SPEED).getEntry();
                 public static NetworkTableEntry farVelocity = velocities.addPersistent("Far Velocity", LAUNCHPAD_SPEED).getEntry();
+                public static NetworkTableEntry autoVelocity = velocities.addPersistent("Auto Velocity", AUTO_SPEED).getEntry();
+                public static NetworkTableEntry closeHood = velocities.addPersistent("Close Hood Position", CLOSE_HOOD_POS).getEntry();
+                public static NetworkTableEntry mediumHood = velocities.addPersistent("Medium Hood Position", MEDIUM_HOOD_POS).getEntry();
+                public static NetworkTableEntry farHood = velocities.addPersistent("Far Hood Position", FAR_HOOD_POS).getEntry();
+                public static NetworkTableEntry autoHood = velocities.addPersistent("Auto Hood Position", AUTO_HOOD_POS).getEntry();
 
         private static ShuffleboardLayout climberGroup = tuneTab.getLayout("Climber", "Subsystem Layout");
             private static ShuffleboardLayout climbTune = climberGroup.getLayout("Steps", BuiltInLayouts.kList);

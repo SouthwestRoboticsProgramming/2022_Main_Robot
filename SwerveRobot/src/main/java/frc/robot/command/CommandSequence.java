@@ -21,9 +21,24 @@ public class CommandSequence implements Command {
     }
 
     public void next() {
-        currentIndex++;
         if (currentIndex < sequence.size()) {
+            System.out.println("Ending " + sequence.get(currentIndex));
             sequence.get(currentIndex).end();
+        }
+
+        currentIndex++;
+
+        if (currentIndex < sequence.size()) {
+            System.out.println("Moving on to " + sequence.get(currentIndex));
+            sequence.get(currentIndex).start();
+        }
+    }
+
+    @Override
+    public void start() {
+        if (currentIndex < sequence.size()) {
+            System.out.println("Starting " + sequence.get(currentIndex));
+            sequence.get(currentIndex).start();
         }
     }
 
@@ -35,10 +50,17 @@ public class CommandSequence implements Command {
 
         Command activeCommand = sequence.get(currentIndex);
         if (activeCommand.run()) {
-            activeCommand.end();
-            currentIndex++;
+            next();
         }
 
         return false;
+    }
+
+    @Override
+    public void end() {
+        if (currentIndex < sequence.size()) {
+            System.out.println("Ending " + sequence.get(currentIndex));
+            sequence.get(currentIndex).end();
+        }
     }
 }

@@ -149,19 +149,26 @@ public class AutoClimbCommand implements Command {
         break;
       case 7:
         teleSetpoint = ShuffleBoard.climbTune4TeleHeight.getDouble(0);
+        swingSetpoint = ShuffleBoard.climbTune7SwingAngle.getDouble(0);
         teleLoaded = false;
-        if (teleInTol()) {switchToStep(8);}
+        if (Robot.INSTANCE.input.getUndoStep()) {switchToStep(9); }
+        if (teleInTol() && swingInTol()) {switchToStep(8);}
         break;
       case 8:
         swingSetpoint = ShuffleBoard.climbTune1SwingAngle.getDouble(0);
         teleLoaded = false;
         if (swingInTol() && robot.input.getNextStep()) {switchToStep(2);}
         break;
+      case 9: // When resetting
+        teleSetpoint = ShuffleBoard.climbTune6TeleHeight.getDouble(0);
+        swingSetpoint = ShuffleBoard.climbTune5SwingFinishAngle.getDouble(0);
+        if (teleInTol() && swingInTol()) {switchToStep(6);}
+        break;
       default:
         break;
     }
     teleSetpoint = Utils.clamp(teleSetpoint, 0, 1);
-    swingSetpoint = Utils.clamp(swingSetpoint, 60, 100);
+    swingSetpoint = Utils.clamp(swingSetpoint, 55, 120);
     // System.out.println("AutoClimbCommand.run() - " + swingSetpoint);
     teleLeft.extendToDistance(teleSetpoint, teleLoaded);
     teleRight.extendToDistance(teleSetpoint, teleLoaded);

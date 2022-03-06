@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.util.ShuffleBoard;
 
 import static frc.robot.constants.DriveConstants.*;
 
@@ -78,6 +79,7 @@ public class SwerveDrive {
     }
 
     public void update(ChassisSpeeds chassisSpeeds) {
+        ShuffleBoard.gyroAngle.setDouble(getGyroscopeRotation().getDegrees());
         // System.out.println(navx.getAngle());
 
         // Calculate the movements of each individual module

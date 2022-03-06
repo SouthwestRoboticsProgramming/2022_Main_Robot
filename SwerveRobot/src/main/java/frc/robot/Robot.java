@@ -6,6 +6,7 @@ import frc.messenger.client.MessageDispatcher;
 import frc.messenger.client.MessengerClient;
 import frc.robot.command.Command;
 import frc.robot.command.SaveShuffleWoodCommand;
+import frc.robot.command.auto.AutonomousCommand;
 import frc.robot.command.auto.zero_ball.ZeroBallAuto;
 import frc.robot.command.climb.ClimberSequence;
 import frc.robot.control.Input;
@@ -27,11 +28,6 @@ import static frc.robot.constants.MessengerConstants.*;
 
 public class Robot extends TimedRobot {
   public static final Robot INSTANCE = new Robot();
-
-  @Deprecated
-  public static Robot get() {
-    return INSTANCE;
-  }
 
   // Subsystems
   public Input input;
@@ -80,6 +76,9 @@ public class Robot extends TimedRobot {
       throw new IllegalStateException("Messenger is null, this should never happen!");
     }
 
+    ShuffleBoard.messengerConnected.setBoolean(msg.isConnected());
+    ShuffleBoard.messengerAttempts.setNumber(attempts);
+
     dispatch = new MessageDispatcher(msg);
 
     ShuffleWood.setMessenger(dispatch);
@@ -118,7 +117,7 @@ public class Robot extends TimedRobot {
 
     switch (ShuffleBoard.whichAuto.getString("a")) {
       case "a":
-        Scheduler.get().scheduleCommand(autoCommand = new ZeroBallAuto());
+        Scheduler.get().scheduleCommand(autoCommand = new AutonomousCommand());
         break;
     
       default:

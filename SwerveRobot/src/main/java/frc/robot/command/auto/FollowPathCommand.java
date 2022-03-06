@@ -61,7 +61,7 @@ public class FollowPathCommand implements Command {
         deltaX *= AUTO_DRIVE_SCALE;
         deltaY *= AUTO_DRIVE_SCALE;
 
-        System.out.println(deltaX + " " + deltaY);
+        // System.out.println(deltaX + " " + deltaY);
         drive.drive(deltaX, deltaY, 0);
 
         return false;
